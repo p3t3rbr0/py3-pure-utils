@@ -2,6 +2,7 @@
 
 ![Build Status](https://github.com/p3t3rbr0/py3-pure-utils/actions/workflows/build.yaml/badge.svg?branch=master)
 ![PyPI Version](https://img.shields.io/pypi/v/pure-utils)
+![Code Coverage](https://codecov.io/gh/p3t3rbr0/py3-pure-utils/branch/master/graph/badge.svg)
 
 <!-- [![PyPI Version][https://img.shields.io/pypi/v/more-utils]][https://pypi.org/project/more-utils/] -->
 <!-- [![Code Coverage][https://codecov.io/gh/p3t3rbr0/py3-more-utils/branch/master/graph/badge.svg]][https://codecov.io/gh/p3t3rbr0/py3-more-utils] -->
