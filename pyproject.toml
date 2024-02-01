@@ -73,7 +73,7 @@ match-dir = "^(?!tests|.docs).+$"
 
 [tool.pytest.ini_options]
 pythonpath = ["pure_utils"]
-testpaths = "tests"
+testpaths = ["tests"]
 python_files = "test_*.py"
 python_functions = "test_*"
 python_classes = "Test*"
@@ -81,7 +81,7 @@ python_classes = "Test*"
 [tool.coverage.report]
 exclude_lines = [
     "pass",
-    "...",
+    "\\.\\.\\.",
     "def __str__",
     "def __getattr__",
 ]
