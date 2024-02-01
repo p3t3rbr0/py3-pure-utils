@@ -20,7 +20,7 @@ deps-docs:
 deps-build:
 	$(PIP) install '.[build]' --upgrade
 
-deps: deps-dev deps-doc deps-build
+deps: deps-dev deps-docs deps-build
 
 build-sdist:
 	$(BUILD) --sdist
