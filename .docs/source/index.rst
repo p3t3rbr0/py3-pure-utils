@@ -1,5 +1,5 @@
-py3-pure-utils
-==============
+pure-utils
+==========
 
 Yet another python utilities, with the goal of collecting useful bicycles and crutches in one place ;).
 
@@ -11,11 +11,11 @@ Yet another python utilities, with the goal of collecting useful bicycles and cr
 4. Comprehensive documentation with examples of use.
 5. Full test coverage.
 
-**py3-pure-utils** is distributed on PyPI.
+**pure-utils** is distributed on PyPI.
 
 .. code-block:: shell-session
 
-    $ pip install py3-pure-utils
+    $ pip install pure-utils
 
 To use theme in your project:
 
@@ -34,6 +34,7 @@ Good luck)!
 
    refs/index
 
+
 .. toctree::
    :caption: Development
    :hidden:
@@ -41,4 +42,3 @@ Good luck)!
    commands
    changelog
    license
-   contributing
