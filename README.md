@@ -1,6 +1,8 @@
 # pure-utils
 
-<!-- [![Build Status][https://github.com/p3t3rbr0/py3-more-utils/actions/workflows/build.yml/badge.svg]][https://github.com/p3t3rbr0/py3-more-utils/actions/workflows/build.yml] -->
+![Build Status](https://github.com/p3t3rbr0/py3-pure-utils/actions/workflows/build.yaml/badge.svg?branch=master)
+
+
 <!-- [![PyPI Version][https://img.shields.io/pypi/v/more-utils]][https://pypi.org/project/more-utils/] -->
 <!-- [![Code Coverage][https://codecov.io/gh/p3t3rbr0/py3-more-utils/branch/master/graph/badge.svg]][https://codecov.io/gh/p3t3rbr0/py3-more-utils] -->
 <!-- [![Code Quality][https://api.codeclimate.com/v1/badges/3130fa0ba3b7993fbf0a/maintainability]][https://codeclimate.com/github/p3t3rbr0/py3-more-utils] -->
