@@ -19,7 +19,9 @@ Distributing
 
 Development
 -----------
+- ``make clean`` - Clean temporary files and caches.
 - ``make format`` - Fromat the code (by black and isort).
 - ``make lint`` - Check code style and types (by flake8, pydocstyle and mypy).
-- ``make tests`` - Run tests with coverage measure.
-- ``make clean`` - Clean temporary files and caches.
+- ``make tests`` - Run tests with coverage measure (output to terminal).
+- ``make tests-cov-json`` - Run tests with coverage measure (output to json [coverage.json]).
+- ``make tests-cov-html`` - Run tests with coverage measure (output to html [coverage_report/]).
