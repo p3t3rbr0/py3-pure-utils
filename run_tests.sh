@@ -14,5 +14,6 @@ set -eu
 
 python -m pytest --cov pure_utils/ \
                  --cov-report term \
-                 --cov-report html:coverage_report \
+                 --cov-report json \
+                 --cov-report html \
                  ${1:-tests/}
