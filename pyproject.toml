@@ -88,7 +88,7 @@ exclude_lines = [
 
 [tool.coverage.run]
 branch = true
-omit = ["tests/*"]
+omit = ["pure_utils/__init__.py",]
 
 [tool.coverage.html]
 directory = "coverage_report"
