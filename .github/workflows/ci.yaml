@@ -35,19 +35,17 @@ jobs:
                   python3 -m isort -c -v pure_utils/
                   python3 -m isort -c -v tests/
             - name: Check types
-              run: |
-                  python3 -m mypy --install-types --non-interactive pure_utils/
+              run: python3 -m mypy --non-interactive pure_utils/
             - name: Check docstrings
               run: python3 -m pydocstyle
             - name: Run tests
-              run: make tests
+              run: make tests-cov-json
             - name: Upload coverage to Codecov
               uses: codecov/codecov-action@v4
               with:
                 token: ${{ secrets.CODECOV_TOKEN }}
-                file: ./coverage.xml
+                file: ./coverage.json
                 flags: unittests
-                name: codecov-umbrella
                 verbose: true
               env:
                 CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
