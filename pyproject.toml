@@ -86,9 +86,9 @@ exclude_lines = [
     "def __getattr__",
 ]
 
-[tool.coverage.run]
-branch = true
-omit = ["tests/*"]
+# [tool.coverage.run]
+# branch = true
+# omit = ["tests/*"]
 
-[tool.coverage.html]
-directory = "coverage_report"
+# [tool.coverage.html]
+# directory = "coverage_report"
