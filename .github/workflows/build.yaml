@@ -40,3 +40,6 @@ jobs:
             - name: Check docstrings
               run: |
                   python3 -m pydocstyle
+            - name: Run tests
+              run: |
+                  pytest --cov pure_utils/ --cov-report term
