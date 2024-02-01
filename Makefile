@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: deps-dev deps build-sdist build-wheel build format lint clean help
+.PHONY: deps-dev deps-docs deps-build deps build-sdist build-wheel build upload format lint tests clean help
 MAKEFLAGS += --silent
 
 # Aliases
@@ -14,13 +14,13 @@ PYDOC = python -m pydocstyle
 deps-dev:
 	$(PIP) install '.[dev]' --upgrade
 
-deps-doc:
-	$(PIP) install '.[doc]' --upgrade
+deps-docs:
+	$(PIP) install '.[docs]' --upgrade
 
 deps-build:
 	$(PIP) install '.[build]' --upgrade
 
-deps: deps-dev deps-doc deps-build
+deps: deps-dev deps-docs deps-build
 
 build-sdist:
 	$(BUILD) --sdist
@@ -29,6 +29,9 @@ build-wheel:
 	$(BUILD) --wheel
 
 build: build-sdist build-wheel
+
+upload:
+	twine upload dist/*
 
 format:
 	$(BLACK) --line-length 100 --fast pure_utils/
@@ -44,7 +47,7 @@ lint:
 	printf "[pydocstyle]: checking ... "
 	$(PYDOC) pure_utils/ && printf "OK\n"
 
-run-tests:
+tests:
 	./run_tests.sh
 
 clean:
@@ -58,14 +61,15 @@ help:
 	echo "--------------------------------------------------------------------------------"
 	echo "help\t\tShow this message."
 	echo
-	echo "deps-dev\tInstall only development dependencies [optional]."
-	echo "deps-doc\tInstall only documentation dependencies [optional]."
-	echo "deps-build\tInstall only build system dependencies [optional]."
+	echo "deps-dev\tInstall only development dependencies."
+	echo "deps-docs\tInstall only documentation dependencies."
+	echo "deps-build\tInstall only build system dependencies."
 	echo "deps\t\tInstall all dependencies."
 	echo
 	echo "build-sdist\tBuild a source distrib."
 	echo "build-wheel\tBuild a pure python wheel distrib."
 	echo "build\t\tBuild both distribs (source and wheel)."
+	echo "upload\t\Upload built packages to PyPI."
 	echo
 	echo "test\t\tRun tests with coverage measure."
 	echo "clean\t\tClean temporary files and caches."

@@ -1,9 +1,9 @@
-# py3-pure-utils
+# pure-utils
 
-<!-- [![Build Status][https://github.com/p3t3rbr0/py3-more-utils/actions/workflows/build.yml/badge.svg]][https://github.com/p3t3rbr0/py3-more-utils/actions/workflows/build.yml] -->
-<!-- [![PyPI Version][https://img.shields.io/pypi/v/more-utils]][https://pypi.org/project/more-utils/] -->
-<!-- [![Code Coverage][https://codecov.io/gh/p3t3rbr0/py3-more-utils/branch/master/graph/badge.svg]][https://codecov.io/gh/p3t3rbr0/py3-more-utils] -->
-<!-- [![Code Quality][https://api.codeclimate.com/v1/badges/3130fa0ba3b7993fbf0a/maintainability]][https://codeclimate.com/github/p3t3rbr0/py3-more-utils] -->
+![Build Status](https://github.com/p3t3rbr0/py3-pure-utils/actions/workflows/build.yaml/badge.svg?branch=master)
+![PyPI Version](https://img.shields.io/pypi/v/pure-utils)
+[![Code Coverage](https://codecov.io/gh/p3t3rbr0/py3-pure-utils/graph/badge.svg?token=283H0MAGUP)](https://codecov.io/gh/p3t3rbr0/py3-pure-utils)
+[![Maintainability](https://api.codeclimate.com/v1/badges/14f70c48db708a419309/maintainability)](https://codeclimate.com/github/p3t3rbr0/py3-pure-utils/maintainability)
 
 Yet another python utilities, with the goal of collecting useful bicycles and crutches in one place ;).
 

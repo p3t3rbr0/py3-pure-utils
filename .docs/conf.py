@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath("../pure_utils/"))
 
 DOCS_ROOT_DIR = Path(__file__).resolve(strict=True).parent
 
-project = html_title = "py3-pure-utils"
+project = html_title = "pure-utils"
 copyright = "Peter Bro <p3t3rbr0@gmail.com || peter@peterbro.su>"
 
 extensions = [

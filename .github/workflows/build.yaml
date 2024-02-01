@@ -38,5 +38,13 @@ jobs:
               run: |
                   python3 -m mypy --install-types --non-interactive pure_utils/
             - name: Check docstrings
-              run: |
-                  python3 -m pydocstyle
+              run: python3 -m pydocstyle
+            - name: Run tests
+              run: python -m pytest --cov pure_utils
+            - name: Upload coverage to Codecov
+              uses: codecov/codecov-action@v4
+              with:
+                flags: smart-tests
+                verbose: true
+              env:
+                CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
