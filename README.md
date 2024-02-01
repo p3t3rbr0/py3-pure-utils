@@ -1,4 +1,4 @@
-# py3-pure-utils
+# pure-utils
 
 <!-- [![Build Status][https://github.com/p3t3rbr0/py3-more-utils/actions/workflows/build.yml/badge.svg]][https://github.com/p3t3rbr0/py3-more-utils/actions/workflows/build.yml] -->
 <!-- [![PyPI Version][https://img.shields.io/pypi/v/more-utils]][https://pypi.org/project/more-utils/] -->
