@@ -40,8 +40,14 @@ jobs:
             - name: Check docstrings
               run: python3 -m pydocstyle
             - name: Run tests
-              run: pytest --cov pure_utils
-            - name: Upload coverage reports to Codecov
+              run: make tests
+            - name: Upload coverage to Codecov
               uses: codecov/codecov-action@v4
+              with:
+                token: ${{ secrets.CODECOV_TOKEN }}
+                file: ./coverage.xml
+                flags: unittests
+                name: codecov-umbrella
+                verbose: true
               env:
                 CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

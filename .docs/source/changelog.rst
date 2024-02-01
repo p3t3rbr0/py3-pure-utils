@@ -1,7 +1,7 @@
 Changelog
 =========
 
-v0.1.1 - [2024-02-02]
+v0.1.1 - [2024-02-01]
 ---------------------
 * Add badges for gh-repo.
 * Add new make-command: upload (for upload built packages to PyPI).

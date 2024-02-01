@@ -12,6 +12,7 @@ __pycache__/
 venv/
 build/*
 dist/
+coverage.json
 coverage_report/
 .docs/build/
 docs/
