@@ -7,7 +7,7 @@ from zlib import compress, decompress
 __all__ = ["genstr", "gzip", "gunzip"]
 
 
-def genstr(length: int = 10, /, is_uppercase: bool = False) -> str:
+def genstr(length: int = 10, /, *, is_uppercase: bool = False) -> str:
     """Generate ASCII-string with random letters.
 
     Args:
@@ -33,7 +33,7 @@ def genstr(length: int = 10, /, is_uppercase: bool = False) -> str:
     return "".join(choices(string_generator, k=length))
 
 
-def gzip(string: str | bytes, /, level: int = 9) -> bytes:
+def gzip(string: str | bytes, /, *, level: int = 9) -> bytes:
     """Compress string (or bytes string) with gzip compression level.
 
     Args:
@@ -60,7 +60,7 @@ def gzip(string: str | bytes, /, level: int = 9) -> bytes:
     return compress(string if isinstance(string, bytes) else string.encode(), level=level)
 
 
-def gunzip(compressed_string: bytes) -> str:
+def gunzip(compressed_string: bytes, /) -> str:
     """Decompress bytes (earlier compressed with gzip) to string.
 
     Args:
