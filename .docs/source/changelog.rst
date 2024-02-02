@@ -1,9 +1,14 @@
 Changelog
 =========
 
-v0.2.0 - [2024-02-00]
+v0.2.0 - [2024-02-03]
 ---------------------
-* ...
+* Add new string utilities module.
+* Fix coverage settings.
+* Add short utilities description in README.
+* Add new make commands (tests-cov-json, tests-cov-html).
+* Remove run_tests.sh.
+* Rename github workflow scenario.
 
 v0.1.1 - [2024-02-01]
 ---------------------
