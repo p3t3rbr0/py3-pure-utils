@@ -3,3 +3,4 @@
    :recursive:
 
       common
+      strings

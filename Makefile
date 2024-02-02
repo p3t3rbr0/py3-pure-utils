@@ -48,7 +48,13 @@ lint:
 	$(PYDOC) pure_utils/ && printf "OK\n"
 
 tests:
-	./run_tests.sh
+	python -m pytest --cov pure_utils --cov-report term
+
+tests-cov-html:
+	python -m pytest --cov pure_utils --cov-report html
+
+tests-cov-json:
+	python -m pytest --cov pure_utils --cov-report json
 
 clean:
 	rm -rf .pytest_cache/ .mypy_cache/ junit/ build/ dist/ coverage_report/
@@ -69,9 +75,12 @@ help:
 	echo "build-sdist\tBuild a source distrib."
 	echo "build-wheel\tBuild a pure python wheel distrib."
 	echo "build\t\tBuild both distribs (source and wheel)."
-	echo "upload\t\Upload built packages to PyPI."
+	echo "upload\t\tUpload built packages to PyPI."
 	echo
-	echo "test\t\tRun tests with coverage measure."
+	echo "tests\t\tRun tests with coverage measure (output to terminal)."
+	echo "tests-cov-json\tRun tests with coverage measure (output to json [coverage.json])."
+	echo "tests-cov-html\tRun tests with coverage measure (output to html [coverage_report/])."
+	echo
 	echo "clean\t\tClean temporary files and caches."
 	echo "format\t\tFromat the code (by black and isort)."
 	echo "lint\t\tCheck code style and types (by flake8, pydocstyle and mypy)."
