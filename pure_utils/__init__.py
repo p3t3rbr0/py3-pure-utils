@@ -3,3 +3,4 @@
 __version__ = "0.1.1"
 
 from .common import *  # noqa: F401, F403
+from .strings import *  # noqa: F401, F403
