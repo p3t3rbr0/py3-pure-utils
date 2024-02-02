@@ -1,7 +1,7 @@
 Changelog
 =========
 
-v0.2.0 - [2024-02-03]
+v0.2.0 - [2024-02-02]
 ---------------------
 * Add new string utilities module.
 * Fix coverage settings.
