@@ -1,4 +1,4 @@
-name: build and checks
+name: build
 on:
     push:
         branches: [master]
