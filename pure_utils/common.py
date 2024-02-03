@@ -15,6 +15,8 @@ class Singleton(type):
 
     .. code-block:: python
 
+        from pure_utils import Singleton
+
         class SomeSigletonClass(metaclass=Singleton):
             ...
 

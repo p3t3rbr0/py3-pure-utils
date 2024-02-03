@@ -21,7 +21,7 @@ def genstr(length: int = 10, /, *, is_uppercase: bool = False) -> str:
 
     .. code-block:: python
 
-        from pure_utils.strings import genstr
+        from pure_utils import genstr
 
         dummy = genstr(20)
         print(dummy)  # otvqydcprjtpcuboumbs
@@ -49,7 +49,7 @@ def gzip(string: str | bytes, /, *, level: int = 9) -> bytes:
 
     .. code-block:: python
 
-        from pure_utils.strings import gzip
+        from pure_utils import gzip
 
         big_string = "abc" * 100500
         print(len(big_string))  # 301500
@@ -73,7 +73,7 @@ def gunzip(compressed_string: bytes, /) -> str:
 
     .. code-block:: python
 
-        from pure_utils.strings import gzip, gunzip
+        from pure_utils import gzip, gunzip
 
         compressed_string = gzip("sample string")
 
