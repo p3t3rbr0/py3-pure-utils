@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.4.0 - [2024-02-00]
+---------------------
+* ...
+
 v0.3.0 - [2024-02-04]
 ---------------------
 * Add new module - `dt` (utilities for working with datetime objects).
