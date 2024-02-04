@@ -25,6 +25,12 @@ Main principles:
   * [genstr](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.genstr) - Generate ASCII-string with random letters.
   * [gzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gzip) - Compress string (or bytes string) with gzip compression level.
   * [gunzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gunzip) - Decompress bytes (earlier compressed with gzip) to string.
+* [dt](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html) - Utilities for working with datetime objects.
+  * [apply_tz](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#strings.apply_tz) - Apply timezone context to datetime object.
+  * [iso2format](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#strings.iso2format) - Convert ISO-8601 datetime string into a string of specified format.
+  * [iso2dmy](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#strings.iso2dmy) - Convert ISO-8601 datetime string into a string of DMY (DD.MM.YYYY) format.
+  * [iso2ymd](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#strings.iso2ymd) - Convert ISO-8601 datetime string into a string of YMD (YYYY-MM-DD) format.
+  * [round_by](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#strings.round_by) - Round datetime, discarding excessive precision.
 
 # License
 

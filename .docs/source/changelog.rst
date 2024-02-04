@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.3.0 - [2024-02-04]
+---------------------
+* Add new module - `dt` (utilities for working with datetime objects).
+
 v0.2.0 - [2024-02-02]
 ---------------------
 * Add new string utilities module.
