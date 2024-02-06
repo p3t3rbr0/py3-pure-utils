@@ -32,9 +32,7 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
     This memory is transferred in the form of additional parameter ("_pipe")
     in the kwargs named argument dictionary.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import around
 
@@ -86,9 +84,7 @@ def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
     Returns:
         The name of calling function/method.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import caller
 
@@ -108,6 +104,10 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
 
     Args:
         logger: Optional logger object for printing execution time to file.
+
+    Example::
+
+        ...
     """
 
     def decorate(func) -> CallableAnyT:
@@ -131,6 +131,10 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
     Args:
         logger: Optional logger object for printing execution time to file.
         stack_size: Stack size limit for profiler results.
+
+    Example::
+
+        ...
     """
     profiler = Profile()
 

@@ -35,9 +35,7 @@ def apply_tz(dt: datetime, tz: str = "UTC", /) -> datetime:
     Returns:
         A new datetime object in specified timezone.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from datetime import datetime, UTC
         from pure_utils import apply_tz
@@ -57,9 +55,7 @@ def iso2format(isostr: str, fmt: str, /) -> str:
     Returns:
         Datetime string in specified format.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import iso2format, YMD
 
@@ -79,9 +75,7 @@ def iso2dmy(isostr: str, /) -> str:
     Returns:
         Datetime string in DMY format (DD.MM.YYYY).
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import iso2dmy
 
@@ -101,9 +95,7 @@ def iso2ymd(isostr: str, /) -> str:
     Returns:
         Datetime string in YMD format (YYYY-MM-DD).
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import iso2ymd
 
@@ -128,9 +120,7 @@ def round_by(dt: datetime, /, *, boundary: str) -> datetime:
     Raises:
         ValueError: If `boundary` is invalid.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from datetime import datetime
         from pure_utils import round_by

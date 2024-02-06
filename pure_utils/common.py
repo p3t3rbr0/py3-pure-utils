@@ -11,9 +11,7 @@ T = TypeVar("T", bound="Singleton")
 class Singleton(type):
     """A metaclass that implements the singleton pattern for inheritors.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import Singleton
 
