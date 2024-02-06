@@ -46,7 +46,7 @@ docs = ["Sphinx==7.2.6", "furo==2024.1.29"]
 dev = [
     "mypy==1.8.0",
     "isort==5.13.2",
-    "flake8==6.1.0",
+    "flake8==7.0.0",
     "black==24.1.1",
     "pydocstyle==6.3.0",
     "pytest==8.0.0",
