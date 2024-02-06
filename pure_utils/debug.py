@@ -9,90 +9,12 @@ from pstats import Stats
 from time import time
 from typing import Any, Callable, Optional, TypeAlias
 
+__all__ = ["around", "caller", "deltatime", "profileit"]
+
 CallableAnyT: TypeAlias = Callable[[Any], Any]
 
 DEFAULT_STACK_SIZE: int = 10
 DEFAULT_STACK_FRAME: int = 2
-
-
-def deltatime(logger: Optional[Logger] = None) -> Callable:
-    """Measure execution time of decorated function and print it to log.
-
-    Args:
-        logger: Optional logger object for printing execution time to file.
-    """
-
-    def decorate(func) -> CallableAnyT:
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            t0 = time()
-            retval = func(*args, **kwargs)
-            delta = float(f"{time() - t0:.3f}")
-            if logger:
-                logger.debug(f"[DELTATIME]: '{func.__name__}' ({delta} sec.)")
-            return retval, delta
-
-        return wrapper
-
-    return decorate
-
-
-def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_SIZE) -> Callable:
-    """Profile decorated function being with 'cProfile'.
-
-    Args:
-        logger: Optional logger object for printing execution time to file.
-        stack_size: Stack size limit for profiler results.
-    """
-    profiler = Profile()
-
-    def decorate(func) -> CallableAnyT:
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            result = None
-            try:
-                result = profiler.runcall(func, *args, **kwargs)
-            finally:
-                stack_info = (
-                    Stats(profiler)
-                    .strip_dirs()
-                    .sort_stats("cumulative", "name")
-                    .print_stats(stack_size)
-                )
-                if logger:
-                    logger.debug(f"[PROFILEIT]: {stack_info}")
-            return result, stack_info
-
-        return wrapper
-
-    return decorate
-
-
-def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
-    """Get the name of calling function/method (from current function/method context).
-
-    Args:
-        at_frame: The frame index number on the call stack (default 2).
-                  Need increased with each wrap to decorator.
-
-    Returns:
-        The name of calling function/method.
-
-    Usage:
-
-    .. code-block:: python
-
-        from pure_utils import caller
-
-        def func1(*args, **kwargs):
-            print(f"I'am 'func1'. '{caller()}' called me.")
-
-        def func2(*args, **kwargs):
-            return func1()
-
-        func2()  # I'am 'func1'. 'func2' called me.
-    """
-    return str(stack()[at_frame].function)
 
 
 def around(before: Optional[Callable] = None, after: Optional[Callable] = None) -> Callable:
@@ -148,6 +70,86 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
                 after(*_args, _pipe=_buffer, **_kwargs)
 
             return result
+
+        return wrapper
+
+    return decorate
+
+
+def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
+    """Get the name of calling function/method (from current function/method context).
+
+    Args:
+        at_frame: The frame index number on the call stack (default 2).
+                  Need increased with each wrap to decorator.
+
+    Returns:
+        The name of calling function/method.
+
+    Usage:
+
+    .. code-block:: python
+
+        from pure_utils import caller
+
+        def func1(*args, **kwargs):
+            print(f"I'am 'func1'. '{caller()}' called me.")
+
+        def func2(*args, **kwargs):
+            return func1()
+
+        func2()  # I'am 'func1'. 'func2' called me.
+    """
+    return str(stack()[at_frame].function)
+
+
+def deltatime(logger: Optional[Logger] = None) -> Callable:
+    """Measure execution time of decorated function and print it to log.
+
+    Args:
+        logger: Optional logger object for printing execution time to file.
+    """
+
+    def decorate(func) -> CallableAnyT:
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            t0 = time()
+            retval = func(*args, **kwargs)
+            delta = float(f"{time() - t0:.3f}")
+            if logger:
+                logger.debug(f"[DELTATIME]: '{func.__name__}' ({delta} sec.)")
+            return retval, delta
+
+        return wrapper
+
+    return decorate
+
+
+def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_SIZE) -> Callable:
+    """Profile decorated function being with 'cProfile'.
+
+    Args:
+        logger: Optional logger object for printing execution time to file.
+        stack_size: Stack size limit for profiler results.
+    """
+    profiler = Profile()
+
+    def decorate(func) -> CallableAnyT:
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = None
+            try:
+                result = profiler.runcall(func, *args, **kwargs)
+            finally:
+                stack_info = (
+                    Stats(profiler)
+                    .strip_dirs()
+                    .sort_stats("cumulative", "name")
+                    .print_stats(stack_size)
+                )
+                if logger:
+                    logger.debug(f"[PROFILEIT]: {stack_info}")
+            return result, stack_info
 
         return wrapper
 

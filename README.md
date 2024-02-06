@@ -21,16 +21,21 @@ Main principles:
 
 * [common](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html) - The common purpose utilities.
   * [Singleton](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#common.Singleton) - A metaclass that implements the singleton pattern for inheritors.
-* [strings](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html) - Utilities for working with strings.
-  * [genstr](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.genstr) - Generate ASCII-string with random letters.
-  * [gzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gzip) - Compress string (or bytes string) with gzip compression level.
-  * [gunzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gunzip) - Decompress bytes (earlier compressed with gzip) to string.
+* [debug](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html) - Utilities for debugging and development.
+  * [around](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.around) - ...
+  * [caller](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.caller) - ...
+  * [deltatime](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.deltatime) - ...
+  * [profileit](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.profileit) - ...
 * [dt](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html) - Utilities for working with datetime objects.
   * [apply_tz](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.apply_tz) - Apply timezone context to datetime object.
   * [iso2format](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.iso2format) - Convert ISO-8601 datetime string into a string of specified format.
   * [iso2dmy](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.iso2dmy) - Convert ISO-8601 datetime string into a string of DMY (DD.MM.YYYY) format.
   * [iso2ymd](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.iso2ymd) - Convert ISO-8601 datetime string into a string of YMD (YYYY-MM-DD) format.
   * [round_by](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.round_by) - Round datetime, discarding excessive precision.
+* [strings](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html) - Utilities for working with strings.
+  * [genstr](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.genstr) - Generate ASCII-string with random letters.
+  * [gzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gzip) - Compress string (or bytes string) with gzip compression level.
+  * [gunzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gunzip) - Decompress bytes (earlier compressed with gzip) to string.
 
 # License
 
