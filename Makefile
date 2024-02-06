@@ -8,8 +8,8 @@ MYPY  = python -m mypy
 BUILD = python -m build
 ISORT = python -m isort
 BLACK = python -m black
-FLAKE = python -m pflake8
 PYDOC = python -m pydocstyle
+FLAKE = python -m flake8 --max-complexity 10 --max-line-length 100 --ignore D
 
 deps-dev:
 	$(PIP) install '.[dev]' --upgrade
@@ -40,8 +40,10 @@ format:
 	$(ISORT) tests/
 
 lint:
-	printf "[flake8]: checking ... "
-	$(FLAKE) pure_utils/ && printf "OK\n"
+	printf "[flake8]: pure_utils/ checking ... "
+	$(FLAKE) --extend-ignore E203,W503 pure_utils && printf "OK\n"
+	printf "[flake8]: tests/ checking ... "
+	$(FLAKE) --extend-ignore E203,W503,F401 tests && printf "OK\n"
 	printf "[mypy]: checking ... "
 	$(MYPY) --install-types --non-interactive pure_utils/ && printf "OK\n"
 	printf "[pydocstyle]: checking ... "
