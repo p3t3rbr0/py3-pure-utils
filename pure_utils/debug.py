@@ -27,7 +27,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
         def wrapper(*args, **kwargs):
             t0 = time()
             retval = func(*args, **kwargs)
-            delta = float(f"{time()-t0:.3f}")
+            delta = float(f"{time() - t0:.3f}")
             if logger:
                 logger.debug(f"[DELTATIME]: '{func.__name__}' ({delta} sec.)")
             return retval, delta
