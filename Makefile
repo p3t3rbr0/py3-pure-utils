@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: deps-dev deps-docs deps-build deps build-sdist build-wheel build upload format lint tests clean help
+.PHONY: deps-dev deps-docs deps-build deps build-sdist build-wheel build upload format lint tests cleanup help
 MAKEFLAGS += --silent
 
 # Aliases
@@ -58,7 +58,7 @@ tests-cov-html:
 tests-cov-json:
 	python -m pytest --cov pure_utils --cov-report json
 
-clean:
+cleanup:
 	rm -rf .pytest_cache/ .mypy_cache/ junit/ build/ dist/ coverage_report/
 	find . -not -path './.venv*' -path '*/__pycache__*' -delete
 	find . -not -path './.venv*' -path '*/*.egg-info*' -delete
@@ -83,7 +83,7 @@ help:
 	echo "tests-cov-json\tRun tests with coverage measure (output to json [coverage.json])."
 	echo "tests-cov-html\tRun tests with coverage measure (output to html [coverage_report/])."
 	echo
-	echo "clean\t\tClean temporary files and caches."
+	echo "cleanup\t\tClean up python temporary files and caches."
 	echo "format\t\tFromat the code (by black and isort)."
 	echo "lint\t\tCheck code style and types (by flake8, pydocstyle and mypy)."
 	echo

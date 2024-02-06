@@ -3,5 +3,6 @@
    :recursive:
 
       common
-      strings
+      debug
       dt
+      strings
