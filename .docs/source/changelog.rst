@@ -3,10 +3,11 @@ Changelog
 
 v0.4.0 - [2024-02-00]
 ---------------------
-* Add new module - `debug` (utilities for debugging and development.).
-* Remove `pyproject-flake8` optional dependencies, because it's orphaned on github.
-* Use flake8 explicitly into Makefile and ci scenario.
 * Add support Python3.12 into ci scenario.
+* Add several tests (for `dt` module) for python3.10 only.
+* Add new module - `debug` (utilities for debugging and development.).
+* Use flake8 explicitly into Makefile and ci scenario.
+* Remove `pyproject-flake8` optional dependencies, because it's orphaned on github.
 
 v0.3.0 - [2024-02-04]
 ---------------------
