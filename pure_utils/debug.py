@@ -1,7 +1,6 @@
 """Utilities for debugging and development."""
 
 from copy import deepcopy
-from cProfile import Profile
 from functools import wraps
 from inspect import stack
 from logging import Logger
@@ -9,114 +8,14 @@ from pstats import Stats
 from time import time
 from typing import Any, Callable, Optional, TypeAlias
 
+from .profiler import Profiler, StringProfileStatsSerializer
+
 __all__ = ["around", "caller", "deltatime", "profileit"]
 
 CallableAnyT: TypeAlias = Callable[[Any], Any]
 
-DEFAULT_STACK_SIZE: int = 10
+DEFAULT_STACK_SIZE: int = 20
 DEFAULT_STACK_FRAME: int = 2
-
-
-class ProfileResultPresenter:
-    def __init__(self, stats: Stats, amount: int) -> None:
-        self.stats = stats
-        self.amount = amount
-
-    @property
-    def indent(self) -> str:
-        return " " * 8
-
-    @property
-    def title(self) -> str:
-        return "   ncalls  tottime  percall  cumtime  percall filename:lineno(function)"
-
-    def f8(self, x: float) -> str:
-        return f"{x:8.3f}"
-
-    def func_std_string(self, func_name) -> str:
-        if func_name[:2] == ("~", 0):
-            # special case for built-in functions
-            name = func_name[2]
-            if name.startswith("<") and name.endswith(">"):
-                return "{%s}" % name[1:-1]
-            else:
-                return name
-        else:
-            return "%s:%d(%s)" % func_name
-
-    def print_line(self, func) -> str:
-        lines = []
-        cc, nc, tt, ct, callers = self.stats.stats[func]
-        c = str(nc)
-
-        if nc != cc:
-            c = c + "/" + str(cc)
-
-        lines.append(f"{c.rjust(9)} ")
-        lines.append(f"{self.f8(tt)} ")
-
-        if nc == 0:
-            lines.append(f"{self.indent} ")
-        else:
-            lines.append(f"{self.f8(tt/nc)} ")
-
-        lines.append(f"{self.f8(ct)} ")
-
-        if cc == 0:
-            lines.append(f"{self.indent} ")
-        else:
-            lines.append(f"{self.f8(ct/cc)} ")
-
-        lines.append(self.func_std_string(func))
-
-        return "".join(lines)
-
-    def get_print_list(self) -> tuple[int, int]:
-        width = self.stats.max_name_len
-
-        if self.stats.fcn_list:
-            stat_list = self.stats.fcn_list[:]
-        else:
-            stat_list = list(self.stats.stats.keys())
-
-        count = len(stat_list)
-
-        if not stat_list:
-            return 0, stat_list
-
-        if count < len(self.stats.stats):
-            width = 0
-            for func in stat_list:
-                if len(self.func_std_string(func)) > width:
-                    width = len(self.func_std_string(func))
-
-        return width + 2, stat_list
-
-    def present(self) -> str:
-        lines = []
-
-        for filename in self.stats.files:
-            lines.append(filename)
-
-        for func in self.stats.top_level:
-            lines.append(f"{self.indent}{func[2]}")
-
-        lines.append(f"{self.stats.total_calls} function calls ")
-
-        if self.stats.total_calls != self.stats.prim_calls:
-            lines.append(f"({self.stats.prim_calls!r} primitive calls) ")
-
-        lines.append(f"in {self.stats.total_tt:.3f} seconds\n\n")
-
-        width, list = self.get_print_list()
-
-        if list:
-            lines.append("Ordered by: cumulative time, function name\n\n")
-            lines.append(f"{self.title}\n")
-            for func in list:
-                lines.append(f"{self.print_line(func)}\n")
-
-        return "".join(lines)
 
 
 def around(before: Optional[Callable] = None, after: Optional[Callable] = None) -> Callable:
@@ -319,22 +218,23 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
 
     func4()
     """
-    profiler = Profile()
 
     def decorate(func) -> CallableAnyT:
         @wraps(func)
         def wrapper(*args, **kwargs) -> tuple[Any, Stats]:
             retval = None
-            try:
-                retval = profiler.runcall(func, *args, **kwargs)
-            finally:
-                profiler_stats = Stats(profiler).strip_dirs().sort_stats("cumulative", "name")
+            profiler = Profiler()
 
-                # s = stats2str(profiler_stats, stack_size)
-                s = ProfileResultPresenter(profiler_stats, stack_size).present()
-                if logger:
-                    # logger.log(msg=f"[PROFILEIT]: {s}", level=logger.level)
-                    print(s)
+            try:
+                retval = profiler.profile(func, *args, **kwargs)
+            finally:
+                profiler_stats = profiler.serialize_stats(
+                    serializer=StringProfileStatsSerializer, stack_size=stack_size
+                )
+
+            if logger:
+                logger.log(msg=f"[PROFILEIT]: {profiler_stats}", level=logger.level)
+
             return retval, profiler_stats
 
         return wrapper

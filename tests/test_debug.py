@@ -2,13 +2,21 @@ import pytest
 from debug import around, caller, deltatime, profileit
 
 
-class TestDeltatime: ...
+class TestDeltatime:
+    def test_sample(self):
+        assert True
 
 
-class TestProfileit: ...
+class TestProfileit:
+    def test_sample(self):
+        assert True
 
 
-class TestCaller: ...
+class TestCaller:
+    def test_sample(self):
+        assert True
 
 
-class TestAround: ...
+class TestAround:
+    def test_sample(self):
+        assert True
