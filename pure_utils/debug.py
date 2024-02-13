@@ -4,7 +4,6 @@ from copy import deepcopy
 from functools import wraps
 from inspect import stack
 from logging import Logger
-from pstats import Stats
 from time import time
 from typing import Any, Callable, Optional, TypeAlias
 
@@ -221,7 +220,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
 
     def decorate(func) -> CallableAnyT:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> tuple[Any, Stats]:
+        def wrapper(*args, **kwargs) -> tuple[Any, str]:
             retval = None
             profiler = Profiler()
 
@@ -233,7 +232,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
                 )
 
             if logger:
-                logger.log(msg=f"[PROFILEIT]: {profiler_stats}", level=logger.level)
+                logger.log(msg=f"[PROFILEIT]: {profiler_stats!r}", level=logger.level)
 
             return retval, profiler_stats
 

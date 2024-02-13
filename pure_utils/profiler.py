@@ -2,7 +2,9 @@
 
 from cProfile import Profile
 from pstats import Stats
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence, Type, TypeAlias
+
+SerializedStatsT: TypeAlias = str | bytes | Mapping
 
 
 class BaseStatsSerializer:
@@ -12,7 +14,7 @@ class BaseStatsSerializer:
         self.stats = stats
         self.amount = amount
 
-    def serialize(self) -> str | bytes | Mapping:
+    def serialize(self) -> SerializedStatsT:
         """Interface for serialization method of profiling results.
 
         Must be implemented in child classes.
@@ -48,7 +50,7 @@ class Profiler:
         """
         self._profile.runcall(func, *args, **kwargs)
 
-    def serialize_stats(self, *, serializer: BaseStatsSerializer, stack_size: int) -> str:
+    def serialize_stats(self, *, serializer: Type[BaseStatsSerializer], stack_size: int) -> str:
         """...
 
         Args:
@@ -119,7 +121,7 @@ class StringProfileStatsSerializer(BaseStatsSerializer):
             ...
         """
         lines = []
-        cc, nc, tt, ct, callers = self.stats.stats[func]
+        cc, nc, tt, ct, callers = self.stats.stats[func]  # type: ignore
         c = str(nc)
 
         if nc != cc:
@@ -144,25 +146,25 @@ class StringProfileStatsSerializer(BaseStatsSerializer):
 
         return "".join(lines)
 
-    def get_func_list(self) -> tuple[int, int]:
+    def get_func_list(self) -> tuple[int, Sequence]:
         """...
 
         Returns:
             ...
         """
-        width = self.stats.max_name_len
+        width = self.stats.max_name_len  # type: ignore
 
-        if self.stats.fcn_list:
-            func_list = self.stats.fcn_list[:]
+        if self.stats.fcn_list:  # type: ignore
+            func_list = self.stats.fcn_list[:]  # type: ignore
         else:
-            func_list = list(self.stats.stats.keys())
+            func_list = list(self.stats.stats.keys())  # type: ignore
 
         count = len(func_list)
 
         if not func_list:
             return 0, func_list
 
-        if count < len(self.stats.stats):
+        if count < len(self.stats.stats):  # type: ignore
             width = 0
             for func in func_list:
                 if len(self.func_std_string(func)) > width:
@@ -178,18 +180,18 @@ class StringProfileStatsSerializer(BaseStatsSerializer):
         """
         lines = []
 
-        for filename in self.stats.files:
+        for filename in self.stats.files:  # type: ignore
             lines.append(filename)
 
-        for func in self.stats.top_level:
+        for func in self.stats.top_level:  # type: ignore
             lines.append(f"{self.indent}{func[2]}")
 
-        lines.append(f"{self.stats.total_calls} function calls ")
+        lines.append(f"{self.stats.total_calls} function calls ")  # type: ignore
 
-        if self.stats.total_calls != self.stats.prim_calls:
-            lines.append(f"({self.stats.prim_calls!r} primitive calls) ")
+        if self.stats.total_calls != self.stats.prim_calls:  # type: ignore
+            lines.append(f"({self.stats.prim_calls!r} primitive calls) ")  # type: ignore
 
-        lines.append(f"in {self.stats.total_tt:.3f} seconds\n\n")
+        lines.append(f"in {self.stats.total_tt:.3f} seconds\n\n")  # type: ignore
 
         _, func_list = self.get_func_list()
 
