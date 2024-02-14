@@ -7,7 +7,8 @@ from logging import Logger
 from time import time
 from typing import Any, Callable, Optional, TypeAlias
 
-from .profiler import Profiler, StringProfileStatsSerializer
+from ._pstats import SerializedPStatsT, StringPStatsSerializer
+from .profiler import Profiler
 
 __all__ = ["around", "caller", "deltatime", "profileit"]
 
@@ -220,7 +221,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
 
     def decorate(func) -> CallableAnyT:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> tuple[Any, str]:
+        def wrapper(*args, **kwargs) -> tuple[Any, SerializedPStatsT]:
             retval = None
             profiler = Profiler()
 
@@ -228,7 +229,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
                 retval = profiler.profile(func, *args, **kwargs)
             finally:
                 profiler_stats = profiler.serialize_stats(
-                    serializer=StringProfileStatsSerializer, stack_size=stack_size
+                    serializer=StringPStatsSerializer, stack_size=stack_size
                 )
 
             if logger:
