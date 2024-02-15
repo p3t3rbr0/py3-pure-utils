@@ -3,7 +3,7 @@
 from cProfile import Profile
 from typing import Any, Type
 
-from ._pstats import PStats, PStatsSerializer, SerializedPStatsT
+from pure_utils._pstats import PStats, PStatsSerializer, SerializedPStatsT
 
 __all__ = ["Profiler"]
 

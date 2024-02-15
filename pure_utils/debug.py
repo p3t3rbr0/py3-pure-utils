@@ -7,8 +7,8 @@ from logging import Logger
 from time import time
 from typing import Any, Callable, Optional, TypeAlias
 
-from ._pstats import SerializedPStatsT, StringPStatsSerializer
-from .profiler import Profiler
+from pure_utils._pstats import SerializedPStatsT, StringPStatsSerializer
+from pure_utils.profiler import Profiler
 
 __all__ = ["around", "caller", "deltatime", "profileit"]
 
@@ -233,7 +233,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
                 )
 
             if logger:
-                logger.log(msg=f"[PROFILEIT]: {profiler_stats!r}", level=logger.level)
+                logger.log(msg=f"[PROFILEIT]: {str(profiler_stats)}", level=logger.level)
 
             return retval, profiler_stats
 
