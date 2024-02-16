@@ -1,3 +1,5 @@
+from logging import getLogger
+
 import pytest
 from debug import around, caller, deltatime, profileit
 
@@ -48,16 +50,6 @@ class TestAround:
             )
 
 
-class TestDeltatime:
-    def test_sample(self):
-        assert True
-
-
-class TestProfileit:
-    def test_sample(self):
-        assert True
-
-
 class TestCaller:
     def func1(self, at_frame=2):
         return caller(at_frame)
@@ -78,3 +70,36 @@ class TestCaller:
     def test_with_at_frame(self):
         assert self.func3(at_frame=3) == "func3"
         assert self.func4(at_frame=4) == "func4"
+
+
+class TestDeltatime:
+    @deltatime()
+    def func(self):
+        return True
+
+    @deltatime(logger=getLogger())
+    def func2(self):
+        return True
+
+    def test_with_side_effect(self, mocker):
+        log_mock = mocker.patch("logging.Logger.log")
+
+        retval, delta = self.func2()
+
+        assert retval is True
+        assert isinstance(delta, float)
+        log_mock.assert_called_once()
+
+    def test_without_side_effect(self, mocker):
+        log_mock = mocker.patch("logging.Logger.log")
+
+        retval, delta = self.func()
+
+        assert retval is True
+        assert isinstance(delta, float)
+        log_mock.assert_not_called()
+
+
+class TestProfileit:
+    def test_sample(self):
+        assert True
