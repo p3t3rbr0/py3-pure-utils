@@ -5,4 +5,5 @@
       common
       debug
       dt
+      profiler
       strings
