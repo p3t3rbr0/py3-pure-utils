@@ -3,7 +3,7 @@
 from pstats import Stats
 from typing import Iterable, Mapping, Sequence, TypeAlias
 
-SerializedPStatsT: TypeAlias = str | bytes | Mapping
+ProfilerStatsT: TypeAlias = str | bytes | Mapping
 
 
 class PStats(Stats):
@@ -37,7 +37,7 @@ class PStatsSerializer:
         self.pstats = pstats
         self.amount = amount
 
-    def serialize(self) -> SerializedPStatsT:
+    def serialize(self) -> ProfilerStatsT:
         """Interface for serialization method of profiling results.
 
         Must be implemented in child classes.
@@ -49,43 +49,21 @@ class PStatsSerializer:
 
 
 class StringPStatsSerializer(PStatsSerializer):
-    """..."""
+    """Serialize profiler result to string."""
 
-    @property
-    def indent(self) -> str:
-        """...
+    def __init__(self, *args, **kwargs):
+        """Initialize serializer."""
+        super().__init__(*args, **kwargs)
 
-        Returns:
-            ...
-        """
-        return " " * 8
-
-    @property
-    def title(self) -> str:
-        """...
-
-        Returns:
-            ...
-        """
-        return "   ncalls  tottime  percall  cumtime  percall filename:lineno(function)"
+        self.indent = " " * 8
+        self.title = "   ncalls  tottime  percall  cumtime  percall filename:lineno(function)"
 
     def f8(self, x: float) -> str:
-        """...
-
-        Returns:
-            ...
-        """
+        """Convert float to float with eight digits before point and three digits after point."""
         return f"{x:8.3f}"
 
     def func_std_string(self, func_name) -> str:
-        """...
-
-        Args:
-            func_name: ...
-
-        Returns:
-            ...
-        """
+        """Prepare a PStats function according to a string pattern."""
         if func_name[:2] == ("~", 0):
             # special case for built-in functions
             name = func_name[2]
@@ -96,15 +74,8 @@ class StringPStatsSerializer(PStatsSerializer):
         else:
             return "%s:%d(%s)" % func_name
 
-    def print_line(self, func) -> str:
-        """...
-
-        Args:
-            func: ...
-
-        Returns:
-            ...
-        """
+    def prepare_func_line(self, func) -> str:
+        """Prepare the PStats function as a string representation."""
         lines = []
         cc, nc, tt, ct, callers = self.pstats.stats[func]
         c = str(nc)
@@ -131,38 +102,15 @@ class StringPStatsSerializer(PStatsSerializer):
 
         return "".join(lines)
 
-    def get_func_list(self) -> tuple[int, Sequence]:
-        """...
-
-        Returns:
-            ...
-        """
-        width = self.pstats.max_name_len
-
+    def get_func_list(self) -> Sequence[str]:
+        """Get list of PStats functions."""
         if self.pstats.fcn_list:
-            func_list = self.pstats.fcn_list[:]
-        else:
-            func_list = list(self.pstats.stats.keys())
+            return self.pstats.fcn_list[:]
 
-        count = len(func_list)
-
-        if not func_list:
-            return 0, func_list
-
-        if count < len(self.pstats.stats):
-            width = 0
-            for func in func_list:
-                if len(self.func_std_string(func)) > width:
-                    width = len(self.func_std_string(func))
-
-        return width + 2, func_list
+        return list(self.pstats.stats.keys())
 
     def serialize(self) -> str:
-        """...
-
-        Returns:
-            ...
-        """
+        """Serialize PStats object to string."""
         lines = []
 
         for filename in self.pstats.files:
@@ -178,12 +126,12 @@ class StringPStatsSerializer(PStatsSerializer):
 
         lines.append(f"in {self.pstats.total_tt:.3f} seconds\n\n")
 
-        _, func_list = self.get_func_list()
+        func_list = self.get_func_list()
 
         if func_list:
             lines.append("Ordered by: cumulative time, function name\n\n")
             lines.append(f"{self.title}\n")
             for func in func_list:
-                lines.append(f"{self.print_line(func)}\n")
+                lines.append(f"{self.prepare_func_line(func)}\n")
 
         return "".join(lines)
