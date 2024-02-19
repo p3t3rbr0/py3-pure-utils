@@ -180,43 +180,44 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
 
     Example::
 
-    from pure_utils import profileit
+        from pure_utils import profileit
 
-    def func1():
-        ...
+        def func1():
+            ...
 
-    def func2():
-        func1()
+        def func2():
+            func1()
 
-    def func3():
-        func2()
+        def func3():
+            func2()
 
-    @profileit()
-    def func4():
-        func3()
+        @profileit()
+        def func4():
+            func3()
 
-    _, profile_info = func4()
-    print(profile_info)
-    # 5 function calls in 0.000 seconds
-    #    Ordered by: cumulative time, function name
-    #    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-    #         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
-    #         1    0.000    0.000    0.000    0.000 scriptname.py:13(func4)
-    #         1    0.000    0.000    0.000    0.000 scriptname.py:10(func3)
-    #         1    0.000    0.000    0.000    0.000 scriptname.py:7(func2)
-    #         1    0.000    0.000    0.000    0.000 scriptname.py:4(func1)
-    # <pstats.Stats object at 0x10cf1a390>
+        _, profile_info = func4()
+        print(profile_info)
 
-    # !!! Or use decorator with logger (side effect) !!!
+        5 function calls in 0.000 seconds
+           Ordered by: cumulative time, function name
+           ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+              1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+              1    0.000    0.000    0.000    0.000 scriptname.py:13(func4)
+              1    0.000    0.000    0.000    0.000 scriptname.py:10(func3)
+              1    0.000    0.000    0.000    0.000 scriptname.py:7(func2)
+              1    0.000    0.000    0.000    0.000 scriptname.py:4(func1)
+        <pstats.Stats object at 0x10cf1a390>
 
-    from logging import getLogger, DEBUG, basicConfig
-    basicConfig(level=DEBUG)
+        # !!! Or use decorator with logger (side effect) !!!
 
-    @profileit(logger=getLogger())
-    def func4():
-        func3()
+        from logging import getLogger, DEBUG, basicConfig
+        basicConfig(level=DEBUG)
 
-    func4()
+        @profileit(logger=getLogger())
+        def func4():
+            func3()
+
+        func4()
     """
 
     def decorate(func) -> AnyCallableT:
