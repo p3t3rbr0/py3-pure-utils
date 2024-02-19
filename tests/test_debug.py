@@ -101,5 +101,66 @@ class TestDeltatime:
 
 
 class TestProfileit:
-    def test_sample(self):
-        assert True
+    def func1(self):
+        return True
+
+    def func2(self):
+        return self.func1()
+
+    @profileit()
+    def func3(self):
+        return self.func2()
+
+    @profileit(logger=getLogger())
+    def func4(self):
+        return self.func2()
+
+    @pytest.fixture(scope="function")
+    def with_fake_runcall(self, mocker):
+        def runcall(func, *args, **kwargs):
+            return func(*args, **kwargs)
+
+        profile = mocker.patch("profiler.Profile")
+        profile.runcall = runcall
+
+    @pytest.fixture(scope="function")
+    def pstats(self):
+        return (
+            "5 function calls in 0.000 seconds"
+            "   Ordered by: cumulative time, function name"
+            "   ncalls  tottime  percall  cumtime  percall filename:lineno(function)"
+            "        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}"  # noqa: E501
+            "        1    0.000    0.000    0.000    0.000 scriptname.py:13(func4)"
+            "        1    0.000    0.000    0.000    0.000 scriptname.py:10(func3)"
+            "        1    0.000    0.000    0.000    0.000 scriptname.py:7(func2)"
+            "        1    0.000    0.000    0.000    0.000 scriptname.py:4(func1)"
+            "<pstats.Stats object at 0x10cf1a390>"
+        )
+
+    def test_with_side_effect(self, mocker, pstats, with_fake_runcall):
+        log_mock = mocker.patch("logging.Logger.log")
+        mocker.patch("debug.Profiler.serialize_result", return_value=pstats)
+
+        retval, profile_info = self.func4()
+
+        assert retval is True
+        assert isinstance(profile_info, str)
+
+        for _ in ("func1", "func2", "func3", "func4"):
+            assert _ in profile_info
+
+        log_mock.assert_called_once()
+
+    def test_without_side_effect(self, mocker, pstats, with_fake_runcall):
+        log_mock = mocker.patch("logging.Logger.log")
+        mocker.patch("debug.Profiler.serialize_result", return_value=pstats)
+
+        retval, profile_info = self.func3()
+
+        assert retval is True
+        assert isinstance(profile_info, str)
+
+        for _ in ("func1", "func2", "func3"):
+            assert _ in profile_info
+
+        log_mock.assert_not_called()
