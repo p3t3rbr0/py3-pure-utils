@@ -2,7 +2,9 @@ import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, os.path.abspath("../pure_utils/"))
+sys.path.insert(0, os.path.abspath("../pure_utils"))
+
+autodoc_mock_imports = ["pure_utils"]
 
 DOCS_ROOT_DIR = Path(__file__).resolve(strict=True).parent
 
