@@ -1,7 +1,7 @@
 # pure-utils
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pure-utils)
 ![Build Status](https://github.com/p3t3rbr0/py3-pure-utils/actions/workflows/ci.yaml/badge.svg?branch=master)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pure-utils)
 ![PyPI Version](https://img.shields.io/pypi/v/pure-utils)
 [![Code Coverage](https://codecov.io/gh/p3t3rbr0/py3-pure-utils/graph/badge.svg?token=283H0MAGUP)](https://codecov.io/gh/p3t3rbr0/py3-pure-utils)
 [![Maintainability](https://api.codeclimate.com/v1/badges/14f70c48db708a419309/maintainability)](https://codeclimate.com/github/p3t3rbr0/py3-pure-utils/maintainability)
@@ -34,7 +34,7 @@ Main principles:
   * [iso2ymd](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.iso2ymd) - Convert ISO-8601 datetime string into a string of YMD (YYYY-MM-DD) format.
   * [round_by](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.round_by) - Round datetime, discarding excessive precision.
 * [profiler](https://p3t3rbr0.github.io/py3-pure-utils/refs/profiler.html) - Helper classes for working with the cProfile.
-  * [Profiler](https://p3t3rbr0.github.io/py3-pure-utils/refs/profiler.html#profiler.Profiler) - ....
+  * [Profiler](https://p3t3rbr0.github.io/py3-pure-utils/refs/profiler.html#profiler.Profiler) - A class provides a simple interface for profiling code.
 * [strings](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html) - Utilities for working with strings.
   * [genstr](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.genstr) - Generate ASCII-string with random letters.
   * [gzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gzip) - Compress string (or bytes string) with gzip compression level.
