@@ -7,12 +7,12 @@ from logging import Logger
 from time import time
 from typing import Any, Callable, Optional, TypeAlias
 
-from pure_utils._pstats import SerializedPStatsT, StringPStatsSerializer
+from pure_utils._pstats import ProfilerStatsT, StringPStatsSerializer
 from pure_utils.profiler import Profiler
 
 __all__ = ["around", "caller", "deltatime", "profileit"]
 
-CallableAnyT: TypeAlias = Callable[[Any], Any]
+AnyCallableT: TypeAlias = Callable[[Any], Any]
 
 DEFAULT_STACK_SIZE: int = 20
 DEFAULT_STACK_FRAME: int = 2
@@ -71,7 +71,7 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
         # in da func3
     """
 
-    def decorate(func) -> CallableAnyT:
+    def decorate(func) -> AnyCallableT:
         @wraps(func)
         def wrapper(*args, **kwargs):
             if not before and not after:
@@ -156,7 +156,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
         # DEBUG:root:[DELTATIME]: 'aim_func2' (0.025 sec.)
     """
 
-    def decorate(func) -> CallableAnyT:
+    def decorate(func) -> AnyCallableT:
         @wraps(func)
         def wrapper(*args, **kwargs) -> tuple[Any, float]:
             t0 = time()
@@ -219,16 +219,16 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
     func4()
     """
 
-    def decorate(func) -> CallableAnyT:
+    def decorate(func) -> AnyCallableT:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> tuple[Any, SerializedPStatsT]:
+        def wrapper(*args, **kwargs) -> tuple[Any, ProfilerStatsT]:
             retval = None
             profiler = Profiler()
 
             try:
                 retval = profiler.profile(func, *args, **kwargs)
             finally:
-                profiler_stats = profiler.serialize_stats(
+                profiler_stats = profiler.serialize_result(
                     serializer=StringPStatsSerializer, stack_size=stack_size
                 )
 
