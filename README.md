@@ -1,5 +1,6 @@
 # pure-utils
 
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pure-utils)
 ![Build Status](https://github.com/p3t3rbr0/py3-pure-utils/actions/workflows/ci.yaml/badge.svg?branch=master)
 ![PyPI Version](https://img.shields.io/pypi/v/pure-utils)
 [![Code Coverage](https://codecov.io/gh/p3t3rbr0/py3-pure-utils/graph/badge.svg?token=283H0MAGUP)](https://codecov.io/gh/p3t3rbr0/py3-pure-utils)
