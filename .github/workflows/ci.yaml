@@ -10,9 +10,9 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                python-version: ["3.10", "3.11"]
+                python-version: ["3.10", "3.11", "3.12"]
         env:
-            USING_COVERAGE: "3.10"
+            USING_COVERAGE: "3.12"
         steps:
             - name: Checkout sources
               uses: actions/checkout@v4
@@ -24,8 +24,8 @@ jobs:
               run: make deps
             - name: Check pep8
               run: |
-                  python3 -m pflake8 pure_utils/
-                  python3 -m pflake8 --ignore=F401 tests/
+                  python -m flake8 --max-complexity 10 --max-line-length 100 --ignore D --extend-ignore E203,W503 pure_utils
+                  python -m flake8 --max-complexity 10 --max-line-length 100 --ignore D --extend-ignore E203,W503,F401 tests
             - name: Check code style
               run: |
                   python3 -m black --line-length 100 --check pure_utils/

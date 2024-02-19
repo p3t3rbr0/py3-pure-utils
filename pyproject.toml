@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools==69.0.3"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling==1.21.1"]
+build-backend = "hatchling.build"
 
 [tool.setuptools]
 include-package-data = false
@@ -11,7 +11,7 @@ exclude = ["tests*"]
 
 [project]
 name = "pure-utils"
-version = "0.3.0"
+version = "0.4.0"
 authors = [
   {name="Peter Bro", email="p3t3rbr0@gmail.com"},
 ]
@@ -46,21 +46,13 @@ docs = ["Sphinx==7.2.6", "furo==2024.1.29"]
 dev = [
     "mypy==1.8.0",
     "isort==5.13.2",
-    "flake8==6.1.0",
-    "pyproject-flake8==6.1.0",
+    "flake8==7.0.0",
     "black==24.1.1",
     "pydocstyle==6.3.0",
     "pytest==8.0.0",
     "pytest-cov==4.1.0",
     "pytest-mock==3.12.0",
 ]
-
-[tool.flake8]
-max-complexity = 10
-max-line-length = 100
-ignore = ["D"]
-extend-ignore = ["E203", "W503"]
-exclude = [".git", "venv", "__pycache__"]
 
 [tool.mypy]
 exclude = ["tests"]
@@ -76,8 +68,9 @@ convention = "google"
 match-dir = "^(?!tests|.docs).+$"
 
 [tool.pytest.ini_options]
-pythonpath = ["pure_utils"]
-testpaths = ["tests"]
+addopts = ["--import-mode=importlib"]
+pythonpath = "pure_utils"
+testpaths = "tests"
 python_files = "test_*.py"
 python_functions = "test_*"
 python_classes = "Test*"
@@ -92,7 +85,7 @@ exclude_lines = [
 
 [tool.coverage.run]
 branch = true
-omit = ["pure_utils/__init__.py",]
+omit = ["pure_utils/__init__.py", "pure_utils/_pstats.py"]
 
 [tool.coverage.html]
 directory = "coverage_report"

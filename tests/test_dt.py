@@ -43,6 +43,13 @@ class TestIso2Dmy:
         assert isinstance(formatted_dt, str)
         assert formatted_dt == expected
 
+    @pytest.mark.skipif(version_info != (3, 10), reason="python3.10 only")
+    def test_with_iso_datetime_string_310_compatible(self):
+        formatted_dt = iso2ymd("2009-08-09T18:31:42+03")
+        assert formatted_dt
+        assert isinstance(formatted_dt, str)
+        assert formatted_dt == "09.08.2009 18:31:42"
+
 
 class TestIso2Ymd:
     @pytest.mark.skipif(version_info < (3, 11), reason="requires python3.11 or higher")
@@ -64,6 +71,13 @@ class TestIso2Ymd:
         assert isinstance(formatted_dt, str)
         assert formatted_dt == expected
 
+    @pytest.mark.skipif(version_info != (3, 10), reason="python3.10 only")
+    def test_with_iso_datetime_string_310_compatible(self):
+        formatted_dt = iso2ymd("2009-08-09T18:31:42+03")
+        assert formatted_dt
+        assert isinstance(formatted_dt, str)
+        assert formatted_dt == "2009-08-09 18:31:42"
+
 
 class TestIso2Format:
     @pytest.mark.skipif(version_info < (3, 11), reason="requires python3.11 or higher")
@@ -80,6 +94,13 @@ class TestIso2Format:
         assert formatted_dt
         assert isinstance(formatted_dt, str)
         assert formatted_dt == expected
+
+    @pytest.mark.skipif(version_info != (3, 10), reason="python3.10 only")
+    def test_with_iso_datetime_string_310_compatible(self):
+        formatted_dt = iso2format("2009-08-09T18:31:42+03", "%d.%m.%Y %H:%M:%S")
+        assert formatted_dt
+        assert isinstance(formatted_dt, str)
+        assert formatted_dt == "09.08.2009 18:31:42"
 
 
 class TestRoundBy:
