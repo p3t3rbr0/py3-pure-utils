@@ -116,14 +116,6 @@ class TestProfileit:
         return self.func2()
 
     @pytest.fixture(scope="function")
-    def with_fake_runcall(self, mocker):
-        def runcall(func, *args, **kwargs):
-            return func(*args, **kwargs)
-
-        profile = mocker.patch("profiler.Profile")
-        profile.runcall = runcall
-
-    @pytest.fixture(scope="function")
     def pstats(self):
         return (
             "5 function calls in 0.000 seconds"
@@ -137,7 +129,7 @@ class TestProfileit:
             "<pstats.Stats object at 0x10cf1a390>"
         )
 
-    def test_with_side_effect(self, mocker, pstats, with_fake_runcall):
+    def test_with_side_effect(self, mocker, pstats, with_fake_profile_runcall):
         log_mock = mocker.patch("logging.Logger.log")
         mocker.patch("debug.Profiler.serialize_result", return_value=pstats)
 
@@ -151,7 +143,7 @@ class TestProfileit:
 
         log_mock.assert_called_once()
 
-    def test_without_side_effect(self, mocker, pstats, with_fake_runcall):
+    def test_without_side_effect(self, mocker, pstats, with_fake_profile_runcall):
         log_mock = mocker.patch("logging.Logger.log")
         mocker.patch("debug.Profiler.serialize_result", return_value=pstats)
 
