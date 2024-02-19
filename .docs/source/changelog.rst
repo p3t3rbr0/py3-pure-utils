@@ -1,11 +1,13 @@
 Changelog
 =========
 
-v0.4.0 - [2024-02-00]
+v0.4.0 - [2024-02-19]
 ---------------------
-* Add support Python3.12 into ci scenario.
 * Add several tests (for `dt` module) for python3.10 only.
-* Add new module - `debug` (utilities for debugging and development.).
+* Add new module - `debug` (utilities for debugging and development).
+* Add new module - `profiler` (helper classes for working with the cProfile).
+* Refactor .docs/Makefile
+* Add support Python3.12 into ci scenario.
 * Use flake8 explicitly into Makefile and ci scenario.
 * Remove `pyproject-flake8` optional dependencies, because it's orphaned on github.
 
