@@ -21,7 +21,7 @@ class Profiler:
 
         profiler = Profiler()
         some_function_retval = profiler.profile(some_func, *func_args, **func_kwargs)
-        profile_result = profiler.serialize_result(SomeProfilerStatsSerializer())
+        profile_result = profiler.serialize_result(SomeProfilerStatsSerializer)
     """
 
     def __init__(self) -> None:
