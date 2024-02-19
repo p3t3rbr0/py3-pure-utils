@@ -19,7 +19,7 @@ Distributing
 
 Development
 -----------
-- ``make clean`` - Clean temporary files and caches.
+- ``make cleanup`` - Clean up python temporary files and caches.
 - ``make format`` - Fromat the code (by black and isort).
 - ``make lint`` - Check code style and types (by flake8, pydocstyle and mypy).
 - ``make tests`` - Run tests with coverage measure (output to terminal).

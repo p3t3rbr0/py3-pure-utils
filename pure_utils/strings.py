@@ -17,9 +17,7 @@ def genstr(length: int = 10, /, *, is_uppercase: bool = False) -> str:
     Returns:
         Generated ASCII-string with random letters.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import genstr
 
@@ -45,9 +43,7 @@ def gzip(string: str | bytes, /, *, level: int = 9) -> bytes:
     Returns:
         Compressed string in bytes.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import gzip
 
@@ -69,9 +65,7 @@ def gunzip(compressed_string: bytes, /) -> str:
     Returns:
         Decompressed string from bytes.
 
-    Usage:
-
-    .. code-block:: python
+    Example::
 
         from pure_utils import gzip, gunzip
 
