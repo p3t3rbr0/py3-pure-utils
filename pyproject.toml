@@ -11,7 +11,7 @@ exclude = ["tests*"]
 
 [project]
 name = "pure-utils"
-version = "0.4.1"
+version = "0.5.0"
 authors = [
   {name="Peter Bro", email="p3t3rbr0@gmail.com"},
 ]
