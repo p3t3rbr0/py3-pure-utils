@@ -7,7 +7,10 @@ from logging import Logger
 from time import time
 from typing import Any, Callable, Optional, TypeAlias
 
-from pure_utils._pstats import ProfilerStatsT, StringPStatsSerializer
+from pure_utils._internal._profile_stats_serializers import (
+    ProfileStatsStringSerializer,
+    SerializedProfileStatsT,
+)
 from pure_utils.profiler import Profiler
 
 __all__ = ["around", "caller", "deltatime", "profileit"]
@@ -163,7 +166,10 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
             retval = func(*args, **kwargs)
             delta = float(f"{time() - t0:.3f}")
             if logger:
-                logger.log(msg=f"[DELTATIME]: '{func.__name__}' ({delta} sec.)", level=logger.level)
+                logger.log(
+                    msg=f"[DELTATIME]: '{func.__name__}' ({delta} sec.)",
+                    level=logger.level,
+                )
             return retval, delta
 
         return wrapper
@@ -222,7 +228,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
 
     def decorate(func) -> AnyCallableT:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> tuple[Any, ProfilerStatsT]:
+        def wrapper(*args, **kwargs) -> tuple[Any, SerializedProfileStatsT]:
             retval = None
             profiler = Profiler()
 
@@ -230,7 +236,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
                 retval = profiler.profile(func, *args, **kwargs)
             finally:
                 profiler_stats = profiler.serialize_result(
-                    serializer=StringPStatsSerializer, stack_size=stack_size
+                    serializer=ProfileStatsStringSerializer, stack_size=stack_size
                 )
 
             if logger:

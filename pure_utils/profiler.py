@@ -3,7 +3,11 @@
 from cProfile import Profile
 from typing import Callable, ParamSpec, Type, TypeVar
 
-from pure_utils._pstats import ProfilerStatsT, PStats, PStatsSerializer
+from pure_utils._internal._profile_stats import ProfileStats
+from pure_utils._internal._profile_stats_serializers import (
+    ProfileStatsSerializer,
+    SerializedProfileStatsT,
+)
 
 __all__ = ["Profiler"]
 
@@ -24,14 +28,16 @@ class Profiler:
         profile_result = profiler.serialize_result(SomeProfilerStatsSerializer)
     """
 
+    __slots__ = ("_profile", "__weakref__")
+
     def __init__(self) -> None:
         """Initialize profiler object."""
         self._profile = Profile()
 
     @property
-    def pstats(self) -> PStats:
+    def pstats(self) -> ProfileStats:
         """Get raw profile stats."""
-        return PStats(self._profile).strip_dirs().sort_stats("cumulative", "name")
+        return ProfileStats(self._profile).strip_dirs().sort_stats("cumulative", "name")
 
     def profile(self, func: Callable[P, T], *args: P.args, **kwargs: P.kwargs) -> T:
         """Profile function.
@@ -47,8 +53,8 @@ class Profiler:
         return self._profile.runcall(func, *args, **kwargs)
 
     def serialize_result(
-        self, *, serializer: Type[PStatsSerializer], stack_size: int
-    ) -> ProfilerStatsT:
+        self, *, serializer: Type[ProfileStatsSerializer], stack_size: int
+    ) -> SerializedProfileStatsT:
         """Serialize profiler result with custom serializer class.
 
         Args:

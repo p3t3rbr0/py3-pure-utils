@@ -1,7 +1,8 @@
 from logging import getLogger
 
 import pytest
-from debug import around, caller, deltatime, profileit
+
+from pure_utils import around, caller, deltatime, profileit
 
 
 class TestAround:
@@ -131,7 +132,7 @@ class TestProfileit:
 
     def test_with_side_effect(self, mocker, pstats, with_fake_profile_runcall):
         log_mock = mocker.patch("logging.Logger.log")
-        mocker.patch("debug.Profiler.serialize_result", return_value=pstats)
+        mocker.patch("pure_utils.debug.Profiler.serialize_result", return_value=pstats)
 
         retval, profile_info = self.func4()
 
@@ -145,7 +146,7 @@ class TestProfileit:
 
     def test_without_side_effect(self, mocker, pstats, with_fake_profile_runcall):
         log_mock = mocker.patch("logging.Logger.log")
-        mocker.patch("debug.Profiler.serialize_result", return_value=pstats)
+        mocker.patch("pure_utils.debug.Profiler.serialize_result", return_value=pstats)
 
         retval, profile_info = self.func3()
 
