@@ -1,14 +1,21 @@
 Changelog
 =========
 
+v0.4.1 - [2024-02-20]
+---------------------
+* Refactor imports into tests.
+* Rename `dt` module to `datetime`.
+* Add `_internal` subpackage (with "private" modules).
+* Refactor variables into `debug`, `profiler` and `_internal/*` modules.
+
 v0.4.0 - [2024-02-19]
 ---------------------
+* Refactor .docs/Makefile.
+* Add support Python3.12 into ci scenario.
+* Use flake8 explicitly into Makefile and ci scenario.
 * Add several tests (for `dt` module) for python3.10 only.
 * Add new module - `debug` (utilities for debugging and development).
 * Add new module - `profiler` (helper classes for working with the cProfile).
-* Refactor .docs/Makefile
-* Add support Python3.12 into ci scenario.
-* Use flake8 explicitly into Makefile and ci scenario.
 * Remove `pyproject-flake8` optional dependencies, because it's orphaned on github.
 
 v0.3.0 - [2024-02-04]
@@ -17,20 +24,20 @@ v0.3.0 - [2024-02-04]
 
 v0.2.0 - [2024-02-02]
 ---------------------
-* Add new string utilities module.
+* Remove run_tests.sh.
 * Fix coverage settings.
+* Rename github workflow scenario.
+* Add new string utilities module.
 * Add short utilities description in README.
 * Add new make commands (tests-cov-json, tests-cov-html).
-* Remove run_tests.sh.
-* Rename github workflow scenario.
 
 v0.1.1 - [2024-02-01]
 ---------------------
-* Add badges for gh-repo.
-* Add new make-command: upload (for upload built packages to PyPI).
 * Fix Makefile.
 * Fix Sphinx docs.
+* Add badges for gh-repo.
 * Fix package name in README.
+* Add new make-command: upload (for upload built packages to PyPI).
 
 v0.1.0 - [2024-02-01]
 ---------------------

@@ -2,7 +2,8 @@ from datetime import datetime
 from sys import version_info
 
 import pytest
-from dt import apply_tz, iso2dmy, iso2format, iso2ymd, round_by
+
+from pure_utils import apply_tz, iso2dmy, iso2format, iso2ymd, round_by
 
 
 class TestApplyTz:
