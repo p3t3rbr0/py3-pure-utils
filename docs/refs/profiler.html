@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="strings" href="strings.html" /><link rel="prev" title="dt" href="dt.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="strings" href="strings.html" /><link rel="prev" title="debug" href="debug.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>profiler - pure-utils</title>
@@ -157,8 +157,8 @@
   <p class="caption" role="heading"><span class="caption-text">Utilities</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="common.html">common</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">datetime</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dt.html">dt</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">strings</a></li>
 </ul>
@@ -231,9 +231,14 @@
 </div>
 <dl class="field-list simple">
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiler.Profiler.__slots__">
+<span class="sig-name descname"><span class="pre">__slots__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('_profile',</span> <span class="pre">'__weakref__')</span></em><a class="headerlink" href="#profiler.Profiler.__slots__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="profiler.Profiler.pstats">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pstats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pure_utils._pstats.PStats</span></em><a class="headerlink" href="#profiler.Profiler.pstats" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pstats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pure_utils._internal._profile_stats.ProfileStats</span></em><a class="headerlink" href="#profiler.Profiler.pstats" title="Link to this definition">#</a></dt>
 <dd><p>Get raw profile stats.</p>
 </dd></dl>
 
@@ -260,12 +265,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="profiler.Profiler.serialize_result">
-<span class="sig-name descname"><span class="pre">serialize_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">pure_utils._pstats.PStatsSerializer</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pure_utils._pstats.ProfilerStatsT</span></span></span><a class="headerlink" href="#profiler.Profiler.serialize_result" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">serialize_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">pure_utils._internal._profile_stats_serializers.ProfileStatsSerializer</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pure_utils._internal._profile_stats_serializers.SerializedProfileStatsT</span></span></span><a class="headerlink" href="#profiler.Profiler.serialize_result" title="Link to this definition">#</a></dt>
 <dd><p>Serialize profiler result with custom serializer class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>serializer</strong> (<em>Type</em><em>[</em><em>pure_utils._pstats.PStatsSerializer</em><em>]</em>) – Serializer class.</p></li>
+<li><p><strong>serializer</strong> (<em>Type</em><em>[</em><em>pure_utils._internal._profile_stats_serializers.ProfileStatsSerializer</em><em>]</em>) – Serializer class.</p></li>
 <li><p><strong>stack_size</strong> (<em>int</em>) – Stack size for limitation</p></li>
 </ul>
 </dd>
@@ -273,7 +278,7 @@
 <dd class="field-even"><p>Serialized profiler result.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pure_utils._pstats.ProfilerStatsT</p>
+<dd class="field-odd"><p>pure_utils._internal._profile_stats_serializers.SerializedProfileStatsT</p>
 </dd>
 </dl>
 </dd></dl>
@@ -297,14 +302,14 @@
                         </div>
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                     </a>
-                    <a class="prev-page" href="dt.html">
+                    <a class="prev-page" href="debug.html">
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                         <div class="page-info">
                             <div class="context">
                                 <span>Previous</span>
                             </div>
                             
-                            <div class="title">dt</div>
+                            <div class="title">debug</div>
                             
                         </div>
                     </a>
@@ -343,6 +348,7 @@
 <li><a class="reference internal" href="#">profiler</a><ul>
 <li><a class="reference internal" href="#classes">Classes</a><ul>
 <li><a class="reference internal" href="#profiler.Profiler"><code class="docutils literal notranslate"><span class="pre">Profiler</span></code></a><ul>
+<li><a class="reference internal" href="#profiler.Profiler.__slots__"><code class="docutils literal notranslate"><span class="pre">Profiler.__slots__</span></code></a></li>
 <li><a class="reference internal" href="#profiler.Profiler.pstats"><code class="docutils literal notranslate"><span class="pre">Profiler.pstats</span></code></a></li>
 <li><a class="reference internal" href="#profiler.Profiler.profile"><code class="docutils literal notranslate"><span class="pre">Profiler.profile()</span></code></a></li>
 <li><a class="reference internal" href="#profiler.Profiler.serialize_result"><code class="docutils literal notranslate"><span class="pre">Profiler.serialize_result()</span></code></a></li>
