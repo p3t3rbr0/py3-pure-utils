@@ -1,55 +1,33 @@
-"""Private module for encapsulating low-level work with profiler stats."""
+"""Internal module with profiler stats serializers."""
 
-from pstats import Stats
-from typing import Iterable, Mapping, Sequence, TypeAlias
+from abc import ABC, abstractmethod
+from typing import Mapping, Sequence, TypeAlias
 
-ProfilerStatsT: TypeAlias = str | bytes | Mapping
+from ._profile_stats import ProfileStats
 
-
-class PStats(Stats):
-    """A dummy override to explicitly describe class attributes.
-
-    In the standard library, attributes are not defined in the constructor,
-    which breaks the type analyzer.
-    """
-
-    def __init__(self, *args, stream=None) -> None:
-        """Initialize profile stats object."""
-        self.all_callees = None
-        self.files: Sequence = []
-        self.fcn_list = None
-        self.total_tt = 0
-        self.total_calls = 0
-        self.prim_calls = 0
-        self.max_name_len = 0
-        self.top_level: Iterable = set()
-        self.stats: Mapping = {}
-        self.sort_arg_dict: Mapping = {}
-
-        super().__init__(*args, stream)
+SerializedProfileStatsT: TypeAlias = str | bytes | Mapping
 
 
-class PStatsSerializer:
+class ProfileStatsSerializer(ABC):
     """Base class for serializer of profiling results."""
 
-    def __init__(self, pstats: PStats, amount: int) -> None:
+    __slots__ = ("pstats", "amount", "__weakref__")
+
+    def __init__(self, pstats: ProfileStats, amount: int) -> None:
         """Initialize base stats serializer object."""
         self.pstats = pstats
         self.amount = amount
 
-    def serialize(self) -> ProfilerStatsT:
-        """Interface for serialization method of profiling results.
-
-        Must be implemented in child classes.
-
-        Raises:
-            NotImplementedError: If called directly.
-        """
-        raise NotImplementedError
+    @abstractmethod
+    def serialize(self) -> SerializedProfileStatsT:
+        """Interface for serialization method of profiling results."""
+        pass
 
 
-class StringPStatsSerializer(PStatsSerializer):
+class ProfileStatsStringSerializer(ProfileStatsSerializer):
     """Serialize profiler result to string."""
+
+    __slots__ = ("indent", "title")
 
     def __init__(self, *args, **kwargs):
         """Initialize serializer."""
@@ -63,7 +41,7 @@ class StringPStatsSerializer(PStatsSerializer):
         return f"{x:8.3f}"
 
     def func_std_string(self, func_name) -> str:
-        """Prepare a PStats function according to a string pattern."""
+        """Prepare a ProfileStats function according to a string pattern."""
         if func_name[:2] == ("~", 0):
             # special case for built-in functions
             name = func_name[2]
@@ -75,7 +53,7 @@ class StringPStatsSerializer(PStatsSerializer):
             return "%s:%d(%s)" % func_name
 
     def prepare_func_line(self, func) -> str:
-        """Prepare the PStats function as a string representation."""
+        """Prepare the ProfileStats function as a string representation."""
         lines = []
         cc, nc, tt, ct, callers = self.pstats.stats[func]
         c = str(nc)
@@ -103,14 +81,14 @@ class StringPStatsSerializer(PStatsSerializer):
         return "".join(lines)
 
     def get_func_list(self) -> Sequence[str]:
-        """Get list of PStats functions."""
+        """Get list of ProfileStats functions."""
         if self.pstats.fcn_list:
             return self.pstats.fcn_list[:]
 
         return list(self.pstats.stats.keys())
 
     def serialize(self) -> str:
-        """Serialize PStats object to string."""
+        """Serialize ProfileStats object to string."""
         lines = []
 
         for filename in self.pstats.files:

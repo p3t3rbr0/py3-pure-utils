@@ -1,5 +1,6 @@
 import pytest
-from strings import genstr, gunzip, gzip
+
+from pure_utils import genstr, gunzip, gzip
 
 
 class TestGenstr:
@@ -34,7 +35,7 @@ class TestGzip:
         return b"x\xda+I-.Q(.)\xca\xccK\x07\x00\x1a\xc0\x04x"
 
     def test_on_string(self, mocker, string, string_in_bytes, compressed_string):
-        compress_mock = mocker.patch("strings.compress", return_value=compressed_string)
+        compress_mock = mocker.patch("pure_utils.strings.compress", return_value=compressed_string)
 
         result = gzip(string)
 
@@ -43,7 +44,7 @@ class TestGzip:
         compress_mock.assert_called_once_with(string_in_bytes, level=9)
 
     def test_on_bytes(self, mocker, string_in_bytes, compressed_string):
-        compress_mock = mocker.patch("strings.compress", return_value=compressed_string)
+        compress_mock = mocker.patch("pure_utils.strings.compress", return_value=compressed_string)
 
         result = gzip(string_in_bytes)
 
@@ -54,7 +55,7 @@ class TestGzip:
     def test_on_string_with_custom_compress_level(
         self, mocker, string, string_in_bytes, compressed_string
     ):
-        compress_mock = mocker.patch("strings.compress", return_value=compressed_string)
+        compress_mock = mocker.patch("pure_utils.strings.compress", return_value=compressed_string)
 
         result = gzip(string, level=5)
 
@@ -77,7 +78,9 @@ class TestGunzip:
         return b"x\xda+I-.Q(.)\xca\xccK\x07\x00\x1a\xc0\x04x"
 
     def test_on_compressed_string(self, mocker, string, string_in_bytes, compressed_string):
-        decompress_mock = mocker.patch("strings.decompress", return_value=string_in_bytes)
+        decompress_mock = mocker.patch(
+            "pure_utils.strings.decompress", return_value=string_in_bytes
+        )
 
         result = gunzip(compressed_string)
 

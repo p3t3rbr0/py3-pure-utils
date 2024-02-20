@@ -1,9 +1,12 @@
 import pytest
-from _pstats import PStatsSerializer
-from profiler import Profiler
+
+from pure_utils import Profiler
+from pure_utils._internal._profile_stats_serializers import (
+    ProfileStatsSerializer,
+)
 
 
-class DummuStringPStatsSerializer(PStatsSerializer):
+class DummuStringPStatsSerializer(ProfileStatsSerializer):
     def serialize(self):
         return "Some serialized data"
 
@@ -14,7 +17,7 @@ def func_for_profiling():
 
 class TestProfiler:
     def test_profiling_result_as_string(self, mocker, with_fake_profile_runcall):
-        mocker.patch("profiler.PStats", return_value=mocker.Mock())
+        mocker.patch("pure_utils._internal._profile_stats.ProfileStats", return_value=mocker.Mock())
 
         profiler = Profiler()
         retval = profiler.profile(func_for_profiling)

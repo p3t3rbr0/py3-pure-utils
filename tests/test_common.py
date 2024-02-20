@@ -1,5 +1,6 @@
 import pytest
-from common import Singleton
+
+from pure_utils import Singleton
 
 
 def test_singletone_class():

@@ -3,7 +3,7 @@
    :recursive:
 
       common
+      datetime
       debug
-      dt
       profiler
       strings

@@ -22,17 +22,17 @@ Main principles:
 
 * [common](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html) - The common purpose utilities.
   * [Singleton](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#common.Singleton) - A metaclass that implements the singleton pattern for inheritors.
+* [datetime](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html) - Utilities for working with datetime objects.
+  * [apply_tz](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.apply_tz) - Apply timezone context to datetime object.
+  * [iso2format](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.iso2format) - Convert ISO-8601 datetime string into a string of specified format.
+  * [iso2dmy](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.iso2dmy) - Convert ISO-8601 datetime string into a string of DMY (DD.MM.YYYY) format.
+  * [iso2ymd](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.iso2ymd) - Convert ISO-8601 datetime string into a string of YMD (YYYY-MM-DD) format.
+  * [round_by](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.round_by) - Round datetime, discarding excessive precision.
 * [debug](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html) - Utilities for debugging and development.
   * [around](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.around) - Add additional behavior before and after execution of decorated function.
   * [caller](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.caller) - Get the name of calling function/method (from current function/method context).
   * [deltatime](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.deltatime) - Measure execution time of decorated function and print it to log.
   * [profileit](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.profileit) - Profile decorated function being with 'cProfile'.
-* [dt](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html) - Utilities for working with datetime objects.
-  * [apply_tz](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.apply_tz) - Apply timezone context to datetime object.
-  * [iso2format](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.iso2format) - Convert ISO-8601 datetime string into a string of specified format.
-  * [iso2dmy](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.iso2dmy) - Convert ISO-8601 datetime string into a string of DMY (DD.MM.YYYY) format.
-  * [iso2ymd](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.iso2ymd) - Convert ISO-8601 datetime string into a string of YMD (YYYY-MM-DD) format.
-  * [round_by](https://p3t3rbr0.github.io/py3-pure-utils/refs/dt.html#dt.round_by) - Round datetime, discarding excessive precision.
 * [profiler](https://p3t3rbr0.github.io/py3-pure-utils/refs/profiler.html) - Helper classes for working with the cProfile.
   * [Profiler](https://p3t3rbr0.github.io/py3-pure-utils/refs/profiler.html#profiler.Profiler) - A class provides a simple interface for profiling code.
 * [strings](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html) - Utilities for working with strings.
