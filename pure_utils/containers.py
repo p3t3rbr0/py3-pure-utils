@@ -2,7 +2,7 @@
 
 from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
 
-__all__ = ["bisect"]
+__all__ = ["bisect", "first"]
 
 T = TypeVar("T")
 
@@ -36,3 +36,25 @@ def bisect(source_list: list[T]) -> tuple[list[T], list[T]]:
     assert source_list
     length = len(source_list)
     return (source_list[: length // 2], source_list[length // 2 :])
+
+
+def first(collection: Sequence[T]) -> Optional[T]:
+    """Get the value of the first element from a homogeneous collection.
+
+    Args:
+        collection: Collection of homogeneous elements.
+
+    Returns:
+        The value of the first element of the collection, or None if there is none.
+
+    Example::
+
+        from pure_utils import first
+
+        seq = (1, 2, 3)
+        print(first(seq))  # 1
+
+        seq = []
+        print(first(seq))  # None
+    """
+    return next((_ for _ in collection), None)
