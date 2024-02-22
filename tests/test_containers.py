@@ -1,6 +1,6 @@
 import pytest
 
-from pure_utils import bisect, first
+from pure_utils import bisect, first, flatten
 
 
 class TestBisect:
@@ -35,3 +35,53 @@ class TestFirst:
 
     def test_with_empty_list(self):
         assert first([]) is None
+
+
+class TestFlatten:
+    def test_with_one_dimention_list_seequence(self):
+        seq = [1, 2, 3, 4, 5]
+        result = list(flatten(seq))
+
+        assert result == [1, 2, 3, 4, 5]
+
+    def test_with_one_dimention_set_seequence(self):
+        seq = {1, 2, 3, 4, 5}
+        result = set(flatten(seq))
+
+        assert result == {1, 2, 3, 4, 5}
+
+    def test_with_one_dimention_tuple_seequence(self):
+        seq = (1, 2, 3, 4, 5)
+        result = tuple(flatten(seq))
+
+        assert result == (1, 2, 3, 4, 5)
+
+    def test_with_two_dimention_list_seequence(self):
+        seq = [[1], [2], [3], [4], [5]]
+        result = list(flatten(seq))
+
+        assert result == [1, 2, 3, 4, 5]
+
+    def test_with_two_dimention_tuple_seequence(self):
+        seq = ((1,), (2,), (3,), (4,), (5,))
+        result = tuple(flatten(seq))
+
+        assert result == (1, 2, 3, 4, 5)
+
+    def test_with_multiple_dimention_list_seequence(self):
+        seq = [[[[[[1]]]]], [[[[[2]]]]], [[[[[3]]]]], [[[[[4]]]]], [[[[[5]]]]]]
+        result = list(flatten(seq))
+
+        assert result == [1, 2, 3, 4, 5]
+
+    def test_with_multiple_dimention_tuple_seequence(self):
+        seq = (
+            (((((1,),),),),),
+            (((((2,),),),),),
+            (((((3,),),),),),
+            (((((4,),),),),),
+            (((((5,),),),),),
+        )
+        result = tuple(flatten(seq))
+
+        assert result == (1, 2, 3, 4, 5)

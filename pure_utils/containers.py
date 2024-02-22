@@ -1,8 +1,8 @@
 """Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.)."""
 
-from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
+from typing import Generator, Optional, Sequence, TypeVar
 
-__all__ = ["bisect", "first"]
+__all__ = ["bisect", "first", "flatten"]
 
 T = TypeVar("T")
 
@@ -58,3 +58,29 @@ def first(collection: Sequence[T]) -> Optional[T]:
         print(first(seq))  # None
     """
     return next((_ for _ in collection), None)
+
+
+def flatten(collection: Sequence[T]) -> Generator[Sequence[T] | T, None, None]:
+    """Make the iterated collection a flat (single nesting level).
+
+    Args:
+        collection: Collection of homogeneous elements.
+
+    Returns:
+        Generator of the flatten function.
+
+    Example::
+
+        seq = [[1], [2], [3], [4], [5]]
+        result = list(flatten(seq))
+        print(result)  # [1, 2, 3, 4, 5]
+
+        seq = [[[[[[1]]]]], [[[[[2]]]]], [[[[[3]]]]], [[[[[4]]]]], [[[[[5]]]]]]
+        result = list(flatten(seq))
+        print(result)  # [1, 2, 3, 4, 5]
+    """
+    if isinstance(collection, (list, tuple, set)):
+        for _ in collection:
+            yield from flatten(_)
+    else:
+        yield collection
