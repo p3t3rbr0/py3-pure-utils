@@ -1,6 +1,6 @@
 import pytest
 
-from pure_utils import bisect, first, flatten
+from pure_utils import bisect, first, flatten, get_or_else
 
 
 class TestBisect:
@@ -85,3 +85,13 @@ class TestFlatten:
         result = tuple(flatten(seq))
 
         assert result == (1, 2, 3, 4, 5)
+
+
+def test_get_or_else():
+    seq = (1, 2, 3)
+    assert get_or_else(seq, 0) == 1
+    assert get_or_else(seq, 3) is None
+    assert get_or_else(seq, 3, -1) == -1
+
+    seq = ["a", "b", "c"]
+    assert get_or_else(seq, 5, "does not exists") == "does not exists"

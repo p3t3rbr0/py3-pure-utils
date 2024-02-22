@@ -2,7 +2,7 @@
 
 from typing import Generator, Optional, Sequence, TypeVar
 
-__all__ = ["bisect", "first", "flatten"]
+__all__ = ["bisect", "first", "flatten", "get_or_else"]
 
 T = TypeVar("T")
 
@@ -71,6 +71,8 @@ def flatten(collection: Sequence[T]) -> Generator[Sequence[T] | T, None, None]:
 
     Example::
 
+        from pure_utils import flatten
+
         seq = [[1], [2], [3], [4], [5]]
         result = list(flatten(seq))
         print(result)  # [1, 2, 3, 4, 5]
@@ -84,3 +86,35 @@ def flatten(collection: Sequence[T]) -> Generator[Sequence[T] | T, None, None]:
             yield from flatten(_)
     else:
         yield collection
+
+
+def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None) -> Optional[T]:
+    """Get value of element, and if it is missing, return the default value.
+
+    Used for safety to get the value of a collection element.
+
+    Args:
+        collection: Collection of homogeneous elements.
+        index: Index of the collection element to get the value.
+        default: Optional default value, returned when no element at the specified index.
+
+    Returns:
+        The value of the sequence element at the specified index,
+        or default value, when no element by this index.
+
+    Example::
+
+        from pure_utils import get_or_else
+
+        seq = (1, 2, 3)
+        print(get_or_else(seq, 0))  # 1
+        print(get_or_else(seq, 3))  # None
+        print(get_or_else(seq, 3, -1))  # -1
+
+        seq = ["a", "b", "c"]
+        print(get_or_else(seq, 3, "does not exists"))  # does not exists
+    """
+    try:
+        return collection[index]
+    except IndexError:
+        return default
