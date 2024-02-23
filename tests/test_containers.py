@@ -1,6 +1,6 @@
 import pytest
 
-from pure_utils import bisect, first, flatten, get_or_else, symmdiff
+from pure_utils import bisect, first, flatten, get_or_else, omit, symmdiff
 
 
 class TestBisect:
@@ -123,3 +123,14 @@ class TestSymmdiff:
         diff = symmdiff(s1, s2)
 
         assert sorted(diff) == ["c", "e"]
+
+
+class TestOmit:
+    def test_regular_usage(self):
+        source_dict = {"key1": "val1", "key2": "val2"}
+        dict_without_omittes_pairs = omit(source_dict, ["key1"])
+
+        assert dict_without_omittes_pairs == {"key2": "val2"}
+
+        # The original dictionary has not changed
+        assert source_dict == {"key1": "val1", "key2": "val2"}

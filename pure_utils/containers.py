@@ -2,7 +2,7 @@
 
 from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
 
-__all__ = ["bisect", "first", "flatten", "get_or_else", "symmdiff"]
+__all__ = ["bisect", "first", "flatten", "get_or_else", "omit", "symmdiff"]
 
 T = TypeVar("T")
 
@@ -140,3 +140,27 @@ def symmdiff(s1: Sequence[T], s2: Sequence[T]) -> list[T]:
          print(result)  # ["c", "e"]
     """
     return list(set(s1).symmetric_difference(set(s2)))
+
+
+def omit(source_dict: Mapping[str, Any], keys_to_omit: Sequence[str]) -> Mapping[str, Any]:
+    """Omit key-value pairs from the source dictionary, by keys sequence.
+
+    The function does not modify the original collection.
+
+    Args:
+        source_dict: Source dictionary with data.
+        keys_to_omit: A keys sequence for omitted pairs in the source dictionary.
+
+    Returns:
+        A dictionary without omitted key-value pairs.
+
+    Example::
+
+        from pure_utils import omit
+
+        source_dict = {"key1": "val1", "key2": "val2", "key3": "val3", "key4": "val4"}
+        result = omit(source_dict, ["key2", "key4"] )
+        print(result)  # {"key1": "val1", "key3": "val3"}
+    """
+    keys_diff = symmdiff(list(source_dict.keys()), keys_to_omit)
+    return {key: source_dict[key] for key in keys_diff if key in source_dict}
