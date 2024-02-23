@@ -1,6 +1,6 @@
 import pytest
 
-from pure_utils import bisect, first, flatten, get_or_else
+from pure_utils import bisect, first, flatten, get_or_else, symmdiff
 
 
 class TestBisect:
@@ -87,11 +87,39 @@ class TestFlatten:
         assert result == (1, 2, 3, 4, 5)
 
 
-def test_get_or_else():
-    seq = (1, 2, 3)
-    assert get_or_else(seq, 0) == 1
-    assert get_or_else(seq, 3) is None
-    assert get_or_else(seq, 3, -1) == -1
+class TestGetOrElse:
+    def test_regular_usage(self):
+        seq = (1, 2, 3)
+        assert get_or_else(seq, 0) == 1
+        assert get_or_else(seq, 3) is None
+        assert get_or_else(seq, 3, -1) == -1
 
-    seq = ["a", "b", "c"]
-    assert get_or_else(seq, 5, "does not exists") == "does not exists"
+        seq = ["a", "b", "c"]
+        assert get_or_else(seq, 5, "does not exists") == "does not exists"
+
+
+class TestSymmdiff:
+    def test_with_two_lists(self):
+        l1 = ["a", "b", "c"]
+        l2 = ["e", "b", "a"]
+        diff = symmdiff(l1, l2)
+
+        assert sorted(diff) == ["c", "e"]
+
+        # The original lists has not changed
+        assert l1 == ["a", "b", "c"]
+        assert l2 == ["e", "b", "a"]
+
+    def test_with_two_tuples(self):
+        t1 = ("a", "b", "c")
+        t2 = ("e", "b", "a")
+        diff = symmdiff(t1, t2)
+
+        assert sorted(diff) == ["c", "e"]
+
+    def test_with_two_sets(self):
+        s1 = set(["a", "b", "c"])
+        s2 = set(["e", "b", "a"])
+        diff = symmdiff(s1, s2)
+
+        assert sorted(diff) == ["c", "e"]

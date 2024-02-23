@@ -1,8 +1,8 @@
 """Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.)."""
 
-from typing import Generator, Optional, Sequence, TypeVar
+from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
 
-__all__ = ["bisect", "first", "flatten", "get_or_else"]
+__all__ = ["bisect", "first", "flatten", "get_or_else", "symmdiff"]
 
 T = TypeVar("T")
 
@@ -118,3 +118,25 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
         return collection[index]
     except IndexError:
         return default
+
+
+def symmdiff(s1: Sequence[T], s2: Sequence[T]) -> list[T]:
+    """Obtain the symmetric difference of two sequences.
+
+    Args:
+        s1: The first sequence to form a set on the LEFT.
+        s2: The second sequence to form a set on the RIGHT.
+
+    Returns:
+        The symmetric difference of two sequences as a list.
+
+    Example::
+
+         from pure_utils import symmdiff
+
+         s1 = ["a", "b", "c"]
+         s2 = ["e", "b", "a"]
+         result = symmdiff(s1, s2)
+         print(result)  # ["c", "e"]
+    """
+    return list(set(s1).symmetric_difference(set(s2)))
