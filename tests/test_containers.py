@@ -1,6 +1,14 @@
 import pytest
 
-from pure_utils import bisect, first, flatten, get_or_else, omit, symmdiff
+from pure_utils import (
+    bisect,
+    first,
+    flatten,
+    get_or_else,
+    omit,
+    paginate,
+    symmdiff,
+)
 
 
 class TestBisect:
@@ -134,3 +142,36 @@ class TestOmit:
 
         # The original dictionary has not changed
         assert source_dict == {"key1": "val1", "key2": "val2"}
+
+
+class TestPaginate:
+    def test_on_list_with_odd_limit(self):
+        source_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        pages = paginate(source_list, 3)
+        assert pages == [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+
+    def test_on_list_with_even_limit(self):
+        source_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        pages = paginate(source_list, 5)
+        assert pages == [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]
+
+    def test_on_list_with_signle_element(self):
+        source_list = [1]
+        pages = paginate(source_list, 5)
+        assert pages == [[1]]
+
+    def test_on_empty_list(self):
+        assert paginate([], 2) == []
+
+    def test_on_zero_limit(self):
+        with pytest.raises(AssertionError):
+            paginate([1, 2], 0)
+
+    def test_on_negative_limit(self):
+        with pytest.raises(AssertionError):
+            paginate([1, 2], -1)
+
+    def test_on_tuple(self):
+        source_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        pages = paginate(source_tuple, 5)
+        assert pages == [(1, 2, 3, 4, 5), (6, 7, 8, 9, 10)]

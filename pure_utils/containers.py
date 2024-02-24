@@ -2,7 +2,7 @@
 
 from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
 
-__all__ = ["bisect", "first", "flatten", "get_or_else", "omit", "symmdiff"]
+__all__ = ["bisect", "first", "flatten", "get_or_else", "omit", "symmdiff", "paginate"]
 
 T = TypeVar("T")
 
@@ -21,7 +21,7 @@ def bisect(source_list: list[T]) -> tuple[list[T], list[T]]:
         and the second list in the tuple is the second half of the original list, respectively.
 
     Raises:
-        AssertionError: Fires if an empty source list is passed.
+        AssertionError: If source list is empty.
 
     Example::
 
@@ -164,3 +164,31 @@ def omit(source_dict: Mapping[str, Any], keys_to_omit: Sequence[str]) -> Mapping
     """
     keys_diff = symmdiff(list(source_dict.keys()), keys_to_omit)
     return {key: source_dict[key] for key in keys_diff if key in source_dict}
+
+
+def paginate(collection: Sequence[T], limit: int) -> Sequence[Sequence[T]]:
+    """Split the collection into page(s) according to the specified limit.
+
+    The function does not modify the original collection.
+
+    Args:
+        collection: Collection of homogeneous elements.
+        limit: Limit of elements on one page.
+
+    Returns:
+        A collection with elements splitted into pages (nested collections).
+
+    Raises:
+        AssertionError: If limit is less than zero.
+
+    Example::
+
+        from pure_utils import paginate
+
+        a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        pages = paginate(a, 3)
+        print(pages)
+        # [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+    """
+    assert limit > 0
+    return [collection[start : start + limit] for start in range(0, len(collection), limit)]
