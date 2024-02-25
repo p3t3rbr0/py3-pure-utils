@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.6.0 - [2024-03-00]
+---------------------
+* ...
+
 v0.5.0 - [2024-02-25]
 ---------------------
 * Update versions build and dev dependencies.
