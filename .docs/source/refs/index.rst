@@ -3,6 +3,7 @@
    :recursive:
 
       common
+      containers
       datetime
       debug
       profiler
