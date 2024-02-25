@@ -19,18 +19,17 @@ Main principles:
 **For detail information read the [doc](https://p3t3rbr0.github.io/py3-pure-utils/)**.
 
 # Available utilities
-
-* [common](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html) - The common purpose utilities.
-  * [bisect](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#bisect) - Bisect the list into two parts/halves based on the number of elements.
-  * [first](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#first) - Get the value of the first element from a homogeneous collection.
-  * [flatten](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#flatten) - Make the iterated collection a flat (single nesting level).
-  * [get_or_else](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#bisect) - Get value of element, and if it is missing, return the default value.
-  * [omit](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#omit) - Omit key-value pairs from the source dictionary, by keys sequence.
-  * [paginate](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#paginate) - Split the collection into page(s) according to the specified limit.
-  * [pick](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#pick) - Pick key-value pairs from the source dictionary, by keys sequence.
-  * [symmdiff](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#symmdiff) - Obtain the symmetric difference of two sequences.
-* [containers](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html) - Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.).
+* [common](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html) - Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.).
   * [Singleton](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#common.Singleton) - A metaclass that implements the singleton pattern for inheritors.
+* [containers](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html) - The common purpose utilities.
+  * [bisect](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.bisect) - Bisect the list into two parts/halves based on the number of elements.
+  * [first](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.first) - Get the value of the first element from a homogeneous collection.
+  * [flatten](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.flatten) - Make the iterated collection a flat (single nesting level).
+  * [get_or_else](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.bisect) - Get value of element, and if it is missing, return the default value.
+  * [omit](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.omit) - Omit key-value pairs from the source dictionary, by keys sequence.
+  * [paginate](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.paginate) - Split the collection into page(s) according to the specified limit.
+  * [pick](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.pick) - Pick key-value pairs from the source dictionary, by keys sequence.
+  * [symmdiff](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.symmdiff) - Obtain the symmetric difference of two sequences.
 * [datetime](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html) - Utilities for working with datetime objects.
   * [apply_tz](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.apply_tz) - Apply timezone context to datetime object.
   * [iso2format](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.iso2format) - Convert ISO-8601 datetime string into a string of specified format.
