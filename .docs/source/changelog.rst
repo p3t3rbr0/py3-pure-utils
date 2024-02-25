@@ -1,9 +1,10 @@
 Changelog
 =========
 
-v0.5.0 - [2024-03-00]
+v0.5.0 - [2024-02-25]
 ---------------------
-* ...
+* Update versions build and dev dependencies.
+* Add new module - `containers` (utilities for working with data containers).
 
 v0.4.1 - [2024-02-20]
 ---------------------
