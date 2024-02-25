@@ -7,6 +7,7 @@ from pure_utils import (
     get_or_else,
     omit,
     paginate,
+    pick,
     symmdiff,
 )
 
@@ -175,3 +176,20 @@ class TestPaginate:
         source_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         pages = paginate(source_tuple, 5)
         assert pages == [(1, 2, 3, 4, 5), (6, 7, 8, 9, 10)]
+
+
+class TestPick:
+    def test_on_existing_keys(self):
+        source_dict = {"key1": "val1", "key2": "val2", "key3": "val3"}
+        modified_dict = pick(source_dict, ["key2"])
+
+        assert modified_dict == {"key2": "val2"}
+
+        # The original dictionary has not changed
+        assert source_dict == {"key1": "val1", "key2": "val2", "key3": "val3"}
+
+    def test_on_not_existing_keys(self):
+        source_dict = {"key1": "val1", "key2": "val2", "key3": "val3"}
+        modified_dict = pick(source_dict, ["key4"])
+
+        assert modified_dict == {}

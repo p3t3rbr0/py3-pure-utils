@@ -2,7 +2,7 @@
 
 from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
 
-__all__ = ["bisect", "first", "flatten", "get_or_else", "omit", "symmdiff", "paginate"]
+__all__ = ["bisect", "first", "flatten", "get_or_else", "omit", "paginate", "pick", "symmdiff"]
 
 T = TypeVar("T")
 
@@ -192,3 +192,29 @@ def paginate(collection: Sequence[T], limit: int) -> Sequence[Sequence[T]]:
     """
     assert limit > 0
     return [collection[start : start + limit] for start in range(0, len(collection), limit)]
+
+
+def pick(source_dict: Mapping[str, Any], allowed_keys: Sequence[str]) -> Mapping[str, Any]:
+    """Pick key-value pairs from the source dictionary, by keys sequence.
+
+    All other dictionary values will be omitted.
+
+    The function does not modify the original collection.
+
+    Args:
+        source_dict: Source dictionary with data.
+        allowed_keys: A keys sequence for pick pairs in the source dictionary.
+
+    Returns:
+        A dictionary with picked key-value pairs.
+
+    Example::
+
+        from pure_utils import pick
+
+        source_dict = {"key1": "val1", "key2": "val2", "key3": "val3"}
+        result = pick(source_dict, ["key2", "key3"])
+        print(result)
+        # {"key2": "val2", "key3": "val3"}
+    """
+    return {key: source_dict[key] for key in allowed_keys if key in source_dict}
