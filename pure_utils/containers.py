@@ -2,12 +2,21 @@
 
 from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
 
-__all__ = ["bisect", "first", "flatten", "get_or_else", "omit", "paginate", "pick", "symmdiff"]
+__all__ = [
+    "bisect",
+    "first",
+    "flatten",
+    "get_or_else",
+    "omit",
+    "paginate",
+    "pick",
+    "symmdiff",
+]
 
 T = TypeVar("T")
 
 
-def bisect(source_list: list[T]) -> tuple[list[T], list[T]]:
+def bisect(source_list: list[T], /) -> tuple[list[T], list[T]]:
     """Bisect the list into two parts/halves based on the number of elements.
 
     The function does not change the original list.
@@ -25,7 +34,7 @@ def bisect(source_list: list[T]) -> tuple[list[T], list[T]]:
 
     Example::
 
-        from pure_utils import bisect
+        from pure_utils.containers import bisect
 
         l = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
@@ -38,7 +47,7 @@ def bisect(source_list: list[T]) -> tuple[list[T], list[T]]:
     return (source_list[: length // 2], source_list[length // 2 :])
 
 
-def first(collection: Sequence[T]) -> Optional[T]:
+def first(collection: Sequence[T], /) -> Optional[T]:
     """Get the value of the first element from a homogeneous collection.
 
     Args:
@@ -49,7 +58,7 @@ def first(collection: Sequence[T]) -> Optional[T]:
 
     Example::
 
-        from pure_utils import first
+        from pure_utils.containers import first
 
         seq = (1, 2, 3)
         print(first(seq))  # 1
@@ -60,7 +69,7 @@ def first(collection: Sequence[T]) -> Optional[T]:
     return next((_ for _ in collection), None)
 
 
-def flatten(collection: Sequence[T]) -> Generator[Sequence[T] | T, None, None]:
+def flatten(collection: Sequence[T], /) -> Generator[Sequence[T] | T, None, None]:
     """Make the iterated collection a flat (single nesting level).
 
     Args:
@@ -71,7 +80,7 @@ def flatten(collection: Sequence[T]) -> Generator[Sequence[T] | T, None, None]:
 
     Example::
 
-        from pure_utils import flatten
+        from pure_utils.containers import flatten
 
         seq = [[1], [2], [3], [4], [5]]
         result = list(flatten(seq))
@@ -88,7 +97,7 @@ def flatten(collection: Sequence[T]) -> Generator[Sequence[T] | T, None, None]:
         yield collection
 
 
-def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None) -> Optional[T]:
+def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None, /) -> Optional[T]:
     """Get value of element, and if it is missing, return the default value.
 
     Used for safety to get the value of a collection element.
@@ -104,7 +113,7 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
 
     Example::
 
-        from pure_utils import get_or_else
+        from pure_utils.containers import get_or_else
 
         seq = (1, 2, 3)
         print(get_or_else(seq, 0))  # 1
@@ -120,7 +129,7 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
         return default
 
 
-def symmdiff(s1: Sequence[T], s2: Sequence[T]) -> list[T]:
+def symmdiff(s1: Sequence[T], s2: Sequence[T], /) -> list[T]:
     """Obtain the symmetric difference of two sequences.
 
     Args:
@@ -132,7 +141,7 @@ def symmdiff(s1: Sequence[T], s2: Sequence[T]) -> list[T]:
 
     Example::
 
-         from pure_utils import symmdiff
+         from pure_utils.containers import symmdiff
 
          s1 = ["a", "b", "c"]
          s2 = ["e", "b", "a"]
@@ -142,7 +151,7 @@ def symmdiff(s1: Sequence[T], s2: Sequence[T]) -> list[T]:
     return list(set(s1).symmetric_difference(set(s2)))
 
 
-def omit(source_dict: Mapping[str, Any], keys_to_omit: Sequence[str]) -> Mapping[str, Any]:
+def omit(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str, Any]:
     """Omit key-value pairs from the source dictionary, by keys sequence.
 
     The function does not modify the original collection.
@@ -156,45 +165,45 @@ def omit(source_dict: Mapping[str, Any], keys_to_omit: Sequence[str]) -> Mapping
 
     Example::
 
-        from pure_utils import omit
+        from pure_utils.containers import omit
 
         source_dict = {"key1": "val1", "key2": "val2", "key3": "val3", "key4": "val4"}
         result = omit(source_dict, ["key2", "key4"] )
         print(result)  # {"key1": "val1", "key3": "val3"}
     """
-    keys_diff = symmdiff(list(source_dict.keys()), keys_to_omit)
-    return {key: source_dict[key] for key in keys_diff if key in source_dict}
+    keys_diff = symmdiff(list(source_dict.keys()), keys)
+    return {_: source_dict[_] for _ in keys_diff if _ in source_dict}
 
 
-def paginate(collection: Sequence[T], limit: int) -> Sequence[Sequence[T]]:
-    """Split the collection into page(s) according to the specified limit.
+def paginate(collection: Sequence[T], /, *, size: int) -> Sequence[Sequence[T]]:
+    """Split the collection into page(s), limited by size.
 
     The function does not modify the original collection.
 
     Args:
         collection: Collection of homogeneous elements.
-        limit: Limit of elements on one page.
+        size: Page size of elements in one page.
 
     Returns:
         A collection with elements splitted into pages (nested collections).
 
     Raises:
-        AssertionError: If limit is less than zero.
+        AssertionError: If size is less than zero.
 
     Example::
 
-        from pure_utils import paginate
+        from pure_utils.containers import paginate
 
         a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        pages = paginate(a, 3)
+        pages = paginate(a, size=3)
         print(pages)
         # [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
     """
-    assert limit > 0
-    return [collection[start : start + limit] for start in range(0, len(collection), limit)]
+    assert size > 0
+    return [collection[start : start + size] for start in range(0, len(collection), size)]
 
 
-def pick(source_dict: Mapping[str, Any], allowed_keys: Sequence[str]) -> Mapping[str, Any]:
+def pick(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str, Any]:
     """Pick key-value pairs from the source dictionary, by keys sequence.
 
     All other dictionary values will be omitted.
@@ -210,11 +219,11 @@ def pick(source_dict: Mapping[str, Any], allowed_keys: Sequence[str]) -> Mapping
 
     Example::
 
-        from pure_utils import pick
+        from pure_utils.containers import pick
 
         source_dict = {"key1": "val1", "key2": "val2", "key3": "val3"}
         result = pick(source_dict, ["key2", "key3"])
         print(result)
         # {"key2": "val2", "key3": "val3"}
     """
-    return {key: source_dict[key] for key in allowed_keys if key in source_dict}
+    return {_: source_dict[_] for _ in keys if _ in source_dict}
