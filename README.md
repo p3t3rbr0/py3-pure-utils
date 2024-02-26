@@ -19,9 +19,9 @@ Main principles:
 **For detail information read the [doc](https://p3t3rbr0.github.io/py3-pure-utils/)**.
 
 # Available utilities
-* [common](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html) - Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.).
+* [common](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html) - The common purpose utilities.
   * [Singleton](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#common.Singleton) - A metaclass that implements the singleton pattern for inheritors.
-* [containers](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html) - The common purpose utilities.
+* [containers](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html) - Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.).
   * [bisect](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.bisect) - Bisect the list into two parts/halves based on the number of elements.
   * [first](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.first) - Get the value of the first element from a homogeneous collection.
   * [flatten](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.flatten) - Make the iterated collection a flat (single nesting level).
