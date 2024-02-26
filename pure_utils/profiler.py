@@ -21,7 +21,7 @@ class Profiler:
 
     Example::
 
-        from pure_utils import Profiler
+        from pure_utils.profiler import Profiler
 
         profiler = Profiler()
         some_function_retval = profiler.profile(some_func, *func_args, **func_kwargs)

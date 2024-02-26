@@ -21,7 +21,7 @@ DEFAULT_STACK_SIZE: int = 20
 DEFAULT_STACK_FRAME: int = 2
 
 
-def around(before: Optional[Callable] = None, after: Optional[Callable] = None) -> Callable:
+def around(*, before: Optional[Callable] = None, after: Optional[Callable] = None) -> Callable:
     """Add additional behavior before and after execution of decorated function.
 
     Args:
@@ -41,7 +41,7 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
 
     Example::
 
-        from pure_utils import around
+        from pure_utils.debug import around
 
         def before_handler(*args, **kwargs):
             kwargs["_pipe"]["key"] = "some data (from before to after handlers)"
@@ -101,7 +101,7 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
     return decorate
 
 
-def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
+def caller(*, at_frame: int = DEFAULT_STACK_FRAME) -> str:
     """Get the name of calling function/method (from current function/method context).
 
     Args:
@@ -113,7 +113,7 @@ def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
 
     Example::
 
-        from pure_utils import caller
+        from pure_utils.debug import caller
 
         def func1(*args, **kwargs):
             print(f"I'am 'func1', '{caller()}' called me.")
@@ -126,7 +126,7 @@ def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
     return str(stack()[at_frame].function)
 
 
-def deltatime(logger: Optional[Logger] = None) -> Callable:
+def deltatime(*, logger: Optional[Logger] = None) -> Callable:
     """Measure execution time of decorated function and print it to log.
 
     Args:
@@ -134,7 +134,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
 
     Example::
 
-        from pure_utils import deltatime
+        from pure_utils.debug import deltatime
 
         @deltatime()
         def aim_func():
@@ -177,7 +177,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
     return decorate
 
 
-def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_SIZE) -> Callable:
+def profileit(*, logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_SIZE) -> Callable:
     """Profile decorated function being with 'cProfile'.
 
     Args:
@@ -186,7 +186,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
 
     Example::
 
-        from pure_utils import profileit
+        from pure_utils.debug import profileit
 
         def func1():
             ...
