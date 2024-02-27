@@ -230,7 +230,7 @@ def pick(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str,
     return {_: source_dict[_] for _ in keys if _ in source_dict}
 
 
-def unpack(container_object: Mapping[str, T], attributes: Sequence[str], /) -> tuple[T]:
+def unpack(container_object: Mapping[str, Any], attributes: Sequence[str], /) -> tuple[Any, ...]:
     """Unpack the values of container object into separate variables.
 
     Args:
