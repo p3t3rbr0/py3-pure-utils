@@ -9,6 +9,7 @@ from pure_utils import (
     paginate,
     pick,
     symmdiff,
+    unpack,
 )
 
 
@@ -146,35 +147,35 @@ class TestOmit:
 
 
 class TestPaginate:
-    def test_on_list_with_odd_limit(self):
+    def test_on_list_with_odd_size(self):
         source_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        pages = paginate(source_list, 3)
+        pages = paginate(source_list, size=3)
         assert pages == [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 
-    def test_on_list_with_even_limit(self):
+    def test_on_list_with_even_size(self):
         source_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        pages = paginate(source_list, 5)
+        pages = paginate(source_list, size=5)
         assert pages == [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]
 
     def test_on_list_with_signle_element(self):
         source_list = [1]
-        pages = paginate(source_list, 5)
+        pages = paginate(source_list, size=5)
         assert pages == [[1]]
 
     def test_on_empty_list(self):
-        assert paginate([], 2) == []
+        assert paginate([], size=2) == []
 
-    def test_on_zero_limit(self):
+    def test_on_zero_size(self):
         with pytest.raises(AssertionError):
-            paginate([1, 2], 0)
+            paginate([1, 2], size=0)
 
-    def test_on_negative_limit(self):
+    def test_on_negative_size(self):
         with pytest.raises(AssertionError):
-            paginate([1, 2], -1)
+            paginate([1, 2], size=-1)
 
     def test_on_tuple(self):
         source_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        pages = paginate(source_tuple, 5)
+        pages = paginate(source_tuple, size=5)
         assert pages == [(1, 2, 3, 4, 5), (6, 7, 8, 9, 10)]
 
 
@@ -193,3 +194,34 @@ class TestPick:
         modified_dict = pick(source_dict, ["key4"])
 
         assert modified_dict == {}
+
+
+class TestUnpack:
+    def test_on_dict(self):
+        d = {"a": 1, "b": True, "c": {"d": "test"}}
+        a, b, c = unpack(d, ("a", "b", "c"))
+
+        assert a == 1
+        assert b is True
+        assert c == {"d": "test"}
+
+        # Unpack value by non-existent key
+        (f,) = unpack(d, ("f",))
+        assert f is None
+
+    def test_on_object(self):
+        class A:
+            def __init__(self):
+                self.a = 100
+                self.b = 200
+                self.c = 300
+
+        obj = A()
+        a, b, c = unpack(obj, ("a", "b", "c"))
+        assert a == 100
+        assert b == 200
+        assert c == 300
+
+        # Unpack value by non-existent attribute
+        (d,) = unpack(obj, ("d"))
+        assert d is None
