@@ -11,6 +11,7 @@ __all__ = [
     "paginate",
     "pick",
     "symmdiff",
+    "unpack",
 ]
 
 T = TypeVar("T")
@@ -227,3 +228,54 @@ def pick(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str,
         # {"key2": "val2", "key3": "val3"}
     """
     return {_: source_dict[_] for _ in keys if _ in source_dict}
+
+
+def unpack(container_object: Mapping[str, T], attributes: Sequence[str], /) -> tuple[T]:
+    """Unpack the values of container object into separate variables.
+
+    Args:
+        container_object: Container object.
+        attributes: List of attribute names whose values need to be unpacked.
+
+    Returns:
+        A tuple of unpacked values of the specified attributes.
+
+    Example::
+
+        from pure_utils.containers import unpack
+
+        # Unpack existent attributes
+        d = {"a": 1, "b": True, "c": {"d": "test"}}
+        a, b = unpack(d, ("a", "b"))
+        print(a, b, sep=", ")
+        >>> 1, True
+
+        # Unpack non-existent attributes
+        e, f = print(unpack(d, ("e", "f")))
+        print(e, f, sep=", ")
+        >>> None, None
+
+        class A:
+            def __init__(self):
+                self.a = 100
+                self.b = 200
+                self.c = 300
+
+        # Unpack object attributes
+        obj = A()
+        a, b, c = unpack(obj, ("a", "b", "c"))
+        print(a, b, c, sep=", ")
+        >>> 100, 200, 300
+    """
+    if isinstance(container_object, dict):
+        return tuple(container_object.get(attr) for attr in attributes)
+
+    unpacked_values = []
+
+    for attr in attributes:
+        try:
+            unpacked_values.append(getattr(container_object, attr))
+        except AttributeError:
+            unpacked_values.append(None)
+
+    return tuple(unpacked_values)
