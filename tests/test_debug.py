@@ -53,7 +53,7 @@ class TestAround:
 
 class TestCaller:
     def func1(self, at_frame=2):
-        return caller(at_frame)
+        return caller(at_frame=at_frame)
 
     def func2(self, *args, **kwargs):
         return self.func1(*args, **kwargs)
