@@ -3,7 +3,12 @@ Changelog
 
 v0.6.0 - [2024-03-00]
 ---------------------
-* ...
+* Fix examples in docstrings.
+* Fix tests for `debug.caller`.
+* Change development status to Beta.
+* Fix `containers` function signatures.
+* Add `unpack` utiliti in `containers` module.
+* Fix README links for `containers` utilities.
 
 v0.5.0 - [2024-02-25]
 ---------------------
