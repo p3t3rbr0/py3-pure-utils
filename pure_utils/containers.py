@@ -17,7 +17,7 @@ __all__ = [
 T = TypeVar("T")
 
 
-def bisect(source_list: list[T], /) -> tuple[list[T], list[T]]:
+def bisect(source_list: list, /) -> tuple[list, list]:
     """Bisect the list into two parts/halves based on the number of elements.
 
     The function does not change the original list.
@@ -40,19 +40,19 @@ def bisect(source_list: list[T], /) -> tuple[list[T], list[T]]:
         l = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
         a, b = bisect(l)
-        print(a, b, sep="; ")
-        # [1, 2, 3, 4, 5]; [6, 7, 8, 9, 10, 11]
+        print(a, b)
+        >>> [1, 2, 3, 4, 5] [6, 7, 8, 9, 10, 11]
     """
     assert source_list
     length = len(source_list)
     return (source_list[: length // 2], source_list[length // 2 :])
 
 
-def first(collection: Sequence[T], /) -> Optional[T]:
-    """Get the value of the first element from a homogeneous collection.
+def first(collection: Sequence[Any], /) -> Optional[Any]:
+    """Get the value of the first element from a subscriptable collection.
 
     Args:
-        collection: Collection of homogeneous elements.
+        collection: Subscriptable collection.
 
     Returns:
         The value of the first element of the collection, or None if there is none.
@@ -62,19 +62,21 @@ def first(collection: Sequence[T], /) -> Optional[T]:
         from pure_utils.containers import first
 
         seq = (1, 2, 3)
-        print(first(seq))  # 1
+        print(first(seq))
+        >>> 1
 
         seq = []
-        print(first(seq))  # None
+        print(first(seq))
+        >>> None
     """
     return next((_ for _ in collection), None)
 
 
 def flatten(collection: Sequence[T], /) -> Generator[Sequence[T] | T, None, None]:
-    """Make the iterated collection a flat (single nesting level).
+    """Make the subscriptable collection a flat (single nesting level).
 
     Args:
-        collection: Collection of homogeneous elements.
+        collection: Subscriptable collection to flatten.
 
     Returns:
         Generator of the flatten function.
@@ -85,11 +87,13 @@ def flatten(collection: Sequence[T], /) -> Generator[Sequence[T] | T, None, None
 
         seq = [[1], [2], [3], [4], [5]]
         result = list(flatten(seq))
-        print(result)  # [1, 2, 3, 4, 5]
+        print(result)
+        >>> [1, 2, 3, 4, 5]
 
         seq = [[[[[[1]]]]], [[[[[2]]]]], [[[[[3]]]]], [[[[[4]]]]], [[[[[5]]]]]]
         result = list(flatten(seq))
-        print(result)  # [1, 2, 3, 4, 5]
+        print(result)
+        >>> [1, 2, 3, 4, 5]
     """
     if isinstance(collection, (list, tuple, set)):
         for _ in collection:
@@ -117,12 +121,16 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
         from pure_utils.containers import get_or_else
 
         seq = (1, 2, 3)
-        print(get_or_else(seq, 0))  # 1
-        print(get_or_else(seq, 3))  # None
-        print(get_or_else(seq, 3, -1))  # -1
+        print(get_or_else(seq, 0))
+        >>> 1
+        print(get_or_else(seq, 3))
+        >>> None
+        print(get_or_else(seq, 3, -1))
+        >>> -1
 
         seq = ["a", "b", "c"]
-        print(get_or_else(seq, 3, "does not exists"))  # does not exists
+        print(get_or_else(seq, 3, "does not exists"))
+        >>> does not exists
     """
     try:
         return collection[index]
@@ -147,7 +155,8 @@ def symmdiff(s1: Sequence[T], s2: Sequence[T], /) -> list[T]:
          s1 = ["a", "b", "c"]
          s2 = ["e", "b", "a"]
          result = symmdiff(s1, s2)
-         print(result)  # ["c", "e"]
+         print(result)
+         >>> ["c", "e"]
     """
     return list(set(s1).symmetric_difference(set(s2)))
 
@@ -170,7 +179,8 @@ def omit(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str,
 
         source_dict = {"key1": "val1", "key2": "val2", "key3": "val3", "key4": "val4"}
         result = omit(source_dict, ["key2", "key4"] )
-        print(result)  # {"key1": "val1", "key3": "val3"}
+        print(result)
+        >>> {"key1": "val1", "key3": "val3"}
     """
     keys_diff = symmdiff(list(source_dict.keys()), keys)
     return {_: source_dict[_] for _ in keys_diff if _ in source_dict}
@@ -198,7 +208,7 @@ def paginate(collection: Sequence[T], /, *, size: int) -> Sequence[Sequence[T]]:
         a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         pages = paginate(a, size=3)
         print(pages)
-        # [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+        >>> [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
     """
     assert size > 0
     return [collection[start : start + size] for start in range(0, len(collection), size)]
@@ -225,7 +235,7 @@ def pick(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str,
         source_dict = {"key1": "val1", "key2": "val2", "key3": "val3"}
         result = pick(source_dict, ["key2", "key3"])
         print(result)
-        # {"key2": "val2", "key3": "val3"}
+        >>> {"key2": "val2", "key3": "val3"}
     """
     return {_: source_dict[_] for _ in keys if _ in source_dict}
 

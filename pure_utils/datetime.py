@@ -60,8 +60,8 @@ def iso2format(isostr: str, fmt: str, /) -> str:
         from pure_utils.datetime import iso2format, YMD
 
         formatted_dt = iso2format("2005-08-09T18:31:42/P3Y6M4DT12H30M17S", YMD)
-
-        print(formatted_dt)  # 2005-08-09
+        print(formatted_dt)
+        >>> 2005-08-09
     """
     return datetime.fromisoformat(isostr).strftime(fmt)
 
@@ -80,8 +80,8 @@ def iso2dmy(isostr: str, /) -> str:
         from pure_utils.datetime import iso2dmy
 
         formatted_dt = iso2dmy("2005-08-09T18:31:42")
-
-        print(formatted_dt)  # 09.08.2005
+        print(formatted_dt)
+        >>> 09.08.2005
     """
     return iso2format(isostr, DMY)
 
@@ -100,8 +100,8 @@ def iso2ymd(isostr: str, /) -> str:
         from pure_utils.datetime import iso2ymd
 
         formatted_dt = iso2ymd("20080809T183142+0")
-
-        print(formatted_dt)  # 2008-08-09
+        print(formatted_dt)
+        >>> 2008-08-09
     """
     return iso2format(isostr, YMD)
 
@@ -126,10 +126,12 @@ def round_by(dt: datetime, /, *, boundary: str) -> datetime:
         from pure_utils.datetime import round_by
 
         exact_datatime = datetime.now()
-        print(exact_datatime)  # 2024-02-03 17:54:37.472482
+        print(exact_datatime)
+        >>> 2024-02-03 17:54:37.472482
 
         rounded_datetime = round_by(exact_datatime, boundary="hour")
-        print(rounded_datetime)  # 2024-02-03 17:00:00
+        print(rounded_datetime)
+        >>> 2024-02-03 17:00:00
     """
     replace = {}
 
