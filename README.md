@@ -30,6 +30,7 @@ Main principles:
   * [paginate](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.paginate) - Split the collection into page(s) according to the specified limit.
   * [pick](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.pick) - Pick key-value pairs from the source dictionary, by keys sequence.
   * [symmdiff](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.symmdiff) - Obtain the symmetric difference of two sequences.
+  * [unpack](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.unpack) - Unpack the values of container object into separate variables.
 * [datetime](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html) - Utilities for working with datetime objects.
   * [apply_tz](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.apply_tz) - Apply timezone context to datetime object.
   * [iso2format](https://p3t3rbr0.github.io/py3-pure-utils/refs/datetime.html#datetime.iso2format) - Convert ISO-8601 datetime string into a string of specified format.
