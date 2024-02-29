@@ -2,7 +2,7 @@ from logging import getLogger
 
 import pytest
 
-from pure_utils import around, caller, deltatime, profileit
+from pure_utils.debug import around, caller, deltatime, profileit
 
 
 class TestAround:

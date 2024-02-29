@@ -1,10 +1,10 @@
 import pytest
 
-from pure_utils import genstr, gunzip, gzip
+from pure_utils.strings import genstr, gunzip, gzip
 
 
 class TestGenstr:
-    def test_with_default_params(self):
+    def test_defaults(self):
         random_string = genstr()
 
         assert random_string
@@ -12,11 +12,11 @@ class TestGenstr:
         # String generated in lowercase, by default.
         assert random_string == random_string.lower()
 
-    def test_with_custom_length(self):
+    def test_custom_length(self):
         random_string = genstr(5)
         assert len(random_string) == 5
 
-    def test_with_is_uppercase(self):
+    def test_is_uppercase(self):
         random_string = genstr(is_uppercase=True)
         assert random_string == random_string.upper()
 

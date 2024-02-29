@@ -1,6 +1,6 @@
 import pytest
 
-from pure_utils import (
+from pure_utils.containers import (
     bisect,
     first,
     flatten,
@@ -14,7 +14,7 @@ from pure_utils import (
 
 
 class TestBisect:
-    def test_with_non_empty_list(self):
+    def test_on_non_empty_list(self):
         source_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         a, b = bisect(source_list)
 
@@ -24,7 +24,7 @@ class TestBisect:
         # Source list not changed.
         assert source_list == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-    def test_with_empty_list(self):
+    def test_on_empty_list(self):
         source_list = []
 
         with pytest.raises(AssertionError):
@@ -34,57 +34,57 @@ class TestBisect:
 
 
 class TestFirst:
-    def test_with_non_empty_list(self):
+    def test_on_non_empty_list(self):
         assert first([1, 2, 3]) == 1
 
-    def test_with_non_empty_set(self):
+    def test_on_non_empty_set(self):
         assert first(set([1, 2, 3])) == 1
 
-    def test_with_non_empty_tuple(self):
+    def test_on_non_empty_tuple(self):
         assert first((1, 2, 3)) == 1
 
-    def test_with_empty_list(self):
+    def test_on_empty_list(self):
         assert first([]) is None
 
 
 class TestFlatten:
-    def test_with_one_dimention_list_seequence(self):
+    def test_on_one_dimention_list_seequence(self):
         seq = [1, 2, 3, 4, 5]
         result = list(flatten(seq))
 
         assert result == [1, 2, 3, 4, 5]
 
-    def test_with_one_dimention_set_seequence(self):
+    def test_on_one_dimention_set_seequence(self):
         seq = {1, 2, 3, 4, 5}
         result = set(flatten(seq))
 
         assert result == {1, 2, 3, 4, 5}
 
-    def test_with_one_dimention_tuple_seequence(self):
+    def test_on_one_dimention_tuple_seequence(self):
         seq = (1, 2, 3, 4, 5)
         result = tuple(flatten(seq))
 
         assert result == (1, 2, 3, 4, 5)
 
-    def test_with_two_dimention_list_seequence(self):
+    def test_on_two_dimention_list_seequence(self):
         seq = [[1], [2], [3], [4], [5]]
         result = list(flatten(seq))
 
         assert result == [1, 2, 3, 4, 5]
 
-    def test_with_two_dimention_tuple_seequence(self):
+    def test_on_two_dimention_tuple_seequence(self):
         seq = ((1,), (2,), (3,), (4,), (5,))
         result = tuple(flatten(seq))
 
         assert result == (1, 2, 3, 4, 5)
 
-    def test_with_multiple_dimention_list_seequence(self):
+    def test_on_multiple_dimention_list_seequence(self):
         seq = [[[[[[1]]]]], [[[[[2]]]]], [[[[[3]]]]], [[[[[4]]]]], [[[[[5]]]]]]
         result = list(flatten(seq))
 
         assert result == [1, 2, 3, 4, 5]
 
-    def test_with_multiple_dimention_tuple_seequence(self):
+    def test_on_multiple_dimention_tuple_seequence(self):
         seq = (
             (((((1,),),),),),
             (((((2,),),),),),
@@ -109,7 +109,7 @@ class TestGetOrElse:
 
 
 class TestSymmdiff:
-    def test_with_two_lists(self):
+    def test_on_two_lists(self):
         l1 = ["a", "b", "c"]
         l2 = ["e", "b", "a"]
         diff = symmdiff(l1, l2)
@@ -120,14 +120,14 @@ class TestSymmdiff:
         assert l1 == ["a", "b", "c"]
         assert l2 == ["e", "b", "a"]
 
-    def test_with_two_tuples(self):
+    def test_on_two_tuples(self):
         t1 = ("a", "b", "c")
         t2 = ("e", "b", "a")
         diff = symmdiff(t1, t2)
 
         assert sorted(diff) == ["c", "e"]
 
-    def test_with_two_sets(self):
+    def test_on_two_sets(self):
         s1 = set(["a", "b", "c"])
         s2 = set(["e", "b", "a"])
         diff = symmdiff(s1, s2)
