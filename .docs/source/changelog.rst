@@ -1,7 +1,7 @@
 Changelog
 =========
 
-v0.6.0 - [2024-03-00]
+v0.6.0 - [2024-03-01]
 ---------------------
 * Add ``unpack`` utility in ``containers`` module.
 * Add function synopsis in README short descriptions.
