@@ -38,7 +38,7 @@ def apply_tz(dt: datetime, tz: str = "UTC", /) -> datetime:
     Example::
 
         from datetime import datetime, UTC
-        from pure_utils.datetime import apply_tz
+        from pure_utils.times import apply_tz
 
         datetime_with_tz_context = apply_tz(datetime.now(UTC), "Europe/Moscow")
     """
@@ -57,7 +57,7 @@ def iso2format(isostr: str, fmt: str, /) -> str:
 
     Example::
 
-        from pure_utils.datetime import iso2format, YMD
+        from pure_utils.times import iso2format, YMD
 
         formatted_dt = iso2format("2005-08-09T18:31:42/P3Y6M4DT12H30M17S", YMD)
         print(formatted_dt)
@@ -77,7 +77,7 @@ def iso2dmy(isostr: str, /) -> str:
 
     Example::
 
-        from pure_utils.datetime import iso2dmy
+        from pure_utils.times import iso2dmy
 
         formatted_dt = iso2dmy("2005-08-09T18:31:42")
         print(formatted_dt)
@@ -97,7 +97,7 @@ def iso2ymd(isostr: str, /) -> str:
 
     Example::
 
-        from pure_utils.datetime import iso2ymd
+        from pure_utils.times import iso2ymd
 
         formatted_dt = iso2ymd("20080809T183142+0")
         print(formatted_dt)
@@ -123,7 +123,7 @@ def round_by(dt: datetime, /, *, boundary: str) -> datetime:
     Example::
 
         from datetime import datetime
-        from pure_utils.datetime import round_by
+        from pure_utils.times import round_by
 
         exact_datatime = datetime.now()
         print(exact_datatime)
