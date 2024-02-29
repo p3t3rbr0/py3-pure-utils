@@ -1,6 +1,15 @@
 """Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.)."""
 
-from typing import Any, Generator, Mapping, Optional, Sequence, TypeVar
+from typing import (
+    Any,
+    Generator,
+    KeysView,
+    Mapping,
+    Optional,
+    Sequence,
+    TypeAlias,
+    TypeVar,
+)
 
 __all__ = [
     "bisect",
@@ -15,23 +24,23 @@ __all__ = [
 ]
 
 T = TypeVar("T")
+KeysT: TypeAlias = Sequence[T] | KeysView[T]
 
 
-def bisect(source_list: list, /) -> tuple[list, list]:
+def bisect(collection: list[T], /) -> tuple[list[T], list[T]]:
     """Bisect the list into two parts/halves based on the number of elements.
 
-    The function does not change the original list.
+    The function does not change the original collection.
 
     Args:
-        source_list: Source list.
+        collection: Source collection.
 
     Returns:
-        A two-element tuple containing two lists:
-        the first list represents the first half of the original list,
-        and the second list in the tuple is the second half of the original list, respectively.
+        A two-element tuple containing two lists: the first list represents the first half of the
+        original collection, and the second list is the second half.
 
     Raises:
-        AssertionError: If source list is empty.
+        AssertionError: If collection is empty.
 
     Example::
 
@@ -39,16 +48,16 @@ def bisect(source_list: list, /) -> tuple[list, list]:
 
         l = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-        a, b = bisect(l)
-        print(a, b)
+        first_half, second_half = bisect(l)
+        print(first_half, second_half)
         >>> [1, 2, 3, 4, 5] [6, 7, 8, 9, 10, 11]
     """
-    assert source_list
-    length = len(source_list)
-    return (source_list[: length // 2], source_list[length // 2 :])
+    assert collection
+    length = len(collection)
+    return (collection[: length // 2], collection[length // 2 :])
 
 
-def first(collection: Sequence[Any], /) -> Optional[Any]:
+def first(collection: Sequence[T], /) -> Optional[T]:
     """Get the value of the first element from a subscriptable collection.
 
     Args:
@@ -138,7 +147,7 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
         return default
 
 
-def symmdiff(s1: Sequence[T], s2: Sequence[T], /) -> list[T]:
+def symmdiff(s1: KeysT, s2: KeysT, /) -> Sequence[T]:
     """Obtain the symmetric difference of two sequences.
 
     Args:
@@ -161,29 +170,29 @@ def symmdiff(s1: Sequence[T], s2: Sequence[T], /) -> list[T]:
     return list(set(s1).symmetric_difference(set(s2)))
 
 
-def omit(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str, Any]:
+def omit(container: Mapping[str, Any], keys: KeysT, /) -> Mapping[str, Any]:
     """Omit key-value pairs from the source dictionary, by keys sequence.
 
     The function does not modify the original collection.
 
     Args:
-        source_dict: Source dictionary with data.
-        keys_to_omit: A keys sequence for omitted pairs in the source dictionary.
+        container: Source data container.
+        keys: A sequence of strings or keys() for omitted pairs in the source data container.
 
     Returns:
-        A dictionary without omitted key-value pairs.
+        A data container without omitted key-value pairs.
 
     Example::
 
         from pure_utils.containers import omit
 
-        source_dict = {"key1": "val1", "key2": "val2", "key3": "val3", "key4": "val4"}
-        result = omit(source_dict, ["key2", "key4"] )
+        container = {"key1": "val1", "key2": "val2", "key3": "val3", "key4": "val4"}
+        result = omit(container, ["key2", "key4"] )
         print(result)
         >>> {"key1": "val1", "key3": "val3"}
     """
-    keys_diff = symmdiff(list(source_dict.keys()), keys)
-    return {_: source_dict[_] for _ in keys_diff if _ in source_dict}
+    keys_diff: KeysT = symmdiff(container.keys(), keys)
+    return {_: container[_] for _ in keys_diff if _ in container}
 
 
 def paginate(collection: Sequence[T], /, *, size: int) -> Sequence[Sequence[T]]:
@@ -214,7 +223,7 @@ def paginate(collection: Sequence[T], /, *, size: int) -> Sequence[Sequence[T]]:
     return [collection[start : start + size] for start in range(0, len(collection), size)]
 
 
-def pick(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str, Any]:
+def pick(container: Mapping[str, Any], keys: KeysT, /) -> Mapping[str, Any]:
     """Pick key-value pairs from the source dictionary, by keys sequence.
 
     All other dictionary values will be omitted.
@@ -222,30 +231,30 @@ def pick(source_dict: Mapping[str, Any], keys: Sequence[str], /) -> Mapping[str,
     The function does not modify the original collection.
 
     Args:
-        source_dict: Source dictionary with data.
-        allowed_keys: A keys sequence for pick pairs in the source dictionary.
+        container: Source data container.
+        keys: A sequence of strings or keys() for pick pairs in the source data container.
 
     Returns:
-        A dictionary with picked key-value pairs.
+        A new data container with picked key-value pairs.
 
     Example::
 
         from pure_utils.containers import pick
 
-        source_dict = {"key1": "val1", "key2": "val2", "key3": "val3"}
-        result = pick(source_dict, ["key2", "key3"])
+        container = {"key1": "val1", "key2": "val2", "key3": "val3"}
+        result = pick(container, ["key2", "key3"])
         print(result)
         >>> {"key2": "val2", "key3": "val3"}
     """
-    return {_: source_dict[_] for _ in keys if _ in source_dict}
+    return {_: container[_] for _ in keys if _ in container}
 
 
-def unpack(container_object: Mapping[str, Any], attributes: Sequence[str], /) -> tuple[Any, ...]:
+def unpack(container: Mapping[str, Any], attributes: KeysT, /) -> tuple[Any, ...]:
     """Unpack the values of container object into separate variables.
 
     Args:
-        container_object: Container object.
-        attributes: List of attribute names whose values need to be unpacked.
+        container: Source data container.
+        attributes: A sequence of strings or keys() whose values need to be unpacked.
 
     Returns:
         A tuple of unpacked values of the specified attributes.
@@ -277,14 +286,14 @@ def unpack(container_object: Mapping[str, Any], attributes: Sequence[str], /) ->
         print(a, b, c, sep=", ")
         >>> 100, 200, 300
     """
-    if isinstance(container_object, dict):
-        return tuple(container_object.get(attr) for attr in attributes)
+    if isinstance(container, dict):
+        return tuple(container.get(attr) for attr in attributes)
 
     unpacked_values = []
 
     for attr in attributes:
         try:
-            unpacked_values.append(getattr(container_object, attr))
+            unpacked_values.append(getattr(container, attr))
         except AttributeError:
             unpacked_values.append(None)
 
