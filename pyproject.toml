@@ -11,7 +11,7 @@ exclude = ["tests*"]
 
 [project]
 name = "pure-utils"
-version = "0.5.0"
+version = "0.6.0"
 authors = [
   {name="Peter Bro", email="p3t3rbr0@gmail.com"},
 ]
@@ -20,7 +20,7 @@ keywords = ["utilities", "bicycle", "crutches"]
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "License :: OSI Approved :: MIT License",

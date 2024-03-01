@@ -3,7 +3,7 @@ from sys import version_info
 
 import pytest
 
-from pure_utils import apply_tz, iso2dmy, iso2format, iso2ymd, round_by
+from pure_utils.times import apply_tz, iso2dmy, iso2format, iso2ymd, round_by
 
 
 class TestApplyTz:
@@ -11,13 +11,13 @@ class TestApplyTz:
     def now(self):
         return datetime.now()
 
-    def test_with_defaults(self, now):
+    def test_defaults(self, now):
         result = apply_tz(now)
         assert result
         assert isinstance(result, datetime)
         assert str(result.tzinfo) == "UTC"
 
-    def test_with_custom_timezone(self, now):
+    def test_custom_timezone(self, now):
         result = apply_tz(now, "Europe/Moscow")
         assert result
         assert isinstance(result, datetime)
@@ -38,14 +38,14 @@ class TestIso2Dmy:
             ("2011-08-09T18:31:42-03:30", "09.08.2011"),
         ],
     )
-    def test_with_iso_datetime_string(self, iso_datetime, expected):
+    def test_iso_datetime_string(self, iso_datetime, expected):
         formatted_dt = iso2dmy(iso_datetime)
         assert formatted_dt
         assert isinstance(formatted_dt, str)
         assert formatted_dt == expected
 
     @pytest.mark.skipif(version_info != (3, 10), reason="python3.10 only")
-    def test_with_iso_datetime_string_310_compatible(self):
+    def test_iso_datetime_string_310_compatible(self):
         formatted_dt = iso2ymd("2009-08-09T18:31:42+03")
         assert formatted_dt
         assert isinstance(formatted_dt, str)
@@ -66,14 +66,14 @@ class TestIso2Ymd:
             ("2011-08-09T18:31:42-03:30", "2011-08-09"),
         ],
     )
-    def test_with_iso_datetime_string(self, iso_datetime, expected):
+    def test_iso_datetime_string(self, iso_datetime, expected):
         formatted_dt = iso2ymd(iso_datetime)
         assert formatted_dt
         assert isinstance(formatted_dt, str)
         assert formatted_dt == expected
 
     @pytest.mark.skipif(version_info != (3, 10), reason="python3.10 only")
-    def test_with_iso_datetime_string_310_compatible(self):
+    def test_iso_datetime_string_310_compatible(self):
         formatted_dt = iso2ymd("2009-08-09T18:31:42+03")
         assert formatted_dt
         assert isinstance(formatted_dt, str)
@@ -90,14 +90,14 @@ class TestIso2Format:
             ("2009-08-09T18:31:42+03", "%d.%m.%Y %H:%M:%S", "09.08.2009 18:31:42"),
         ],
     )
-    def test_with_iso_datetime_string(self, iso_datetime, fmt, expected):
+    def test_iso_datetime_string(self, iso_datetime, fmt, expected):
         formatted_dt = iso2format(iso_datetime, fmt)
         assert formatted_dt
         assert isinstance(formatted_dt, str)
         assert formatted_dt == expected
 
     @pytest.mark.skipif(version_info != (3, 10), reason="python3.10 only")
-    def test_with_iso_datetime_string_310_compatible(self):
+    def test_iso_datetime_string_310_compatible(self):
         formatted_dt = iso2format("2009-08-09T18:31:42+03", "%d.%m.%Y %H:%M:%S")
         assert formatted_dt
         assert isinstance(formatted_dt, str)

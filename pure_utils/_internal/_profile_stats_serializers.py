@@ -43,7 +43,7 @@ class ProfileStatsStringSerializer(ProfileStatsSerializer):
     def func_std_string(self, func_name) -> str:
         """Prepare a ProfileStats function according to a string pattern."""
         if func_name[:2] == ("~", 0):
-            # special case for built-in functions
+            # Special case for built-in functions
             name = func_name[2]
             if name.startswith("<") and name.endswith(">"):
                 return "{%s}" % name[1:-1]

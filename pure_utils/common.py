@@ -13,7 +13,7 @@ class Singleton(type):
 
     Example::
 
-        from pure_utils import Singleton
+        from pure_utils.common import Singleton
 
         class SomeSigletonClass(metaclass=Singleton):
             ...
