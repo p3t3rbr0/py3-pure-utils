@@ -1,9 +1,9 @@
 import pytest
 
-from pure_utils import Profiler
 from pure_utils._internal._profile_stats_serializers import (
     ProfileStatsSerializer,
 )
+from pure_utils.profiler import Profiler
 
 
 class DummuStringPStatsSerializer(ProfileStatsSerializer):

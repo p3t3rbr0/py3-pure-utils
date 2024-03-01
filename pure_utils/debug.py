@@ -21,7 +21,7 @@ DEFAULT_STACK_SIZE: int = 20
 DEFAULT_STACK_FRAME: int = 2
 
 
-def around(before: Optional[Callable] = None, after: Optional[Callable] = None) -> Callable:
+def around(*, before: Optional[Callable] = None, after: Optional[Callable] = None) -> Callable:
     """Add additional behavior before and after execution of decorated function.
 
     Args:
@@ -41,7 +41,7 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
 
     Example::
 
-        from pure_utils import around
+        from pure_utils.debug import around
 
         def before_handler(*args, **kwargs):
             kwargs["_pipe"]["key"] = "some data (from before to after handlers)"
@@ -55,23 +55,23 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
             print("in da func")
 
         func()
-        # before!
-        # in da func
-        # after: some data (from before to after handlers) !
+        >>> before!
+        >>> in da func
+        >>> after: some data (from before to after handlers) !
 
         # !!! Use around with only BEFORE handler !!!
         @around(before=before_handler)
         def func2():
             print("in da func2")
-        # before!
-        # in da func2
+        >>> before!
+        >>> in da func2
 
         # !!! Use around with only AFTER handler !!!
         @around(after=after_handler)
         def func3():
             print("in da func3")
-        # after!
-        # in da func3
+        >>> after!
+        >>> in da func3
     """
 
     def decorate(func) -> AnyCallableT:
@@ -101,7 +101,7 @@ def around(before: Optional[Callable] = None, after: Optional[Callable] = None) 
     return decorate
 
 
-def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
+def caller(*, at_frame: int = DEFAULT_STACK_FRAME) -> str:
     """Get the name of calling function/method (from current function/method context).
 
     Args:
@@ -113,7 +113,7 @@ def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
 
     Example::
 
-        from pure_utils import caller
+        from pure_utils.debug import caller
 
         def func1(*args, **kwargs):
             print(f"I'am 'func1', '{caller()}' called me.")
@@ -121,12 +121,13 @@ def caller(at_frame: int = DEFAULT_STACK_FRAME) -> str:
         def func2(*args, **kwargs):
             return func1()
 
-        func2()  # I'am 'func1', 'func2' called me.
+        func2()
+        >>> I'am 'func1', 'func2' called me.
     """
     return str(stack()[at_frame].function)
 
 
-def deltatime(logger: Optional[Logger] = None) -> Callable:
+def deltatime(*, logger: Optional[Logger] = None) -> Callable:
     """Measure execution time of decorated function and print it to log.
 
     Args:
@@ -134,7 +135,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
 
     Example::
 
-        from pure_utils import deltatime
+        from pure_utils.debug import deltatime
 
         @deltatime()
         def aim_func():
@@ -143,7 +144,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
 
         result, delta = aim_func()
         print(f"Execution time of aim_func: {delta} sec.")
-        # Execution time of aim_func: 0.025 sec.
+        >>> Execution time of aim_func: 0.025 sec.
 
         # !!! Or use decorator with logger (side effect) !!!
 
@@ -156,7 +157,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
                 ...
 
         result, _ = aim_func2()
-        # DEBUG:root:[DELTATIME]: 'aim_func2' (0.025 sec.)
+        >>> DEBUG:root:[DELTATIME]: 'aim_func2' (0.025 sec.)
     """
 
     def decorate(func) -> AnyCallableT:
@@ -177,7 +178,7 @@ def deltatime(logger: Optional[Logger] = None) -> Callable:
     return decorate
 
 
-def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_SIZE) -> Callable:
+def profileit(*, logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_SIZE) -> Callable:
     """Profile decorated function being with 'cProfile'.
 
     Args:
@@ -186,7 +187,7 @@ def profileit(logger: Optional[Logger] = None, stack_size: int = DEFAULT_STACK_S
 
     Example::
 
-        from pure_utils import profileit
+        from pure_utils.debug import profileit
 
         def func1():
             ...
