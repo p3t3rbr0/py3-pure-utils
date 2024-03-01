@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="profiler" href="profiler.html" /><link rel="prev" title="datetime" href="datetime.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="profiler" href="profiler.html" /><link rel="prev" title="containers" href="containers.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>debug - pure-utils</title>
@@ -158,10 +158,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="common.html">common</a></li>
 <li class="toctree-l1"><a class="reference internal" href="containers.html">containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datetime.html">datetime</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">debug</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiler.html">profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="times.html">times</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -209,16 +209,16 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#debug.around" title="debug.around"><code class="xref py py-obj docutils literal notranslate"><span class="pre">around</span></code></a>([before, after])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#debug.around" title="debug.around"><code class="xref py py-obj docutils literal notranslate"><span class="pre">around</span></code></a>(*[, before, after])</p></td>
 <td><p>Add additional behavior before and after execution of decorated function.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#debug.caller" title="debug.caller"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caller</span></code></a>([at_frame])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#debug.caller" title="debug.caller"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caller</span></code></a>(*[, at_frame])</p></td>
 <td><p>Get the name of calling function/method (from current function/method context).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#debug.deltatime" title="debug.deltatime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deltatime</span></code></a>([logger])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#debug.deltatime" title="debug.deltatime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deltatime</span></code></a>(*[, logger])</p></td>
 <td><p>Measure execution time of decorated function and print it to log.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#debug.profileit" title="debug.profileit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">profileit</span></code></a>([logger, stack_size])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#debug.profileit" title="debug.profileit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">profileit</span></code></a>(*[, logger, stack_size])</p></td>
 <td><p>Profile decorated function being with 'cProfile'.</p></td>
 </tr>
 </tbody>
@@ -228,7 +228,7 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="debug.around">
-<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">around</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#debug.around" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">around</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#debug.around" title="Link to this definition">#</a></dt>
 <dd><p>Add additional behavior before and after execution of decorated function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -250,44 +250,44 @@ in the kwargs named argument dictionary.</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">around</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>from pure_utils.debug import around
 
-<span class="k">def</span> <span class="nf">before_handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;_pipe&quot;</span><span class="p">][</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;some data (from before to after handlers)&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;before!&quot;</span><span class="p">)</span>
+def before_handler(*args, **kwargs):
+    kwargs[&quot;_pipe&quot;][&quot;key&quot;] = &quot;some data (from before to after handlers)&quot;
+    print(&quot;before!&quot;)
 
-<span class="k">def</span> <span class="nf">after_handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;after: </span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;_pipe&#39;</span><span class="p">][</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> !&quot;</span><span class="p">)</span>
+def after_handler(*args, **kwargs):
+    print(f&quot;after: {kwargs[&#39;_pipe&#39;][&#39;key&#39;]} !&quot;)
 
-<span class="nd">@around</span><span class="p">(</span><span class="n">before</span><span class="o">=</span><span class="n">before_handler</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="n">after_handler</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;in da func&quot;</span><span class="p">)</span>
+@around(before=before_handler, after=after_handler)
+def func():
+    print(&quot;in da func&quot;)
 
-<span class="n">func</span><span class="p">()</span>
-<span class="c1"># before!</span>
-<span class="c1"># in da func</span>
-<span class="c1"># after: some data (from before to after handlers) !</span>
+func()
+&gt;&gt;&gt; before!
+&gt;&gt;&gt; in da func
+&gt;&gt;&gt; after: some data (from before to after handlers) !
 
-<span class="c1"># !!! Use around with only BEFORE handler !!!</span>
-<span class="nd">@around</span><span class="p">(</span><span class="n">before</span><span class="o">=</span><span class="n">before_handler</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">func2</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;in da func2&quot;</span><span class="p">)</span>
-<span class="c1"># before!</span>
-<span class="c1"># in da func2</span>
+# !!! Use around with only BEFORE handler !!!
+@around(before=before_handler)
+def func2():
+    print(&quot;in da func2&quot;)
+&gt;&gt;&gt; before!
+&gt;&gt;&gt; in da func2
 
-<span class="c1"># !!! Use around with only AFTER handler !!!</span>
-<span class="nd">@around</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">after_handler</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">func3</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;in da func3&quot;</span><span class="p">)</span>
-<span class="c1"># after!</span>
-<span class="c1"># in da func3</span>
+# !!! Use around with only AFTER handler !!!
+@around(after=after_handler)
+def func3():
+    print(&quot;in da func3&quot;)
+&gt;&gt;&gt; after!
+&gt;&gt;&gt; in da func3
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="debug.caller">
-<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">caller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">at_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#debug.caller" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">caller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">at_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#debug.caller" title="Link to this definition">#</a></dt>
 <dd><p>Get the name of calling function/method (from current function/method context).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -302,7 +302,7 @@ Need increased with each wrap to decorator.</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">caller</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.debug</span> <span class="kn">import</span> <span class="n">caller</span>
 
 <span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I&#39;am &#39;func1&#39;, &#39;</span><span class="si">{</span><span class="n">caller</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39; called me.&quot;</span><span class="p">)</span>
@@ -310,14 +310,15 @@ Need increased with each wrap to decorator.</p>
 <span class="k">def</span> <span class="nf">func2</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">func1</span><span class="p">()</span>
 
-<span class="n">func2</span><span class="p">()</span>  <span class="c1"># I&#39;am &#39;func1&#39;, &#39;func2&#39; called me.</span>
+<span class="n">func2</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">I</span><span class="s1">&#39;am &#39;</span><span class="n">func1</span><span class="s1">&#39;, &#39;</span><span class="n">func2</span><span class="s1">&#39; called me.</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="debug.deltatime">
-<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">deltatime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#debug.deltatime" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">deltatime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#debug.deltatime" title="Link to this definition">#</a></dt>
 <dd><p>Measure execution time of decorated function and print it to log.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -325,7 +326,7 @@ Need increased with each wrap to decorator.</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">deltatime</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.debug</span> <span class="kn">import</span> <span class="n">deltatime</span>
 
 <span class="nd">@deltatime</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">aim_func</span><span class="p">():</span>
@@ -334,7 +335,7 @@ Need increased with each wrap to decorator.</p>
 
 <span class="n">result</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">aim_func</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Execution time of aim_func: </span><span class="si">{</span><span class="n">delta</span><span class="si">}</span><span class="s2"> sec.&quot;</span><span class="p">)</span>
-<span class="c1"># Execution time of aim_func: 0.025 sec.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Execution</span> <span class="n">time</span> <span class="n">of</span> <span class="n">aim_func</span><span class="p">:</span> <span class="mf">0.025</span> <span class="n">sec</span><span class="o">.</span>
 
 <span class="c1"># !!! Or use decorator with logger (side effect) !!!</span>
 
@@ -347,14 +348,14 @@ Need increased with each wrap to decorator.</p>
         <span class="o">...</span>
 
 <span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aim_func2</span><span class="p">()</span>
-<span class="c1"># DEBUG:root:[DELTATIME]: &#39;aim_func2&#39; (0.025 sec.)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">DEBUG</span><span class="p">:</span><span class="n">root</span><span class="p">:[</span><span class="n">DELTATIME</span><span class="p">]:</span> <span class="s1">&#39;aim_func2&#39;</span> <span class="p">(</span><span class="mf">0.025</span> <span class="n">sec</span><span class="o">.</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="debug.profileit">
-<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">profileit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#debug.profileit" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">debug.</span></span><span class="sig-name descname"><span class="pre">profileit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#debug.profileit" title="Link to this definition">#</a></dt>
 <dd><p>Profile decorated function being with ‘cProfile’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -365,7 +366,7 @@ Need increased with each wrap to decorator.</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">profileit</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.debug</span> <span class="kn">import</span> <span class="n">profileit</span>
 
 <span class="k">def</span> <span class="nf">func1</span><span class="p">():</span>
     <span class="o">...</span>
@@ -424,14 +425,14 @@ Need increased with each wrap to decorator.</p>
                         </div>
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                     </a>
-                    <a class="prev-page" href="datetime.html">
+                    <a class="prev-page" href="containers.html">
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                         <div class="page-info">
                             <div class="context">
                                 <span>Previous</span>
                             </div>
                             
-                            <div class="title">datetime</div>
+                            <div class="title">containers</div>
                             
                         </div>
                     </a>

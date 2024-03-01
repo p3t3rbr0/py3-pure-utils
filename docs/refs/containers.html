@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="datetime" href="datetime.html" /><link rel="prev" title="common" href="common.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="debug" href="debug.html" /><link rel="prev" title="common" href="common.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>containers - pure-utils</title>
@@ -158,10 +158,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="common.html">common</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datetime.html">datetime</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiler.html">profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="times.html">times</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -209,29 +209,32 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#containers.bisect" title="containers.bisect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bisect</span></code></a>(source_list)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#containers.bisect" title="containers.bisect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bisect</span></code></a>(collection, /)</p></td>
 <td><p>Bisect the list into two parts/halves based on the number of elements.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#containers.first" title="containers.first"><code class="xref py py-obj docutils literal notranslate"><span class="pre">first</span></code></a>(collection)</p></td>
-<td><p>Get the value of the first element from a homogeneous collection.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#containers.first" title="containers.first"><code class="xref py py-obj docutils literal notranslate"><span class="pre">first</span></code></a>(collection, /)</p></td>
+<td><p>Get the value of the first element from a subscriptable collection.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#containers.flatten" title="containers.flatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten</span></code></a>(collection)</p></td>
-<td><p>Make the iterated collection a flat (single nesting level).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#containers.flatten" title="containers.flatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten</span></code></a>(collection, /)</p></td>
+<td><p>Make the subscriptable collection a flat (single nesting level).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#containers.get_or_else" title="containers.get_or_else"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_or_else</span></code></a>(collection, index[, default])</p></td>
 <td><p>Get value of element, and if it is missing, return the default value.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#containers.omit" title="containers.omit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">omit</span></code></a>(source_dict, keys_to_omit)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#containers.omit" title="containers.omit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">omit</span></code></a>(container, keys, /)</p></td>
 <td><p>Omit key-value pairs from the source dictionary, by keys sequence.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#containers.paginate" title="containers.paginate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paginate</span></code></a>(collection, limit)</p></td>
-<td><p>Split the collection into page(s) according to the specified limit.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#containers.paginate" title="containers.paginate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paginate</span></code></a>(collection, /, *, size)</p></td>
+<td><p>Split the collection into page(s), limited by size.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#containers.pick" title="containers.pick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick</span></code></a>(source_dict, allowed_keys)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#containers.pick" title="containers.pick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick</span></code></a>(container, keys, /)</p></td>
 <td><p>Pick key-value pairs from the source dictionary, by keys sequence.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#containers.symmdiff" title="containers.symmdiff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">symmdiff</span></code></a>(s1, s2)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#containers.symmdiff" title="containers.symmdiff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">symmdiff</span></code></a>(s1, s2, /)</p></td>
 <td><p>Obtain the symmetric difference of two sequences.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#containers.unpack" title="containers.unpack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unpack</span></code></a>(container, attributes, /)</p></td>
+<td><p>Unpack the values of container object into separate variables.</p></td>
 </tr>
 </tbody>
 </table>
@@ -240,43 +243,43 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.bisect">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">bisect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.bisect" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">bisect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.bisect" title="Link to this definition">#</a></dt>
 <dd><p>Bisect the list into two parts/halves based on the number of elements.</p>
-<p>The function does not change the original list.</p>
+<p>The function does not change the original collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>source_list</strong> (<em>list</em><em>[</em><em>T</em><em>]</em>) – Source list.</p>
+<dd class="field-odd"><p><strong>collection</strong> (<em>list</em><em>[</em><em>T</em><em>]</em>) – Source collection.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the first list represents the first half of the original list,
-and the second list in the tuple is the second half of the original list, respectively.</p>
+<dd class="field-even"><p>the first list represents the first half of the
+original collection, and the second list is the second half.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A two-element tuple containing two lists</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>AssertionError</strong> – If source list is empty.</p>
+<dd class="field-even"><p><strong>AssertionError</strong> – If collection is empty.</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">bisect</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">bisect</span>
 
 <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
 
-<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;; &quot;</span><span class="p">)</span>
-<span class="c1"># [1, 2, 3, 4, 5]; [6, 7, 8, 9, 10, 11]</span>
+<span class="n">first_half</span><span class="p">,</span> <span class="n">second_half</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">first_half</span><span class="p">,</span> <span class="n">second_half</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.first">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">first</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#containers.first" title="Link to this definition">#</a></dt>
-<dd><p>Get the value of the first element from a homogeneous collection.</p>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">first</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#containers.first" title="Link to this definition">#</a></dt>
+<dd><p>Get the value of the first element from a subscriptable collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>collection</strong> (<em>Sequence</em><em>[</em><em>T</em><em>]</em>) – Collection of homogeneous elements.</p>
+<dd class="field-odd"><p><strong>collection</strong> (<em>Sequence</em><em>[</em><em>T</em><em>]</em>) – Subscriptable collection.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The value of the first element of the collection, or None if there is none.</p>
@@ -286,24 +289,26 @@ and the second list in the tuple is the second half of the original list, respec
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">first</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">first</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">first</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>  <span class="c1"># 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">first</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">first</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>  <span class="c1"># None</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">first</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">None</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.flatten">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.flatten" title="Link to this definition">#</a></dt>
-<dd><p>Make the iterated collection a flat (single nesting level).</p>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.flatten" title="Link to this definition">#</a></dt>
+<dd><p>Make the subscriptable collection a flat (single nesting level).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>collection</strong> (<em>Sequence</em><em>[</em><em>T</em><em>]</em>) – Collection of homogeneous elements.</p>
+<dd class="field-odd"><p><strong>collection</strong> (<em>Sequence</em><em>[</em><em>T</em><em>]</em>) – Subscriptable collection to flatten.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Generator of the flatten function.</p>
@@ -313,22 +318,24 @@ and the second list in the tuple is the second half of the original list, respec
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">flatten</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">flatten</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">]]</span>
 <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># [1, 2, 3, 4, 5]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="p">[[[[[[</span><span class="mi">1</span><span class="p">]]]]],</span> <span class="p">[[[[[</span><span class="mi">2</span><span class="p">]]]]],</span> <span class="p">[[[[[</span><span class="mi">3</span><span class="p">]]]]],</span> <span class="p">[[[[[</span><span class="mi">4</span><span class="p">]]]]],</span> <span class="p">[[[[[</span><span class="mi">5</span><span class="p">]]]]]]</span>
 <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># [1, 2, 3, 4, 5]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.get_or_else">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">get_or_else</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#containers.get_or_else" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">get_or_else</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#containers.get_or_else" title="Link to this definition">#</a></dt>
 <dd><p>Get value of element, and if it is missing, return the default value.</p>
 <p>Used for safety to get the value of a collection element.</p>
 <dl class="field-list simple">
@@ -348,137 +355,190 @@ or default value, when no element by this index.</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">get_or_else</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">get_or_else</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># 1</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># None</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># -1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">None</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="o">-</span><span class="mi">1</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;does not exists&quot;</span><span class="p">))</span>  <span class="c1"># does not exists</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_or_else</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;does not exists&quot;</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exists</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.omit">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">omit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys_to_omit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.omit" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">omit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">KeysView</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.omit" title="Link to this definition">#</a></dt>
 <dd><p>Omit key-value pairs from the source dictionary, by keys sequence.</p>
 <p>The function does not modify the original collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_dict</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Source dictionary with data.</p></li>
-<li><p><strong>keys_to_omit</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – A keys sequence for omitted pairs in the source dictionary.</p></li>
+<li><p><strong>container</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Source data container.</p></li>
+<li><p><strong>keys</strong> (<em>Sequence</em><em>[</em><em>T</em><em>] </em><em>| </em><em>KeysView</em><em>[</em><em>T</em><em>]</em>) – A sequence of strings or keys() for omitted pairs in the source data container.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary without omitted key-value pairs.</p>
+<dd class="field-even"><p>A data container without omitted key-value pairs.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Mapping</em>[str, <em>Any</em>]</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">omit</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">omit</span>
 
-<span class="n">source_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;val1&quot;</span><span class="p">,</span> <span class="s2">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;val2&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">:</span> <span class="s2">&quot;val3&quot;</span><span class="p">,</span> <span class="s2">&quot;key4&quot;</span><span class="p">:</span> <span class="s2">&quot;val4&quot;</span><span class="p">}</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">omit</span><span class="p">(</span><span class="n">source_dict</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;key2&quot;</span><span class="p">,</span> <span class="s2">&quot;key4&quot;</span><span class="p">]</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># {&quot;key1&quot;: &quot;val1&quot;, &quot;key3&quot;: &quot;val3&quot;}</span>
+<span class="n">container</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;val1&quot;</span><span class="p">,</span> <span class="s2">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;val2&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">:</span> <span class="s2">&quot;val3&quot;</span><span class="p">,</span> <span class="s2">&quot;key4&quot;</span><span class="p">:</span> <span class="s2">&quot;val4&quot;</span><span class="p">}</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">omit</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;key2&quot;</span><span class="p">,</span> <span class="s2">&quot;key4&quot;</span><span class="p">]</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s2">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;val1&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">:</span> <span class="s2">&quot;val3&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.paginate">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">paginate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.paginate" title="Link to this definition">#</a></dt>
-<dd><p>Split the collection into page(s) according to the specified limit.</p>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">paginate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.paginate" title="Link to this definition">#</a></dt>
+<dd><p>Split the collection into page(s), limited by size.</p>
 <p>The function does not modify the original collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>collection</strong> (<em>Sequence</em><em>[</em><em>T</em><em>]</em>) – Collection of homogeneous elements.</p></li>
-<li><p><strong>limit</strong> (<em>int</em>) – Limit of elements on one page.</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – Page size of elements in one page.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A collection with elements splitted into pages (nested collections).</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>AssertionError</strong> – If limit is less than zero.</p>
+<dd class="field-odd"><p><strong>AssertionError</strong> – If size is less than zero.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>Sequence</em>[<em>Sequence</em>[<em>T</em>]]</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">paginate</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">paginate</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-<span class="n">pages</span> <span class="o">=</span> <span class="n">paginate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">pages</span> <span class="o">=</span> <span class="n">paginate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pages</span><span class="p">)</span>
-<span class="c1"># [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">]]</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.pick">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">pick</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.pick" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">pick</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">KeysView</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.pick" title="Link to this definition">#</a></dt>
 <dd><p>Pick key-value pairs from the source dictionary, by keys sequence.</p>
 <p>All other dictionary values will be omitted.</p>
 <p>The function does not modify the original collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_dict</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Source dictionary with data.</p></li>
-<li><p><strong>allowed_keys</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – A keys sequence for pick pairs in the source dictionary.</p></li>
+<li><p><strong>container</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Source data container.</p></li>
+<li><p><strong>keys</strong> (<em>Sequence</em><em>[</em><em>T</em><em>] </em><em>| </em><em>KeysView</em><em>[</em><em>T</em><em>]</em>) – A sequence of strings or keys() for pick pairs in the source data container.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary with picked key-value pairs.</p>
+<dd class="field-even"><p>A new data container with picked key-value pairs.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Mapping</em>[str, <em>Any</em>]</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">pick</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">pick</span>
 
-<span class="n">source_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;val1&quot;</span><span class="p">,</span> <span class="s2">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;val2&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">:</span> <span class="s2">&quot;val3&quot;</span><span class="p">}</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">source_dict</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;key2&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">])</span>
+<span class="n">container</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;val1&quot;</span><span class="p">,</span> <span class="s2">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;val2&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">:</span> <span class="s2">&quot;val3&quot;</span><span class="p">}</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;key2&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-<span class="c1"># {&quot;key2&quot;: &quot;val2&quot;, &quot;key3&quot;: &quot;val3&quot;}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s2">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;val2&quot;</span><span class="p">,</span> <span class="s2">&quot;key3&quot;</span><span class="p">:</span> <span class="s2">&quot;val3&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="containers.symmdiff">
-<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">symmdiff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.symmdiff" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">symmdiff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">KeysView</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">KeysView</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.symmdiff" title="Link to this definition">#</a></dt>
 <dd><p>Obtain the symmetric difference of two sequences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>s1</strong> (<em>Sequence</em><em>[</em><em>T</em><em>]</em>) – The first sequence to form a set on the LEFT.</p></li>
-<li><p><strong>s2</strong> (<em>Sequence</em><em>[</em><em>T</em><em>]</em>) – The second sequence to form a set on the RIGHT.</p></li>
+<li><p><strong>s1</strong> (<em>Sequence</em><em>[</em><em>T</em><em>] </em><em>| </em><em>KeysView</em><em>[</em><em>T</em><em>]</em>) – The first sequence to form a set on the LEFT.</p></li>
+<li><p><strong>s2</strong> (<em>Sequence</em><em>[</em><em>T</em><em>] </em><em>| </em><em>KeysView</em><em>[</em><em>T</em><em>]</em>) – The second sequence to form a set on the RIGHT.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The symmetric difference of two sequences as a list.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[<em>T</em>]</p>
+<dd class="field-odd"><p><em>Sequence</em>[<em>T</em>]</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">symmdiff</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">symmdiff</span>
 
 <span class="n">s1</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
 <span class="n">s2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">]</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">symmdiff</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># [&quot;c&quot;, &quot;e&quot;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="containers.unpack">
+<span class="sig-prename descclassname"><span class="pre">containers.</span></span><span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">KeysView</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#containers.unpack" title="Link to this definition">#</a></dt>
+<dd><p>Unpack the values of container object into separate variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>container</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Source data container.</p></li>
+<li><p><strong>attributes</strong> (<em>Sequence</em><em>[</em><em>T</em><em>] </em><em>| </em><em>KeysView</em><em>[</em><em>T</em><em>]</em>) – A sequence of strings or keys() whose values need to be unpacked.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of unpacked values of the specified attributes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[<em>Any</em>, …]</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.containers</span> <span class="kn">import</span> <span class="n">unpack</span>
+
+<span class="c1"># Unpack existent attributes</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">}}</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span>
+
+<span class="c1"># Unpack non-existent attributes</span>
+<span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">print</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">200</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="c1"># Unpack object attributes</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -491,12 +551,12 @@ or default value, when no element by this index.</p>
             <footer>
                 
                 <div class="related-pages">
-                    <a class="next-page" href="datetime.html">
+                    <a class="next-page" href="debug.html">
                         <div class="page-info">
                             <div class="context">
                                 <span>Next</span>
                             </div>
-                            <div class="title">datetime</div>
+                            <div class="title">debug</div>
                         </div>
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                     </a>
@@ -553,6 +613,7 @@ or default value, when no element by this index.</p>
 <li><a class="reference internal" href="#containers.paginate"><code class="docutils literal notranslate"><span class="pre">paginate()</span></code></a></li>
 <li><a class="reference internal" href="#containers.pick"><code class="docutils literal notranslate"><span class="pre">pick()</span></code></a></li>
 <li><a class="reference internal" href="#containers.symmdiff"><code class="docutils literal notranslate"><span class="pre">symmdiff()</span></code></a></li>
+<li><a class="reference internal" href="#containers.unpack"><code class="docutils literal notranslate"><span class="pre">unpack()</span></code></a></li>
 </ul>
 </li>
 </ul>

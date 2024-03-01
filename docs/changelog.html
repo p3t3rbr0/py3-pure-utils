@@ -158,10 +158,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="refs/common.html">common</a></li>
 <li class="toctree-l1"><a class="reference internal" href="refs/containers.html">containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refs/datetime.html">datetime</a></li>
 <li class="toctree-l1"><a class="reference internal" href="refs/debug.html">debug</a></li>
 <li class="toctree-l1"><a class="reference internal" href="refs/profiler.html">profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="refs/strings.html">strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refs/times.html">times</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -204,59 +204,72 @@
                 <article role="main">
                     <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">#</a></h1>
+<section id="v0-6-0-2024-03-01">
+<h2>v0.6.0 - [2024-03-01]<a class="headerlink" href="#v0-6-0-2024-03-01" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">unpack</span></code> utility in <code class="docutils literal notranslate"><span class="pre">containers</span></code> module.</p></li>
+<li><p>Add function synopsis in README short descriptions.</p></li>
+<li><p>Fix examples in docstrings.</p></li>
+<li><p>Fix tests for <code class="docutils literal notranslate"><span class="pre">debug.caller</span></code>.</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">containers</span></code> function signatures.</p></li>
+<li><p>Fix README links for <code class="docutils literal notranslate"><span class="pre">containers</span></code> utilities.</p></li>
+<li><p>Change development status to Beta.</p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">datetime</span></code> module to <code class="docutils literal notranslate"><span class="pre">times</span></code>.</p></li>
+</ul>
+</section>
 <section id="v0-5-0-2024-02-25">
 <h2>v0.5.0 - [2024-02-25]<a class="headerlink" href="#v0-5-0-2024-02-25" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Add new module - <code class="docutils literal notranslate"><span class="pre">containers</span></code> (utilities for working with data containers).</p></li>
 <li><p>Update versions build and dev dependencies.</p></li>
-<li><p>Add new module - <cite>containers</cite> (utilities for working with data containers).</p></li>
 </ul>
 </section>
 <section id="v0-4-1-2024-02-20">
 <h2>v0.4.1 - [2024-02-20]<a class="headerlink" href="#v0-4-1-2024-02-20" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">_internal</span></code> subpackage (with “private” modules).</p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">dt</span></code> module to <code class="docutils literal notranslate"><span class="pre">datetime</span></code>.</p></li>
 <li><p>Refactor imports into tests.</p></li>
-<li><p>Rename <cite>dt</cite> module to <cite>datetime</cite>.</p></li>
-<li><p>Add <cite>_internal</cite> subpackage (with “private” modules).</p></li>
-<li><p>Refactor variables into <cite>debug</cite>, <cite>profiler</cite> and <cite>_internal/*</cite> modules.</p></li>
+<li><p>Refactor variables into <code class="docutils literal notranslate"><span class="pre">debug</span></code>, <code class="docutils literal notranslate"><span class="pre">profiler</span></code> and <code class="docutils literal notranslate"><span class="pre">_internal/*</span></code> modules.</p></li>
 </ul>
 </section>
 <section id="v0-4-0-2024-02-19">
 <h2>v0.4.0 - [2024-02-19]<a class="headerlink" href="#v0-4-0-2024-02-19" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Refactor .docs/Makefile.</p></li>
 <li><p>Add support Python3.12 into ci scenario.</p></li>
+<li><p>Add several tests (for <code class="docutils literal notranslate"><span class="pre">dt</span></code> module) for python3.10 only.</p></li>
+<li><p>Add new module - <code class="docutils literal notranslate"><span class="pre">debug</span></code> (utilities for debugging and development).</p></li>
+<li><p>Add new module - <code class="docutils literal notranslate"><span class="pre">profiler</span></code> (helper classes for working with the cProfile).</p></li>
+<li><p>Refactor .docs/Makefile.</p></li>
 <li><p>Use flake8 explicitly into Makefile and ci scenario.</p></li>
-<li><p>Add several tests (for <cite>dt</cite> module) for python3.10 only.</p></li>
-<li><p>Add new module - <cite>debug</cite> (utilities for debugging and development).</p></li>
-<li><p>Add new module - <cite>profiler</cite> (helper classes for working with the cProfile).</p></li>
-<li><p>Remove <cite>pyproject-flake8</cite> optional dependencies, because it’s orphaned on github.</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">pyproject-flake8</span></code> optional dependencies, because it’s orphaned on github.</p></li>
 </ul>
 </section>
 <section id="v0-3-0-2024-02-04">
 <h2>v0.3.0 - [2024-02-04]<a class="headerlink" href="#v0-3-0-2024-02-04" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Add new module - <cite>dt</cite> (utilities for working with datetime objects).</p></li>
+<li><p>Add new module - <code class="docutils literal notranslate"><span class="pre">dt</span></code> (utilities for working with datetime objects).</p></li>
 </ul>
 </section>
 <section id="v0-2-0-2024-02-02">
 <h2>v0.2.0 - [2024-02-02]<a class="headerlink" href="#v0-2-0-2024-02-02" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Remove run_tests.sh.</p></li>
-<li><p>Fix coverage settings.</p></li>
-<li><p>Rename github workflow scenario.</p></li>
 <li><p>Add new string utilities module.</p></li>
 <li><p>Add short utilities description in README.</p></li>
-<li><p>Add new make commands (tests-cov-json, tests-cov-html).</p></li>
+<li><p>Add new make commands (<code class="docutils literal notranslate"><span class="pre">tests-cov-json</span></code>, <code class="docutils literal notranslate"><span class="pre">tests-cov-html</span></code>).</p></li>
+<li><p>Fix coverage settings.</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">run_tests.sh</span></code>.</p></li>
+<li><p>Rename github workflow scenario.</p></li>
 </ul>
 </section>
 <section id="v0-1-1-2024-02-01">
 <h2>v0.1.1 - [2024-02-01]<a class="headerlink" href="#v0-1-1-2024-02-01" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Add badges for gh-repo.</p></li>
+<li><p>Add new make-command: <code class="docutils literal notranslate"><span class="pre">upload</span></code> (for upload built packages to PyPI).</p></li>
 <li><p>Fix Makefile.</p></li>
 <li><p>Fix Sphinx docs.</p></li>
-<li><p>Add badges for gh-repo.</p></li>
 <li><p>Fix package name in README.</p></li>
-<li><p>Add new make-command: upload (for upload built packages to PyPI).</p></li>
 </ul>
 </section>
 <section id="v0-1-0-2024-02-01">
@@ -327,6 +340,7 @@ python project, github actions, makefile automations, docs, etc).</p></li>
                     <div class="toc-tree">
                         <ul>
 <li><a class="reference internal" href="#">Changelog</a><ul>
+<li><a class="reference internal" href="#v0-6-0-2024-03-01">v0.6.0 - [2024-03-01]</a></li>
 <li><a class="reference internal" href="#v0-5-0-2024-02-25">v0.5.0 - [2024-02-25]</a></li>
 <li><a class="reference internal" href="#v0-4-1-2024-02-20">v0.4.1 - [2024-02-20]</a></li>
 <li><a class="reference internal" href="#v0-4-0-2024-02-19">v0.4.0 - [2024-02-19]</a></li>
