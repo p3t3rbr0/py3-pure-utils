@@ -1,11 +1,11 @@
 import time
 from functools import wraps
 from logging import Logger
-from typing import Callable, Optional, ParamSpec, Sequence, Type, TypeVar
+from typing import Any, Callable, Optional, ParamSpec, Type, TypeVar
 
 T = TypeVar("T")
 P = ParamSpec("P")
-ExceptionsT = Sequence[Type[BaseException]]
+ExceptionT = Type[BaseException]
 
 
 class ExecuteError(Exception):
@@ -30,7 +30,7 @@ class BaseRepeater:
         self.sleep_interval = sleep_interval
         self.logger = logger
 
-    def __call__(self, *args, **kwargs) -> T:
+    def __call__(self, *args: P.args, **kwargs: P.kwargs) -> Any:
         for attempt in range(self.attempts):
             step = attempt + 1
 
@@ -48,31 +48,31 @@ class BaseRepeater:
 
         raise RepeateError(f"No success for '{self.fn.__name__}' after {self.attempts} attempts.")
 
-    def execute(self, *args, **kwargs) -> T:
+    def execute(self, *args, **kwargs) -> Any:
         raise NotImplementedError
 
 
-class ExceptionalRepeater(BaseRepeater):
+class ExceptionBasedRepeater(BaseRepeater):
     def __init__(
         self,
         fn: Callable,
         *,
         attempts: int,
         sleep_interval: int,
-        exceptions: ExceptionsT,
+        exceptions: ExceptionT | tuple[ExceptionT, ...],
         logger: Optional[Logger] = None,
     ) -> None:
-        super().__init__(fn, attempts, sleep_interval, logger)
+        super().__init__(fn, attempts=attempts, sleep_interval=sleep_interval, logger=logger)
         self.exceptions = exceptions
 
-    def execute(self, *args, **kwargs):
+    def execute(self, *args: P.args, **kwargs: P.kwargs) -> Any:
         try:
             return self.fn(*args, **kwargs)
         except self.exceptions as exc:
             raise ExecuteError(str(exc))
 
 
-class PredicativeRepeater(BaseRepeater):
+class PredicativeBasedRepeater(BaseRepeater):
     def __init__(
         self,
         fn: Callable,
@@ -82,10 +82,10 @@ class PredicativeRepeater(BaseRepeater):
         predicate: Callable,
         logger: Optional[Logger] = None,
     ) -> None:
-        super().__init__(fn, attempts, sleep_interval, logger)
+        super().__init__(fn, attempts=attempts, sleep_interval=sleep_interval, logger=logger)
         self.predicate = predicate
 
-    def execute(self, *args, **kwargs):
+    def execute(self, *args: P.args, **kwargs: P.kwargs) -> Any:
         result = self.fn(*args, **kwargs)
 
         if not self.predicate(result):
