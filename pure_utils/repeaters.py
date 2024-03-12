@@ -1,6 +1,8 @@
-import time
+"""Utilities for repeatedly execute custom logic."""
+
 from functools import wraps
 from logging import Logger
+from time import sleep
 from typing import Any, Callable, Optional, ParamSpec, Type, TypeVar
 
 T = TypeVar("T")
@@ -9,28 +11,57 @@ ExceptionT = Type[BaseException]
 
 
 class ExecuteError(Exception):
+    """Raised when execute is failed."""
+
     pass
 
 
 class RepeateError(Exception):
+    """Raised after last execution attempt."""
+
     pass
 
 
 class BaseRepeater:
+    """Implements a base logic, such as constructor and execute method."""
+
     def __init__(
         self,
         fn: Callable,
         *,
         attempts: int,
-        sleep_interval: int,
+        interval: int,
         logger: Optional[Logger] = None,
     ) -> None:
+        """Constructor.
+
+        Args:
+            fn: Callable object for execution.
+            attempts: Maximum number of execution attempts
+            interval: Time interval between attempts.
+            logger: Logger object for detailed info about repeats.
+        """
         self.fn = fn
         self.attempts = attempts
-        self.sleep_interval = sleep_interval
+        self.interval = interval
         self.logger = logger
 
     def __call__(self, *args: P.args, **kwargs: P.kwargs) -> Any:
+        """Callable interface for repeater object.
+
+        Calls the object's execute method inside.
+        After exhausting all available attempts, raises an RepeateError exception.
+
+        Args:
+            *args: Positional arguments to be passed to function being repeated.
+            *kwargs: Named arguments to be passed to function being repeated.
+
+        Returns:
+            Result of executing a repeatable function.
+
+        Raises:
+            RepeateError: If all retry attempts have been exhausted.
+        """
         for attempt in range(self.attempts):
             step = attempt + 1
 
@@ -43,12 +74,16 @@ class BaseRepeater:
                         f"{self.attempts - step} attempts left.\n{exc}"
                     )
 
-                if self.sleep_interval:
-                    time.sleep(step * self.sleep_interval)
+                if self.interval:
+                    sleep(step * self.interval)
 
         raise RepeateError(f"No success for '{self.fn.__name__}' after {self.attempts} attempts.")
 
     def execute(self, *args, **kwargs) -> Any:
+        """Execute repeatable function.
+
+        Needs to be implemented in inheritor classes.
+        """
         raise NotImplementedError
 
 
@@ -58,11 +93,11 @@ class ExceptionBasedRepeater(BaseRepeater):
         fn: Callable,
         *,
         attempts: int,
-        sleep_interval: int,
+        interval: int,
         exceptions: ExceptionT | tuple[ExceptionT, ...],
         logger: Optional[Logger] = None,
     ) -> None:
-        super().__init__(fn, attempts=attempts, sleep_interval=sleep_interval, logger=logger)
+        super().__init__(fn, attempts=attempts, interval=interval, logger=logger)
         self.exceptions = exceptions
 
     def execute(self, *args: P.args, **kwargs: P.kwargs) -> Any:
@@ -78,11 +113,11 @@ class PredicativeBasedRepeater(BaseRepeater):
         fn: Callable,
         *,
         attempts: int,
-        sleep_interval: int,
+        interval: int,
         predicate: Callable,
         logger: Optional[Logger] = None,
     ) -> None:
-        super().__init__(fn, attempts=attempts, sleep_interval=sleep_interval, logger=logger)
+        super().__init__(fn, attempts=attempts, interval=interval, logger=logger)
         self.predicate = predicate
 
     def execute(self, *args: P.args, **kwargs: P.kwargs) -> Any:
@@ -97,15 +132,13 @@ class PredicativeBasedRepeater(BaseRepeater):
 def repeat(
     repeater: Type[BaseRepeater],
     attempts: int = 3,
-    sleep_interval: int = 1,
+    interval: int = 1,
     **params,
 ) -> Callable:
     def decorate(fn: Callable[P, T]) -> Callable[P, T]:
         @wraps(fn)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
-            return repeater(fn, attempts=attempts, sleep_interval=sleep_interval, **params)(
-                *args, **kwargs
-            )
+            return repeater(fn, attempts=attempts, interval=interval, **params)(*args, **kwargs)
 
         return wrapper
 
