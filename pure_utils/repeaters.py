@@ -88,6 +88,8 @@ class BaseRepeater:
 
 
 class ExceptionBasedRepeater(BaseRepeater):
+    """Repeater based on catching targeted exceptions."""
+
     def __init__(
         self,
         fn: Callable,
@@ -97,10 +99,32 @@ class ExceptionBasedRepeater(BaseRepeater):
         exceptions: ExceptionT | tuple[ExceptionT, ...],
         logger: Optional[Logger] = None,
     ) -> None:
+        """Constructor.
+
+        Args:
+            fn: Callable object for execution.
+            attempts: Maximum number of execution attempts
+            interval: Time interval between attempts.
+            exceptions: Single or multiple (into tuple) targeted exceptions.
+            logger: Logger object for detailed info about repeats.
+        """
+
         super().__init__(fn, attempts=attempts, interval=interval, logger=logger)
         self.exceptions = exceptions
 
     def execute(self, *args: P.args, **kwargs: P.kwargs) -> Any:
+        """Execute repeatable function.
+
+        Args:
+            *args: Positional arguments for repeatable function.
+            *kwargs: Named arguments for repeatable function.
+
+        Returns:
+            Result of executing a repeatable function.
+
+        Raises:
+            ExecuteError: If one of the target exceptions was caught.
+        """
         try:
             return self.fn(*args, **kwargs)
         except self.exceptions as exc:
