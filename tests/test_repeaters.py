@@ -1,6 +1,10 @@
 import pytest
 
-from pure_utils.repeaters import ExceptionBasedRepeater, PredicativeBasedRepeater, repeat
+from pure_utils.repeaters import (
+    ExceptionBasedRepeater,
+    PredicativeBasedRepeater,
+    repeat,
+)
 
 
 class TestExceptionBasedRepeater:
