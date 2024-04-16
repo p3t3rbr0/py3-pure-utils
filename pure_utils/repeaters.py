@@ -34,14 +34,7 @@ class RepeateError(Exception):
 class BaseRepeater:
     """Implements a base logic, such as constructor and execute method."""
 
-    def __init__(
-        self,
-        fn: Callable,
-        *,
-        attempts: int,
-        interval: int,
-        logger: Optional[Logger] = None,
-    ) -> None:
+    def __init__(self, *, attempts: int, interval: int, logger: Optional[Logger] = None) -> None:
         """Constructor.
 
         Args:
@@ -50,12 +43,11 @@ class BaseRepeater:
             interval: Time interval between attempts.
             logger: Logger object for detailed info about repeats.
         """
-        self.fn = fn
         self.attempts = attempts
         self.interval = interval
         self.logger = logger
 
-    def __call__(self, *args: P.args, **kwargs: P.kwargs) -> Any:
+    def __call__(self, fn: Callable, *args: P.args, **kwargs: P.kwargs) -> Any:
         """Callable interface for repeater object.
 
         Calls the object's execute method inside.
@@ -75,14 +67,12 @@ class BaseRepeater:
             step = attempt + 1
 
             try:
-                return self.execute(*args, **kwargs)
+                return self.execute(fn, *args, **kwargs)
             except ExecuteError as exc:
-                self.log(
-                    f"'{self.fn.__name__}' failed! {self.attempts - step} attempts left.\n{exc}"
-                )
+                self._log(f"'{fn.__name__}' failed! {self.attempts - step} attempts left.\n{exc}")
                 sleep(step * self.interval)
 
-        raise RepeateError(f"No success for '{self.fn.__name__}' after {self.attempts} attempts.")
+        raise RepeateError(f"No success for '{fn.__name__}' after {self.attempts} attempts.")
 
     def execute(self, *args, **kwargs) -> Any:
         """Execute repeatable function.
@@ -91,7 +81,7 @@ class BaseRepeater:
         """
         raise NotImplementedError
 
-    def log(self, message: str) -> None:
+    def _log(self, message: str) -> None:
         if self.logger:
             self.logger.warning(f"Repeater: {message}")
 
@@ -101,11 +91,10 @@ class ExceptionBasedRepeater(BaseRepeater):
 
     def __init__(
         self,
-        fn: Callable,
         *,
         attempts: int,
         interval: int,
-        exceptions: ExceptionT | tuple[ExceptionT, ...],
+        exceptions: tuple[ExceptionT, ...],
         logger: Optional[Logger] = None,
     ) -> None:
         """Constructor.
@@ -117,10 +106,10 @@ class ExceptionBasedRepeater(BaseRepeater):
             exceptions: Single or multiple (into tuple) targeted exceptions.
             logger: Logger object for detailed info about repeats.
         """
-        super().__init__(fn, attempts=attempts, interval=interval, logger=logger)
+        super().__init__(attempts=attempts, interval=interval, logger=logger)
         self.exceptions = exceptions
 
-    def execute(self, *args: P.args, **kwargs: P.kwargs) -> Any:
+    def execute(self, fn: Callable, *args: P.args, **kwargs: P.kwargs) -> Any:
         """Execute repeatable function.
 
         Args:
@@ -134,7 +123,7 @@ class ExceptionBasedRepeater(BaseRepeater):
             ExecuteError: If one of the target exceptions was caught.
         """
         try:
-            return self.fn(*args, **kwargs)
+            return fn(*args, **kwargs)
         except self.exceptions as exc:
             raise ExecuteError(str(exc))
 
@@ -144,7 +133,6 @@ class PredicativeBasedRepeater(BaseRepeater):
 
     def __init__(
         self,
-        fn: Callable,
         *,
         attempts: int,
         interval: int,
@@ -160,10 +148,10 @@ class PredicativeBasedRepeater(BaseRepeater):
             predicate: Predicate function.
             logger: Logger object for detailed info about repeats.
         """
-        super().__init__(fn, attempts=attempts, interval=interval, logger=logger)
+        super().__init__(attempts=attempts, interval=interval, logger=logger)
         self.predicate = predicate
 
-    def execute(self, *args: P.args, **kwargs: P.kwargs) -> Any:
+    def execute(self, fn: Callable, *args: P.args, **kwargs: P.kwargs) -> Any:
         """Execute repeatable function.
 
         Args:
@@ -176,7 +164,7 @@ class PredicativeBasedRepeater(BaseRepeater):
         Raises:
             ExecuteError: If predicate function return a False.
         """
-        result = self.fn(*args, **kwargs)
+        result = fn(*args, **kwargs)
 
         if not self.predicate(result):
             raise ExecuteError
@@ -184,24 +172,17 @@ class PredicativeBasedRepeater(BaseRepeater):
         return result
 
 
-def repeat(
-    repeater: Type[BaseRepeater],
-    attempts: int = 3,
-    interval: int = 1,
-    **params,
-) -> Callable:
+def repeat(repeater: BaseRepeater) -> Callable:
     """Decorator for repeat wrapped function by `repeater` logic.
 
     Args:
-        repeater: Repeater class.
-        attempts: Attempts number (default=3).
-        interval: Time interval between attempts (default=1)
+        repeater: Repeater object.
     """
 
     def decorate(fn: Callable[P, T]) -> Callable[P, T]:
         @wraps(fn)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
-            return repeater(fn, attempts=attempts, interval=interval, **params)(*args, **kwargs)
+            return repeater(fn, *args, **kwargs)
 
         return wrapper
 

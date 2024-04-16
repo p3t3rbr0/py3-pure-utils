@@ -13,7 +13,7 @@ class CustomException(Exception):
 
 
 class TestExceptionBasedRepeater:
-    @repeat(repeater=ExceptionBasedRepeater, exceptions=CustomException)
+    @repeat(ExceptionBasedRepeater(exceptions=(CustomException,), attempts=5, interval=1))
     def some_repeatable_func(self):
         raise CustomException("some error")
 
@@ -23,8 +23,10 @@ class TestExceptionBasedRepeater:
         with pytest.raises(RepeateError):
             self.some_repeatable_func()
 
-        assert sleep_mock.call_count == 3
-        sleep_mock.assert_has_calls([mocker.call(1), mocker.call(2), mocker.call(3)])
+        assert sleep_mock.call_count == 5
+        sleep_mock.assert_has_calls(
+            [mocker.call(1), mocker.call(2), mocker.call(3), mocker.call(4), mocker.call(5)]
+        )
 
 
 # class TestPredicativeBasedRepeater:
