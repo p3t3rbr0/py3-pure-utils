@@ -29,11 +29,18 @@ class TestExceptionBasedRepeater:
         )
 
 
-# class TestPredicativeBasedRepeater:
-#     def test_sample(self):
-#         assert True
+class TestPredicativeBasedRepeater:
+    @repeat(PredicativeBasedRepeater(predicate=lambda x: x == "ok", attempts=5, interval=1))
+    def some_repeatable_func(self):
+        return "not ok"
 
+    def test_repeat(self, mocker):
+        sleep_mock = mocker.patch("pure_utils.repeaters.sleep")
 
-# class TestRepeat:
-#     def test_sample(self):
-#         assert True
+        with pytest.raises(RepeateError):
+            self.some_repeatable_func()
+
+        assert sleep_mock.call_count == 5
+        sleep_mock.assert_has_calls(
+            [mocker.call(1), mocker.call(2), mocker.call(3), mocker.call(4), mocker.call(5)]
+        )
