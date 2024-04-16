@@ -10,7 +10,13 @@ P = ParamSpec("P")
 ExceptionT = Type[BaseException]
 
 
-__all__ = ["ExceptionBasedRepeater", "PredicativeBasedRepeater", "repeat"]
+__all__ = [
+    "ExceptionBasedRepeater",
+    "PredicativeBasedRepeater",
+    "repeat",
+    "ExecuteError",
+    "RepeateError",
+]
 
 
 class ExecuteError(Exception):
@@ -71,14 +77,10 @@ class BaseRepeater:
             try:
                 return self.execute(*args, **kwargs)
             except ExecuteError as exc:
-                if self.logger:
-                    self.logger.warning(
-                        f"Function '{self.fn.__name__}' failed! "
-                        f"{self.attempts - step} attempts left.\n{exc}"
-                    )
-
-                if self.interval:
-                    sleep(step * self.interval)
+                self.log(
+                    f"'{self.fn.__name__}' failed! {self.attempts - step} attempts left.\n{exc}"
+                )
+                sleep(step * self.interval)
 
         raise RepeateError(f"No success for '{self.fn.__name__}' after {self.attempts} attempts.")
 
@@ -88,6 +90,10 @@ class BaseRepeater:
         Needs to be implemented in inheritor classes.
         """
         raise NotImplementedError
+
+    def log(self, message: str) -> None:
+        if self.logger:
+            self.logger.warning(f"Repeater: {message}")
 
 
 class ExceptionBasedRepeater(BaseRepeater):
