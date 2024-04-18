@@ -10,7 +10,7 @@ from pure_utils.repeaters import (
 
 class TestExceptionBasedRepeater:
     def test_repeat_with_default_params_and_custom_logger(self, mocker, fake_logger):
-        @repeat(ExceptionBasedRepeater(exceptions=(CustomException,), logger=fake_logger))
+        @repeat(ExceptionBasedRepeater(exceptions=(Exception,), logger=fake_logger))
         def some_repeatable_func():
             raise Exception("some error")
 
@@ -23,7 +23,7 @@ class TestExceptionBasedRepeater:
         sleep_mock.assert_has_calls([mocker.call(1), mocker.call(2), mocker.call(3)])
 
     def test_repeat_with_custom_params_and_without_logger(self, mocker):
-        @repeat(ExceptionBasedRepeater(exceptions=(CustomException,), attempts=5, interval=1))
+        @repeat(ExceptionBasedRepeater(exceptions=(Exception,), attempts=5, interval=1))
         def some_repeatable_func():
             raise Exception("some error")
 
@@ -38,7 +38,7 @@ class TestExceptionBasedRepeater:
         )
 
     def test_repeat_when_exception_is_not_rised(self, mocker):
-        @repeat(ExceptionBasedRepeater(exceptions=(CustomException,)))
+        @repeat(ExceptionBasedRepeater(exceptions=(Exception,)))
         def some_repeatable_func():
             return "ok"
 
