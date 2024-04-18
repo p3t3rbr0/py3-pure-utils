@@ -8,15 +8,11 @@ from pure_utils.repeaters import (
 )
 
 
-class CustomException(Exception):
-    pass
-
-
 class TestExceptionBasedRepeater:
     def test_repeat_with_default_params_and_custom_logger(self, mocker, fake_logger):
         @repeat(ExceptionBasedRepeater(exceptions=(CustomException,), logger=fake_logger))
         def some_repeatable_func():
-            raise CustomException("some error")
+            raise Exception("some error")
 
         sleep_mock = mocker.patch("pure_utils.repeaters.sleep")
 
@@ -29,7 +25,7 @@ class TestExceptionBasedRepeater:
     def test_repeat_with_custom_params_and_without_logger(self, mocker):
         @repeat(ExceptionBasedRepeater(exceptions=(CustomException,), attempts=5, interval=1))
         def some_repeatable_func():
-            raise CustomException("some error")
+            raise Exception("some error")
 
         sleep_mock = mocker.patch("pure_utils.repeaters.sleep")
 
