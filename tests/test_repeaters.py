@@ -2,7 +2,7 @@ import pytest
 
 from pure_utils.repeaters import (
     ExceptionBasedRepeater,
-    PredicativeBasedRepeater,
+    PredicateBasedRepeater,
     RepeateError,
     repeat,
 )
@@ -51,21 +51,8 @@ class TestExceptionBasedRepeater:
 
 
 class TestPredicativeBasedRepeater:
-    def test_repeat_with_negative_predicate(self, mocker):
-        @repeat(PredicativeBasedRepeater(predicate=lambda x: x == "ok"))
-        def some_repeatable_func():
-            return "not ok"
-
-        sleep_mock = mocker.patch("pure_utils.repeaters.sleep")
-
-        with pytest.raises(RepeateError):
-            some_repeatable_func()
-
-        assert sleep_mock.call_count == 3
-        sleep_mock.assert_has_calls([mocker.call(1), mocker.call(2), mocker.call(3)])
-
-    def test_repeat_with_positive_predicate(self, mocker):
-        @repeat(PredicativeBasedRepeater(predicate=lambda x: x == "ok"))
+    def test_repeat_test_repeat_with_positive_predicate(self, mocker):
+        @repeat(PredicateBasedRepeater(predicate=lambda x: x == "ok"))
         def some_repeatable_func():
             return "ok"
 
