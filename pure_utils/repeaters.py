@@ -1,4 +1,28 @@
-"""Utilities for repeatedly execute custom logic."""
+"""Utilities for repeatedly execute custom logic.
+
+Example of usage exception based repeater::
+
+    from pure_utils.repeters import ExceptionBasedRepeater, repeat
+
+    repeater = ExceptionBasedRepeater(exceptions=(RuntimeError,), attempts=5, interval=2, logger=getLogger())
+
+    @repeat(repeater)
+    def some_func(*args, **kwargs)
+        if some_negative_statement:
+             rise RuntimeError
+
+
+Example of usage predicate based repeater::
+
+    from pure_utils.repeters import PredicateBasedRepeater, repeat
+
+    repeater = PredicateBasedRepeater(predicate=lambda x: x != 0 , attempts=5, interval=2, logger=getLogger())
+
+    @repeat(repeater)
+    def some_func(*args, **kwargs)
+        return 1
+
+"""
 
 from abc import ABC, abstractmethod
 from functools import wraps
@@ -11,7 +35,7 @@ P = ParamSpec("P")
 ExceptionT = Type[BaseException]
 
 
-__all__ = ["ExceptionBasedRepeater", "PredicativeBasedRepeater", "repeat"]
+__all__ = ["ExceptionBasedRepeater", "PredicateBasedRepeater", "repeat"]
 
 DEFAULT_ATTEMPTS: int = 3
 DEFAULT_INTERVAL: int = 1
@@ -79,11 +103,8 @@ class Repeater(ABC):
 
     @abstractmethod
     def execute(self, *args, **kwargs) -> Any:
-        """Execute repeatable function.
-
-        Needs to be implemented in inheritor classes.
-        """
-        pass
+        """Execute repeatable function."""
+        ...
 
     def _log(self, message: str) -> None:
         if self.logger:
@@ -131,7 +152,7 @@ class ExceptionBasedRepeater(Repeater):
             raise ExecuteError(str(exc))
 
 
-class PredicativeBasedRepeater(Repeater):
+class PredicateBasedRepeater(Repeater):
     """Repeater based on predicate function."""
 
     def __init__(
