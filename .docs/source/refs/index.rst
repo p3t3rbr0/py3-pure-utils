@@ -6,5 +6,6 @@
       containers
       debug
       profiler
+      repeaters
       strings
       times

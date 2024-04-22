@@ -39,6 +39,11 @@ Main principles:
   * [profileit](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.profileit)(*[, logger, stack_size]) - Profile decorated function being with 'cProfile'.
 * [profiler](https://p3t3rbr0.github.io/py3-pure-utils/refs/profiler.html) - Helper classes for working with the cProfile.
   * [Profiler](https://p3t3rbr0.github.io/py3-pure-utils/refs/profiler.html#profiler.Profiler) - A class provides a simple interface for profiling code.
+* [repeaters](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html) - Utilities for repeatedly execute custom logic.
+  * [Repeater](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.Repeater) - Base Repeater, implements a main logic, such as constructor and execute method.
+  * [ExceptionBasedRepeater](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.ExceptionBasedRepeater) - Repeater based on catching targeted exceptions.
+  * [PredicateBasedRepeater](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.PredicateBasedRepeater) - Repeater based on predicate function.
+  * [repeat](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.repeat)(repeater: Repeater) - Repeat wrapped function by `repeater` logic.
 * [strings](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html) - Utilities for working with strings.
   * [genstr](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.genstr)([length, is_uppercase]) - Generate ASCII-string with random letters.
   * [gunzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gzip)(compressed_string, /) - Compress string (or bytes string) with gzip compression level.
