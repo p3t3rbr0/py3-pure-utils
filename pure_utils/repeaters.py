@@ -2,7 +2,7 @@
 
 Example of usage exception based repeater::
 
-    from pure_utils.repeters import ExceptionBasedRepeater, repeat
+    from pure_utils.repeaters import ExceptionBasedRepeater, repeat
 
     repeater = ExceptionBasedRepeater(
         exceptions=(RuntimeError,),
@@ -19,7 +19,7 @@ Example of usage exception based repeater::
 
 Example of usage predicate based repeater::
 
-    from pure_utils.repeters import PredicateBasedRepeater, repeat
+    from pure_utils.repeaters import PredicateBasedRepeater, repeat
 
     repeater = PredicateBasedRepeater(
         predicate=lambda x: x != 0 ,
@@ -45,7 +45,7 @@ P = ParamSpec("P")
 ExceptionT = Type[BaseException]
 
 
-__all__ = ["ExceptionBasedRepeater", "PredicateBasedRepeater", "repeat"]
+__all__ = ["Repeater", "ExceptionBasedRepeater", "PredicateBasedRepeater", "repeat"]
 
 DEFAULT_ATTEMPTS: int = 3
 DEFAULT_INTERVAL: int = 1
@@ -64,7 +64,7 @@ class RepeateError(Exception):
 
 
 class Repeater(ABC):
-    """Implements a base logic, such as constructor and execute method."""
+    """Base Repeater, implements a main logic, such as constructor and execute method."""
 
     def __init__(
         self,
@@ -192,7 +192,7 @@ class PredicateBasedRepeater(Repeater):
 
 
 def repeat(repeater: Repeater) -> Callable:
-    """Decorator for repeat wrapped function by `repeater` logic.
+    """Repeat wrapped function by `repeater` logic.
 
     Args:
         repeater: Repeater object.
