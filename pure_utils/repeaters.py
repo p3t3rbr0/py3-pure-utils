@@ -4,7 +4,12 @@ Example of usage exception based repeater::
 
     from pure_utils.repeters import ExceptionBasedRepeater, repeat
 
-    repeater = ExceptionBasedRepeater(exceptions=(RuntimeError,), attempts=5, interval=2, logger=getLogger())
+    repeater = ExceptionBasedRepeater(
+        exceptions=(RuntimeError,),
+        attempts=5,
+        interval=2,
+        logger=getLogger()
+    )
 
     @repeat(repeater)
     def some_func(*args, **kwargs)
@@ -16,11 +21,16 @@ Example of usage predicate based repeater::
 
     from pure_utils.repeters import PredicateBasedRepeater, repeat
 
-    repeater = PredicateBasedRepeater(predicate=lambda x: x != 0 , attempts=5, interval=2, logger=getLogger())
+    repeater = PredicateBasedRepeater(
+        predicate=lambda x: x != 0 ,
+        attempts=5,
+        interval=2,
+        logger=getLogger()
+    )
 
     @repeat(repeater)
     def some_func(*args, **kwargs)
-        return 1
+        return 0
 
 """
 
@@ -114,14 +124,7 @@ class Repeater(ABC):
 class ExceptionBasedRepeater(Repeater):
     """Repeater based on catching targeted exceptions."""
 
-    def __init__(
-        self,
-        *,
-        attempts: int = DEFAULT_ATTEMPTS,
-        interval: int = DEFAULT_INTERVAL,
-        exceptions: tuple[ExceptionT, ...],
-        logger: Optional[Logger] = None,
-    ) -> None:
+    def __init__(self, *, exceptions: tuple[ExceptionT, ...], **kwargs) -> None:
         """Constructor.
 
         Args:
@@ -130,7 +133,7 @@ class ExceptionBasedRepeater(Repeater):
             exceptions: Single or multiple (into tuple) targeted exceptions.
             logger: Logger object for detailed info about repeats.
         """
-        super().__init__(attempts=attempts, interval=interval, logger=logger)
+        super().__init__(**kwargs)
         self.exceptions = exceptions
 
     def execute(self, fn: Callable, *args: P.args, **kwargs: P.kwargs) -> Any:
@@ -155,14 +158,7 @@ class ExceptionBasedRepeater(Repeater):
 class PredicateBasedRepeater(Repeater):
     """Repeater based on predicate function."""
 
-    def __init__(
-        self,
-        *,
-        attempts: int = DEFAULT_ATTEMPTS,
-        interval: int = DEFAULT_INTERVAL,
-        predicate: Callable[[Any], bool],
-        logger: Optional[Logger] = None,
-    ) -> None:
+    def __init__(self, *, predicate: Callable[[Any], bool], **kwargs) -> None:
         """Constructor.
 
         Args:
@@ -171,7 +167,7 @@ class PredicateBasedRepeater(Repeater):
             predicate: Predicate function.
             logger: Logger object for detailed info about repeats.
         """
-        super().__init__(attempts=attempts, interval=interval, logger=logger)
+        super().__init__(**kwargs)
         self.predicate = predicate
 
     def execute(self, fn: Callable, *args: P.args, **kwargs: P.kwargs) -> Any:
