@@ -1,7 +1,7 @@
 Changelog
 =========
 
-v0.7.0 - [2024-04-20]
+v0.7.0 - [2024-04-22]
 ---------------------
 * Add new module - ``repeaters`` (utilities for repeat functions).
 * Update development dependencies.
