@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.7.0 - [2024-04-22]
+---------------------
+* Add new module - ``repeaters`` (utilities for repeat functions).
+* Update development dependencies.
+
 v0.6.0 - [2024-03-01]
 ---------------------
 * Add ``unpack`` utility in ``containers`` module.
