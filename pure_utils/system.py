@@ -16,7 +16,7 @@ def execute(
     timeout: int = DEFAULT_EXECUTE_TIMEOUT,
     **kwargs,
 ) -> tuple[Optional[str], Optional[str]]:
-    """Execute command in external process.
+    """Execute command into external process.
 
     Args:
         args: List of the lines with the command and her options.
