@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v0.8.0 - [2024-05-06]
+---------------------
+* Add new module - ``system`` (system purpose utilities).
+* Update development dependencies.
+* Use dynamic version into pyproject.toml.
+* Fix project short description.
+
 v0.7.0 - [2024-04-22]
 ---------------------
 * Add new module - ``repeaters`` (utilities for repeat functions).

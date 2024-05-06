@@ -8,4 +8,5 @@
       profiler
       repeaters
       strings
+      system
       times
