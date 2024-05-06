@@ -2,20 +2,16 @@
 requires = ["hatchling==1.21.1"]
 build-backend = "hatchling.build"
 
-[tool.setuptools]
-include-package-data = false
-
-[tool.setuptools.packages.find]
-include = ["pure_utils*"]
-exclude = ["tests*"]
+[tool.hatch.version]
+path = "pure_utils/__init__.py"
 
 [project]
 name = "pure-utils"
-version = "0.8.0"
+dynamic = ["version"]
 authors = [
-  {name="Peter Bro", email="p3t3rbr0@gmail.com"},
+  {name = "Peter Bro", email = "p3t3rbr0@gmail.com"},
 ]
-description = "Yet another python utilities, with the goal of collecting useful bicycles and crutches in one place ;)."
+description = "Yet another python utilities, with the goal of collecting useful bicycles and crutches in one place."
 keywords = ["utilities", "bicycle", "crutches"]
 readme = "README.md"
 requires-python = ">=3.10"
