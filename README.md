@@ -6,7 +6,7 @@
 [![Code Coverage](https://codecov.io/gh/p3t3rbr0/py3-pure-utils/graph/badge.svg?token=283H0MAGUP)](https://codecov.io/gh/p3t3rbr0/py3-pure-utils)
 [![Maintainability](https://api.codeclimate.com/v1/badges/14f70c48db708a419309/maintainability)](https://codeclimate.com/github/p3t3rbr0/py3-pure-utils/maintainability)
 
-Yet another python utilities, with the goal of collecting useful bicycles and crutches in one place ;).
+Yet another python utilities, with the goal of collecting useful bicycles and crutches in one place.
 
 Main principles:
 
@@ -48,6 +48,8 @@ Main principles:
   * [genstr](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.genstr)([length, is_uppercase]) - Generate ASCII-string with random letters.
   * [gunzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gzip)(compressed_string, /) - Compress string (or bytes string) with gzip compression level.
   * [gzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gunzip)(string, /, *[, level]) - Decompress bytes (earlier compressed with gzip) to string.
+* [system](https://p3t3rbr0.github.io/py3-pure-utils/refs/system.html) - The system purpose utilities.
+  * [execute](https://p3t3rbr0.github.io/py3-pure-utils/refs/system.html#system.execute)(args, *[, input, timeout]) - Execute command into external process.
 * [times](https://p3t3rbr0.github.io/py3-pure-utils/refs/times.html) - Utilities for working with datetime objects.
   * [apply_tz](https://p3t3rbr0.github.io/py3-pure-utils/refs/times.html#times.apply_tz)(dt[, tz]) - Apply timezone context to datetime object.
   * [iso2format](https://p3t3rbr0.github.io/py3-pure-utils/refs/times.html#times.iso2format)(isostr, fmt, /) - Convert ISO-8601 datetime string into a string of specified format.
