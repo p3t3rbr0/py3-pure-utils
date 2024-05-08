@@ -9,7 +9,7 @@ T = TypeVar("T", bound="Singleton")
 
 
 class Singleton(type):
-    """A metaclass that implements the singleton pattern for inheritors.
+    """A metaclass, implements the singleton pattern for inheritors.
 
     Example::
 

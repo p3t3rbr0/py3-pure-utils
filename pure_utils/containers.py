@@ -1,4 +1,4 @@
-"""Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.)."""
+"""Utilities for working with data containers (lists, dicts, tuples, sets, etc.)."""
 
 from typing import (
     Any,
@@ -147,12 +147,12 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
         return default
 
 
-def symmdiff(s1: KeysT, s2: KeysT, /) -> Sequence[T]:
+def symmdiff(collection1: KeysT, collection2: KeysT, /) -> Sequence[T]:
     """Obtain the symmetric difference of two sequences.
 
     Args:
-        s1: The first sequence to form a set on the LEFT.
-        s2: The second sequence to form a set on the RIGHT.
+        collection1: The first sequence to form a set on the LEFT.
+        collection2: The second sequence to form a set on the RIGHT.
 
     Returns:
         The symmetric difference of two sequences as a list.
@@ -161,13 +161,13 @@ def symmdiff(s1: KeysT, s2: KeysT, /) -> Sequence[T]:
 
          from pure_utils.containers import symmdiff
 
-         s1 = ["a", "b", "c"]
-         s2 = ["e", "b", "a"]
-         result = symmdiff(s1, s2)
+         collection1 = ["a", "b", "c"]
+         collection2 = ["e", "b", "a"]
+         result = symmdiff(collection1, collection2)
          print(result)
          >>> ["c", "e"]
     """
-    return list(set(s1).symmetric_difference(set(s2)))
+    return list(set(collection1).symmetric_difference(set(collection2)))
 
 
 def omit(container: Mapping[str, Any], keys: KeysT, /) -> Mapping[str, Any]:
