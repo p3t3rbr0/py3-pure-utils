@@ -143,7 +143,7 @@ def deltatime(*, logger: Optional[Logger] = None) -> Callable:
     >>> @deltatime()
     ... def aim_func():
     ...     for _ in range(1, 1000_000):
-    ...         ...
+    ...         pass
 
     >>> result, delta = aim_func()
     >>> print(f"Execution time of aim_func: {delta} sec.")
@@ -158,7 +158,7 @@ def deltatime(*, logger: Optional[Logger] = None) -> Callable:
     >>> @deltatime(logger=root_logger)
     ... def aim_func2():
     ...     for _ in range(1, 1000_000):
-    ...         ...
+    ...         pass
 
     >>> result, _ = aim_func2()
     DEBUG:root:[DELTATIME]: 'aim_func2' (0.025 sec.)
@@ -194,7 +194,7 @@ def profileit(*, logger: Optional[Logger] = None, stack_size: int = DEFAULT_STAC
     >>> from pure_utils import profileit
 
     >>> def func1():
-    ...     ...
+    ...     pass
     >>> def func2():
     ...     func1()
     >>> def func3():
