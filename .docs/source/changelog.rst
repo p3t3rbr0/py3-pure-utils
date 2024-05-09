@@ -3,7 +3,9 @@ Changelog
 
 v0.9.0 - [2024-06-00]
 ---------------------
-...
+* Fix modules short descriptions
+* Fix make commands short description
+* Rewrite examples of usage into docstrings
 
 v0.8.0 - [2024-05-06]
 ---------------------
