@@ -85,5 +85,5 @@ help:
 	echo
 	echo "cleanup\t\tClean up python temporary files and caches."
 	echo "format\t\tFromat the code (by black and isort)."
-	echo "lint\t\tCheck code style and types (by flake8, pydocstyle and mypy)."
+	echo "lint\t\tCheck code style, docstring style and types (by flake8, pydocstyle and mypy)."
 	echo
