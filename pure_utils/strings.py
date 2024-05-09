@@ -17,17 +17,17 @@ def genstr(length: int = 10, /, *, is_uppercase: bool = False) -> str:
     Returns:
         Generated ASCII-string with random letters.
 
-    Example::
+    Usage:
 
-        from pure_utils.strings import genstr
+    >>> from pure_utils import genstr
 
-        dummy = genstr(20)
-        print(dummy)
-        >>> otvqydcprjtpcuboumbs
+    >>> dummy = genstr(20)
+    >>> print(dummy)
+    otvqydcprjtpcuboumbs
 
-        dummy = genstr(20, is_uppercase=True)
-        print(dummy)
-        >>> POXDVZCMDWXBPVVRXWHN
+    >>> dummy = genstr(20, is_uppercase=True)
+    >>> print(dummy)
+    POXDVZCMDWXBPVVRXWHN
     """
     string_generator = ascii_uppercase if is_uppercase else ascii_lowercase
     return "".join(choices(string_generator, k=length))
@@ -45,17 +45,17 @@ def gzip(string: str | bytes, /, *, level: int = 9) -> bytes:
     Returns:
         Compressed string in bytes.
 
-    Example::
+    Usage:
 
-        from pure_utils.strings import gzip
+    >>> from pure_utils import gzip
 
-        big_string = "abc" * 100500
-        print(len(big_string))
-        >>> 301500
+    >>> big_string = "abc" * 100500
+    >>> print(len(big_string))
+    301500
 
-        compressed_string = gzip(big_string)
-        print(len(compressed_string))
-        >>> 319
+    >>> compressed_string = gzip(big_string)
+    >>> print(len(compressed_string))
+    319
     """
     return compress(string if isinstance(string, bytes) else string.encode(), level=level)
 
@@ -69,12 +69,12 @@ def gunzip(compressed_string: bytes, /) -> str:
     Returns:
         Decompressed string from bytes.
 
-    Example::
+    Usage:
 
-        from pure_utils.strings import gzip, gunzip
+    >>> from pure_utils import gzip, gunzip
 
-        compressed_string = gzip("sample string")
-        print(gunzip(compressed_string))
-        >>> sample string
+    >>> compressed_string = gzip("sample string")
+    >>> print(gunzip(compressed_string))
+    sample string
     """
     return decompress(compressed_string).decode()

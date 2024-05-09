@@ -19,13 +19,18 @@ P = ParamSpec("P")
 class Profiler:
     """A class provides a simple interface for profiling code.
 
-    Example::
+    Usage:
 
-        from pure_utils.profiler import Profiler
+    >>> from pure_utils import Profiler
 
-        profiler = Profiler()
-        some_function_retval = profiler.profile(some_func, *func_args, **func_kwargs)
-        profile_result = profiler.serialize_result(SomeProfilerStatsSerializer)
+    >>> profiler = Profiler()
+    >>> some_function_retval = profiler.profile(some_func, *func_args, **func_kwargs)
+    >>> serialize_profile_result = profiler.serialize_result(SomeProfilerStatsSerializer)
+
+    Usage with string serializer:
+
+    >>> from pure_utils._internal._profile_stats_serializers import ProfileStatsStringSerializer
+    >>> profile_result_as_string = profiler.serialize_result(ProfileStatsStringSerializer)
     """
 
     __slots__ = ("_profile", "__weakref__")

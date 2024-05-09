@@ -1,37 +1,35 @@
 """Utilities for repeatedly execute custom logic.
 
-Example of usage exception based repeater::
+Example of usage exception based repeater:
 
-    from pure_utils.repeaters import ExceptionBasedRepeater, repeat
+>>> from pure_utils import ExceptionBasedRepeater, repeat
 
-    repeater = ExceptionBasedRepeater(
-        exceptions=(RuntimeError,),
-        attempts=5,
-        interval=2,
-        logger=getLogger()
-    )
+>>> repeater = ExceptionBasedRepeater(
+...     exceptions=(RuntimeError,),
+...     attempts=5,
+...     interval=2,
+...     logger=getLogger()
+... )
 
-    @repeat(repeater)
-    def some_func(*args, **kwargs)
-        if some_negative_statement:
-             rise RuntimeError
+>>> @repeat(repeater)
+... def some_func(*args, **kwargs)
+...     if some_negative_statement:
+...         rise RuntimeError
 
+Example of usage predicate based repeater:
 
-Example of usage predicate based repeater::
+>>> from pure_utils import PredicateBasedRepeater, repeat
 
-    from pure_utils.repeaters import PredicateBasedRepeater, repeat
+>>> repeater = PredicateBasedRepeater(
+...     predicate=lambda x: x != 0,
+...     attempts=5,
+...     interval=2,
+...     logger=getLogger()
+... )
 
-    repeater = PredicateBasedRepeater(
-        predicate=lambda x: x != 0 ,
-        attempts=5,
-        interval=2,
-        logger=getLogger()
-    )
-
-    @repeat(repeater)
-    def some_func(*args, **kwargs)
-        return 0
-
+>>> @repeat(repeater)
+... def some_func(*args, **kwargs)
+...     return 0
 """
 
 from abc import ABC, abstractmethod
