@@ -5,7 +5,7 @@ from functools import wraps
 from inspect import stack
 from logging import Logger
 from time import time
-from typing import Any, Callable, Optional, TypeAlias
+from typing import Any, Callable, Optional
 
 from pure_utils._internal._profile_stats_serializers import (
     ProfileStatsStringSerializer,
@@ -13,9 +13,10 @@ from pure_utils._internal._profile_stats_serializers import (
 )
 from pure_utils.profiler import Profiler
 
+from .types import CallableAnyT
+
 __all__ = ["around", "caller", "deltatime", "profileit"]
 
-AnyCallableT: TypeAlias = Callable[[Any], Any]
 
 DEFAULT_STACK_SIZE: int = 20
 DEFAULT_STACK_FRAME: int = 2
@@ -77,7 +78,7 @@ def around(*, before: Optional[Callable] = None, after: Optional[Callable] = Non
     in da func3
     """
 
-    def decorate(func) -> AnyCallableT:
+    def decorate(func) -> CallableAnyT:
         @wraps(func)
         def wrapper(*args, **kwargs):
             if not before and not after:
@@ -164,7 +165,7 @@ def deltatime(*, logger: Optional[Logger] = None) -> Callable:
     DEBUG:root:[DELTATIME]: 'aim_func2' (0.025 sec.)
     """
 
-    def decorate(func) -> AnyCallableT:
+    def decorate(func) -> CallableAnyT:
         @wraps(func)
         def wrapper(*args, **kwargs) -> tuple[Any, float]:
             t0 = time()
@@ -238,7 +239,7 @@ def profileit(*, logger: Optional[Logger] = None, stack_size: int = DEFAULT_STAC
     <pstats.Stats object at 0x10cf1a390>
     """
 
-    def decorate(func) -> AnyCallableT:
+    def decorate(func) -> CallableAnyT:
         @wraps(func)
         def wrapper(*args, **kwargs) -> tuple[Any, SerializedProfileStatsT]:
             retval = None

@@ -36,12 +36,9 @@ from abc import ABC, abstractmethod
 from functools import wraps
 from logging import Logger
 from time import sleep
-from typing import Any, Callable, Optional, ParamSpec, Type, TypeVar
+from typing import Any, Callable, Optional
 
-T = TypeVar("T")
-P = ParamSpec("P")
-ExceptionT = Type[BaseException]
-
+from .types import ExceptionT, P, T
 
 __all__ = ["Repeater", "ExceptionBasedRepeater", "PredicateBasedRepeater", "repeat"]
 
