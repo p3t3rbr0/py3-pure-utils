@@ -1,15 +1,8 @@
 """Utilities for working with data containers (lists, dicts, tuples, sets, etc.)."""
 
-from typing import (
-    Any,
-    Generator,
-    KeysView,
-    Mapping,
-    Optional,
-    Sequence,
-    TypeAlias,
-    TypeVar,
-)
+from typing import Any, Generator, Mapping, Optional, Sequence
+
+from .types import KeysT, T
 
 __all__ = [
     "bisect",
@@ -22,9 +15,6 @@ __all__ = [
     "symmdiff",
     "unpack",
 ]
-
-T = TypeVar("T")
-KeysT: TypeAlias = Sequence[T] | KeysView[T]
 
 
 def bisect(collection: list[T], /) -> tuple[list[T], list[T]]:
@@ -40,7 +30,7 @@ def bisect(collection: list[T], /) -> tuple[list[T], list[T]]:
         original collection, and the second list is the second half.
 
     Raises:
-        AssertionError: If collection is empty.
+        ValueError: If collection is empty.
 
     Usage:
 
@@ -52,8 +42,11 @@ def bisect(collection: list[T], /) -> tuple[list[T], list[T]]:
     >>> print(first_half, second_half)
     [1, 2, 3, 4, 5] [6, 7, 8, 9, 10, 11]
     """
-    assert collection
     length = len(collection)
+
+    if not length:
+        raise ValueError("The source collection must not be empty")
+
     return (collection[: length // 2], collection[length // 2 :])
 
 
@@ -206,7 +199,7 @@ def paginate(collection: Sequence[T], /, *, size: int) -> Sequence[Sequence[T]]:
         A collection with elements splitted into pages (nested collections).
 
     Raises:
-        AssertionError: If size is less than zero.
+        ValueError: If page size is less than zero.
 
     Usage:
 
@@ -217,7 +210,9 @@ def paginate(collection: Sequence[T], /, *, size: int) -> Sequence[Sequence[T]]:
     >>> print(pages)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
     """
-    assert size > 0
+    if size <= 0:
+        raise ValueError("Page size must be a positive integer")
+
     return [collection[start : start + size] for start in range(0, len(collection), size)]
 
 
