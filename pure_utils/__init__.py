@@ -10,3 +10,4 @@ from .repeaters import *  # noqa: F401, F403
 from .strings import *  # noqa: F401, F403
 from .system import *  # noqa: F401, F403
 from .times import *  # noqa: F401, F403
+from .types import *  # noqa: F401, F403
