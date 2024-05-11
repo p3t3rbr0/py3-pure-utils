@@ -1,9 +1,10 @@
 Changelog
 =========
 
-v0.9.0 - [2024-06-00]
+v0.9.0 - [2024-05-12]
 ---------------------
 * Add ``types`` module.
+* Fix "cleanup" make command.
 * Fix modules short descriptions.
 * Fix make commands short description.
 * Fix relative imports errors into docs.
