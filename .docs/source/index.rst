@@ -1,7 +1,7 @@
 pure-utils
 ==========
 
-Yet another python utilities, with the goal of collecting useful bicycles and crutches in one place.
+Yet another python utilities library for collecting useful bicycles and crutches in one place.
 
 **Main principles**:
 
