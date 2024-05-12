@@ -35,12 +35,12 @@ def apply_tz(dt: datetime, tz: str = "UTC", /) -> datetime:
     Returns:
         A new datetime object in specified timezone.
 
-    Example::
+    Usage:
 
-        from datetime import datetime, UTC
-        from pure_utils.times import apply_tz
+    >>> from datetime import datetime, UTC
+    >>> from pure_utils import apply_tz
 
-        datetime_with_tz_context = apply_tz(datetime.now(UTC), "Europe/Moscow")
+    >>> datetime_with_tz_context = apply_tz(datetime.now(UTC), "Europe/Moscow")
     """
     return dt.astimezone(ZoneInfo(tz))
 
@@ -55,13 +55,13 @@ def iso2format(isostr: str, fmt: str, /) -> str:
     Returns:
         Datetime string in specified format.
 
-    Example::
+    Usage:
 
-        from pure_utils.times import iso2format, YMD
+    >>> from pure_utils import iso2format, YMD
 
-        formatted_dt = iso2format("2005-08-09T18:31:42/P3Y6M4DT12H30M17S", YMD)
-        print(formatted_dt)
-        >>> 2005-08-09
+    >>> formatted_dt = iso2format("2005-08-09T18:31:42/P3Y6M4DT12H30M17S", YMD)
+    >>> print(formatted_dt)
+    2005-08-09
     """
     return datetime.fromisoformat(isostr).strftime(fmt)
 
@@ -75,13 +75,13 @@ def iso2dmy(isostr: str, /) -> str:
     Returns:
         Datetime string in DMY format (DD.MM.YYYY).
 
-    Example::
+    Usage:
 
-        from pure_utils.times import iso2dmy
+    >>> from pure_utils import iso2dmy
 
-        formatted_dt = iso2dmy("2005-08-09T18:31:42")
-        print(formatted_dt)
-        >>> 09.08.2005
+    >>> formatted_dt = iso2dmy("2005-08-09T18:31:42")
+    >>> print(formatted_dt)
+    09.08.2005
     """
     return iso2format(isostr, DMY)
 
@@ -95,13 +95,13 @@ def iso2ymd(isostr: str, /) -> str:
     Returns:
         Datetime string in YMD format (YYYY-MM-DD).
 
-    Example::
+    Usage:
 
-        from pure_utils.times import iso2ymd
+    >>> from pure_utils import iso2ymd
 
-        formatted_dt = iso2ymd("20080809T183142+0")
-        print(formatted_dt)
-        >>> 2008-08-09
+    >>> formatted_dt = iso2ymd("20080809T183142+0")
+    >>> print(formatted_dt)
+    2008-08-09
     """
     return iso2format(isostr, YMD)
 
@@ -120,18 +120,18 @@ def round_by(dt: datetime, /, *, boundary: str) -> datetime:
     Raises:
         ValueError: If `boundary` is invalid.
 
-    Example::
+    Usage:
 
-        from datetime import datetime
-        from pure_utils.times import round_by
+    >>> from datetime import datetime
+    >>> from pure_utils import round_by
 
-        exact_datatime = datetime.now()
-        print(exact_datatime)
-        >>> 2024-02-03 17:54:37.472482
+    >>> exact_datatime = datetime.now()
+    >>> print(exact_datatime)
+    2024-02-03 17:54:37.472482
 
-        rounded_datetime = round_by(exact_datatime, boundary="hour")
-        print(rounded_datetime)
-        >>> 2024-02-03 17:00:00
+    >>> rounded_datetime = round_by(exact_datatime, boundary="hour")
+    >>> print(rounded_datetime)
+    2024-02-03 17:00:00
     """
     replace = {}
 

@@ -21,14 +21,15 @@ class TestBisect:
         assert a == [1, 2, 3, 4, 5]
         assert b == [6, 7, 8, 9, 10, 11]
 
-        # Source list not changed.
+        # Source list is not changed
         assert source_list == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
     def test_on_empty_list(self):
         source_list = []
 
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError) as excinfo:
             bisect(source_list)
+            assert excinfo.value.error == "The source collection must not be empty"
 
         assert source_list == []
 
@@ -166,12 +167,14 @@ class TestPaginate:
         assert paginate([], size=2) == []
 
     def test_on_zero_size(self):
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError) as excinfo:
             paginate([1, 2], size=0)
+            assert excinfo.value.error == "Page size must be a positive integer"
 
     def test_on_negative_size(self):
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError) as excinfo:
             paginate([1, 2], size=-1)
+            assert excinfo.value.error == "Page size must be a positive integer"
 
     def test_on_tuple(self):
         source_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)

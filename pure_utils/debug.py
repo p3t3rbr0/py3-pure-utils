@@ -5,7 +5,7 @@ from functools import wraps
 from inspect import stack
 from logging import Logger
 from time import time
-from typing import Any, Callable, Optional, TypeAlias
+from typing import Any, Callable, Optional
 
 from pure_utils._internal._profile_stats_serializers import (
     ProfileStatsStringSerializer,
@@ -13,9 +13,10 @@ from pure_utils._internal._profile_stats_serializers import (
 )
 from pure_utils.profiler import Profiler
 
+from .types import CallableAnyT
+
 __all__ = ["around", "caller", "deltatime", "profileit"]
 
-AnyCallableT: TypeAlias = Callable[[Any], Any]
 
 DEFAULT_STACK_SIZE: int = 20
 DEFAULT_STACK_FRAME: int = 2
@@ -39,42 +40,45 @@ def around(*, before: Optional[Callable] = None, after: Optional[Callable] = Non
     Raises:
         ValueError: If one of the handlers (`before`, `after`) is not specified.
 
-    Example::
+    Usage:
 
-        from pure_utils.debug import around
+    >>> from pure_utils import around
 
-        def before_handler(*args, **kwargs):
-            kwargs["_pipe"]["key"] = "some data (from before to after handlers)"
-            print("before!")
+    >>> def before_handler(*args, **kwargs):
+    ...     kwargs["_pipe"]["key"] = "some data (from before to after handlers)"
+    ...     print("before!")
 
-        def after_handler(*args, **kwargs):
-            print(f"after: {kwargs['_pipe']['key']} !")
+    >>> def after_handler(*args, **kwargs):
+    ...     print(f"after: {kwargs['_pipe']['key']} !")
 
-        @around(before=before_handler, after=after_handler)
-        def func():
-            print("in da func")
+    >>> @around(before=before_handler, after=after_handler)
+    ... def func():
+    ...     print("in da func")
+    >>> func()
+    before!
+    in da func
+    after: some data (from before to after handlers) !
 
-        func()
-        >>> before!
-        >>> in da func
-        >>> after: some data (from before to after handlers) !
+    Use around with only BEFORE handler:
 
-        # !!! Use around with only BEFORE handler !!!
-        @around(before=before_handler)
-        def func2():
-            print("in da func2")
-        >>> before!
-        >>> in da func2
+    >>> @around(before=before_handler)
+    ... def func2():
+    ...     print("in da func2")
+    >>> func2()
+    before!
+    in da func2
 
-        # !!! Use around with only AFTER handler !!!
-        @around(after=after_handler)
-        def func3():
-            print("in da func3")
-        >>> after!
-        >>> in da func3
+    Use around with only AFTER handler:
+
+    >>> @around(after=after_handler)
+    ... def func3():
+    ...     print("in da func3")
+    >>> func3()
+    after!
+    in da func3
     """
 
-    def decorate(func) -> AnyCallableT:
+    def decorate(func) -> CallableAnyT:
         @wraps(func)
         def wrapper(*args, **kwargs):
             if not before and not after:
@@ -111,18 +115,18 @@ def caller(*, at_frame: int = DEFAULT_STACK_FRAME) -> str:
     Returns:
         The name of calling function/method.
 
-    Example::
+    Usage:
 
-        from pure_utils.debug import caller
+    >>> from pure_utils import caller
 
-        def func1(*args, **kwargs):
-            print(f"I'am 'func1', '{caller()}' called me.")
+    >>> def func1(*args, **kwargs):
+    ...     print(f"I'am 'func1', '{caller()}' called me.")
 
-        def func2(*args, **kwargs):
-            return func1()
+    >>> def func2(*args, **kwargs):
+    ...     return func1()
 
-        func2()
-        >>> I'am 'func1', 'func2' called me.
+    >>> func2()
+    I'am 'func1', 'func2' called me.
     """
     return str(stack()[at_frame].function)
 
@@ -133,34 +137,35 @@ def deltatime(*, logger: Optional[Logger] = None) -> Callable:
     Args:
         logger: Optional logger object for printing execution time to file.
 
-    Example::
+    Usage:
 
-        from pure_utils.debug import deltatime
+    >>> from pure_utils import deltatime
 
-        @deltatime()
-        def aim_func():
-            for _ in range(1, 1000_000):
-                ...
+    >>> @deltatime()
+    ... def aim_func():
+    ...     for _ in range(1, 1000_000):
+    ...         pass
 
-        result, delta = aim_func()
-        print(f"Execution time of aim_func: {delta} sec.")
-        >>> Execution time of aim_func: 0.025 sec.
+    >>> result, delta = aim_func()
+    >>> print(f"Execution time of aim_func: {delta} sec.")
+    Execution time of aim_func: 0.025 sec.
 
-        # !!! Or use decorator with logger (side effect) !!!
+    Or use decorator with logger (side effect):
 
-        from logging import getLogger, DEBUG, basicConfig
-        basicConfig(level=DEBUG)
+    >>> from logging import getLogger, DEBUG, basicConfig
+    >>> basicConfig(level=DEBUG)
+    >>> root_logger = getLogger()
 
-        @deltatime(logger=getLogger())
-        def aim_func2():
-            for _ in range(1, 1000_000):
-                ...
+    >>> @deltatime(logger=root_logger)
+    ... def aim_func2():
+    ...     for _ in range(1, 1000_000):
+    ...         pass
 
-        result, _ = aim_func2()
-        >>> DEBUG:root:[DELTATIME]: 'aim_func2' (0.025 sec.)
+    >>> result, _ = aim_func2()
+    DEBUG:root:[DELTATIME]: 'aim_func2' (0.025 sec.)
     """
 
-    def decorate(func) -> AnyCallableT:
+    def decorate(func) -> CallableAnyT:
         @wraps(func)
         def wrapper(*args, **kwargs) -> tuple[Any, float]:
             t0 = time()
@@ -185,49 +190,56 @@ def profileit(*, logger: Optional[Logger] = None, stack_size: int = DEFAULT_STAC
         logger: Optional logger object for printing execution time to file.
         stack_size: Stack size limit for profiler results.
 
-    Example::
+    Usage:
 
-        from pure_utils.debug import profileit
+    >>> from pure_utils import profileit
 
-        def func1():
-            ...
+    >>> def func1():
+    ...     pass
+    >>> def func2():
+    ...     func1()
+    >>> def func3():
+    ...     func2()
 
-        def func2():
-            func1()
+    >>> @profileit()
+    ... def func4():
+    ...     func3()
 
-        def func3():
-            func2()
+    >>> _, profile_info = func4()
+    >>> print(profile_info)
+    5 function calls in 0.000 seconds
+       Ordered by: cumulative time, function name
+       ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+          1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+          1    0.000    0.000    0.000    0.000 scriptname.py:13(func4)
+          1    0.000    0.000    0.000    0.000 scriptname.py:10(func3)
+          1    0.000    0.000    0.000    0.000 scriptname.py:7(func2)
+          1    0.000    0.000    0.000    0.000 scriptname.py:4(func1)
+    <pstats.Stats object at 0x10cf1a390>
 
-        @profileit()
-        def func4():
-            func3()
+    Or use decorator with logger (side effect):
 
-        _, profile_info = func4()
-        print(profile_info)
+    >>> from logging import getLogger, DEBUG, basicConfig
+    >>> basicConfig(level=DEBUG)
+    >>> root_logger = getlogger()
 
-        5 function calls in 0.000 seconds
-           Ordered by: cumulative time, function name
-           ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-              1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
-              1    0.000    0.000    0.000    0.000 scriptname.py:13(func4)
-              1    0.000    0.000    0.000    0.000 scriptname.py:10(func3)
-              1    0.000    0.000    0.000    0.000 scriptname.py:7(func2)
-              1    0.000    0.000    0.000    0.000 scriptname.py:4(func1)
-        <pstats.Stats object at 0x10cf1a390>
+    >>> @profileit(logger=root_logger)
+    ... def func4():
+    ...     func3()
 
-        # !!! Or use decorator with logger (side effect) !!!
-
-        from logging import getLogger, DEBUG, basicConfig
-        basicConfig(level=DEBUG)
-
-        @profileit(logger=getLogger())
-        def func4():
-            func3()
-
-        func4()
+    >>> func4()
+    DEBUG:root: 5 function calls in 0.000 seconds
+       Ordered by: cumulative time, function name
+       ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+          1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+          1    0.000    0.000    0.000    0.000 scriptname.py:13(func4)
+          1    0.000    0.000    0.000    0.000 scriptname.py:10(func3)
+          1    0.000    0.000    0.000    0.000 scriptname.py:7(func2)
+          1    0.000    0.000    0.000    0.000 scriptname.py:4(func1)
+    <pstats.Stats object at 0x10cf1a390>
     """
 
-    def decorate(func) -> AnyCallableT:
+    def decorate(func) -> CallableAnyT:
         @wraps(func)
         def wrapper(*args, **kwargs) -> tuple[Any, SerializedProfileStatsT]:
             retval = None

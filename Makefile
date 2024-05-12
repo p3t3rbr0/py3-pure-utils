@@ -60,8 +60,8 @@ tests-cov-json:
 
 cleanup:
 	rm -rf .pytest_cache/ .mypy_cache/ junit/ build/ dist/ coverage_report/
-	find . -not -path './.venv*' -path '*/__pycache__*' -delete
-	find . -not -path './.venv*' -path '*/*.egg-info*' -delete
+	find . -not -path 'venv*' -path '*/__pycache__*' -delete
+	find . -not -path 'venv*' -path '*/*.egg-info*' -delete
 
 help:
 	echo
@@ -85,5 +85,5 @@ help:
 	echo
 	echo "cleanup\t\tClean up python temporary files and caches."
 	echo "format\t\tFromat the code (by black and isort)."
-	echo "lint\t\tCheck code style and types (by flake8, pydocstyle and mypy)."
+	echo "lint\t\tCheck code style, docstring style and types (by flake8, pydocstyle and mypy)."
 	echo
