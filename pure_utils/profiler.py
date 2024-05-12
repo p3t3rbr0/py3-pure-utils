@@ -1,31 +1,33 @@
 """Helper classes for working with the cProfile."""
 
 from cProfile import Profile
-from typing import Callable, ParamSpec, Type, TypeVar
+from typing import Callable, Type
 
-from pure_utils._internal._profile_stats import ProfileStats
-from pure_utils._internal._profile_stats_serializers import (
+from ._internal._profile_stats import ProfileStats
+from ._internal._profile_stats_serializers import (
     ProfileStatsSerializer,
     SerializedProfileStatsT,
 )
+from .types import P, T
 
 __all__ = ["Profiler"]
-
-
-T = TypeVar("T")
-P = ParamSpec("P")
 
 
 class Profiler:
     """A class provides a simple interface for profiling code.
 
-    Example::
+    Usage:
 
-        from pure_utils.profiler import Profiler
+    >>> from pure_utils import Profiler
 
-        profiler = Profiler()
-        some_function_retval = profiler.profile(some_func, *func_args, **func_kwargs)
-        profile_result = profiler.serialize_result(SomeProfilerStatsSerializer)
+    >>> profiler = Profiler()
+    >>> some_function_retval = profiler.profile(some_func, *func_args, **func_kwargs)
+    >>> serialize_profile_result = profiler.serialize_result(SomeProfilerStatsSerializer)
+
+    Usage with string serializer:
+
+    >>> from pure_utils._internal._profile_stats_serializers import ProfileStatsStringSerializer
+    >>> profile_result_as_string = profiler.serialize_result(ProfileStatsStringSerializer)
     """
 
     __slots__ = ("_profile", "__weakref__")

@@ -27,13 +27,13 @@ def execute(
     Returns:
         Two-element tuple with data from standard streams: stdout and stderr.
 
-    Example::
+    Usage:
 
-        from pure_utils.system import execute
+    >>> from pure_utils import execute
 
-        result, _ = execute(["uname", "-o"])
-        print(result.decode())
-        >>> Darwin
+    >>> result, _ = execute(["uname", "-o"])
+    >>> print(result.decode())
+    Darwin
     """
     process = run(args, stdout=PIPE, stderr=PIPE, input=input, timeout=timeout, **kwargs)
     return process.stdout, process.stderr

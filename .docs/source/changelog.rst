@@ -1,6 +1,16 @@
 Changelog
 =========
 
+v0.9.0 - [2024-05-12]
+---------------------
+* Add ``types`` module.
+* Fix "cleanup" make command.
+* Fix modules short descriptions.
+* Fix make commands short description.
+* Fix relative imports errors into docs.
+* Rewrite examples of usage into docstrings.
+* Replace AssertionError to ValueError with messages.
+
 v0.8.0 - [2024-05-06]
 ---------------------
 * Add new module - ``system`` (system purpose utilities).

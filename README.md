@@ -21,8 +21,8 @@ Main principles:
 # Available utilities
 
 * [common](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html) - The common purpose utilities.
-  * [Singleton](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#common.Singleton) - A metaclass that implements the singleton pattern for inheritors.
-* [containers](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html) - Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.).
+  * [Singleton](https://p3t3rbr0.github.io/py3-pure-utils/refs/common.html#common.Singleton) - A metaclass, implements the singleton pattern for inheritors.
+* [containers](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html) - Utilities for working with data containers (lists, dicts, tuples, sets, etc.).
   * [bisect](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.bisect)(collection, /) - Bisect the list into two parts/halves based on the number of elements.
   * [first](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.first)(collection, /) - Get the value of the first element from a homogeneous collection.
   * [flatten](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.flatten)(collection, /) - Make the iterated collection a flat (single nesting level).
@@ -30,7 +30,7 @@ Main principles:
   * [omit](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.omit)(container, keys, /) - Omit key-value pairs from the source dictionary, by keys sequence.
   * [paginate](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.paginate)(collection, /, *, size) - Split the collection into page(s) according to the specified limit.
   * [pick](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.pick)(container, keys, /) - Pick key-value pairs from the source dictionary, by keys sequence.
-  * [symmdiff](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.symmdiff)(s1, s2, /) - Obtain the symmetric difference of two sequences.
+  * [symmdiff](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.symmdiff)(collection1, collection2, /) - Obtain the symmetric difference of two sequences.
   * [unpack](https://p3t3rbr0.github.io/py3-pure-utils/refs/containers.html#containers.unpack)(container, attributes, /) - Unpack the values of container object into separate variables.
 * [debug](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html) - Utilities for debugging and development.
   * [around](https://p3t3rbr0.github.io/py3-pure-utils/refs/debug.html#debug.around)(*[, before, after]) - Add additional behavior before and after execution of decorated function.

@@ -1,49 +1,44 @@
 """Utilities for repeatedly execute custom logic.
 
-Example of usage exception based repeater::
+Example of usage exception based repeater:
 
-    from pure_utils.repeaters import ExceptionBasedRepeater, repeat
+>>> from pure_utils import ExceptionBasedRepeater, repeat
 
-    repeater = ExceptionBasedRepeater(
-        exceptions=(RuntimeError,),
-        attempts=5,
-        interval=2,
-        logger=getLogger()
-    )
+>>> repeater = ExceptionBasedRepeater(
+...     exceptions=(RuntimeError,),
+...     attempts=5,
+...     interval=2,
+...     logger=getLogger()
+... )
 
-    @repeat(repeater)
-    def some_func(*args, **kwargs)
-        if some_negative_statement:
-             rise RuntimeError
+>>> @repeat(repeater)
+... def some_func(*args, **kwargs)
+...     if some_negative_statement:
+...         rise RuntimeError
 
+Example of usage predicate based repeater:
 
-Example of usage predicate based repeater::
+>>> from pure_utils import PredicateBasedRepeater, repeat
 
-    from pure_utils.repeaters import PredicateBasedRepeater, repeat
+>>> repeater = PredicateBasedRepeater(
+...     predicate=lambda x: x != 0,
+...     attempts=5,
+...     interval=2,
+...     logger=getLogger()
+... )
 
-    repeater = PredicateBasedRepeater(
-        predicate=lambda x: x != 0 ,
-        attempts=5,
-        interval=2,
-        logger=getLogger()
-    )
-
-    @repeat(repeater)
-    def some_func(*args, **kwargs)
-        return 0
-
+>>> @repeat(repeater)
+... def some_func(*args, **kwargs)
+...     return 0
 """
 
 from abc import ABC, abstractmethod
 from functools import wraps
 from logging import Logger
 from time import sleep
-from typing import Any, Callable, Optional, ParamSpec, Type, TypeVar
+from typing import Any, Callable, Optional
 
-T = TypeVar("T")
-P = ParamSpec("P")
-ExceptionT = Type[BaseException]
-
+from .types import ExceptionT, P, T
 
 __all__ = ["Repeater", "ExceptionBasedRepeater", "PredicateBasedRepeater", "repeat"]
 

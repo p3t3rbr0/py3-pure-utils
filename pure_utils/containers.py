@@ -1,15 +1,8 @@
-"""Utilities for working with data containers (lists, dictionaries, tuples, sets, etc.)."""
+"""Utilities for working with data containers (lists, dicts, tuples, sets, etc.)."""
 
-from typing import (
-    Any,
-    Generator,
-    KeysView,
-    Mapping,
-    Optional,
-    Sequence,
-    TypeAlias,
-    TypeVar,
-)
+from typing import Any, Generator, Mapping, Optional, Sequence
+
+from .types import KeysT, T
 
 __all__ = [
     "bisect",
@@ -22,9 +15,6 @@ __all__ = [
     "symmdiff",
     "unpack",
 ]
-
-T = TypeVar("T")
-KeysT: TypeAlias = Sequence[T] | KeysView[T]
 
 
 def bisect(collection: list[T], /) -> tuple[list[T], list[T]]:
@@ -40,20 +30,23 @@ def bisect(collection: list[T], /) -> tuple[list[T], list[T]]:
         original collection, and the second list is the second half.
 
     Raises:
-        AssertionError: If collection is empty.
+        ValueError: If collection is empty.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import bisect
+    >>> from pure_utils import bisect
 
-        l = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    >>> l = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-        first_half, second_half = bisect(l)
-        print(first_half, second_half)
-        >>> [1, 2, 3, 4, 5] [6, 7, 8, 9, 10, 11]
+    >>> first_half, second_half = bisect(l)
+    >>> print(first_half, second_half)
+    [1, 2, 3, 4, 5] [6, 7, 8, 9, 10, 11]
     """
-    assert collection
     length = len(collection)
+
+    if not length:
+        raise ValueError("The source collection must not be empty")
+
     return (collection[: length // 2], collection[length // 2 :])
 
 
@@ -66,17 +59,17 @@ def first(collection: Sequence[T], /) -> Optional[T]:
     Returns:
         The value of the first element of the collection, or None if there is none.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import first
+    >>> from pure_utils import first
 
-        seq = (1, 2, 3)
-        print(first(seq))
-        >>> 1
+    >>> seq = (1, 2, 3)
+    >>> print(first(seq))
+    1
 
-        seq = []
-        print(first(seq))
-        >>> None
+    >>> seq = []
+    >>> print(first(seq))
+    None
     """
     return next((_ for _ in collection), None)
 
@@ -90,19 +83,19 @@ def flatten(collection: Sequence[T], /) -> Generator[Sequence[T] | T, None, None
     Returns:
         Generator of the flatten function.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import flatten
+    >>> from pure_utils import flatten
 
-        seq = [[1], [2], [3], [4], [5]]
-        result = list(flatten(seq))
-        print(result)
-        >>> [1, 2, 3, 4, 5]
+    >>> seq = [[1], [2], [3], [4], [5]]
+    >>> result = list(flatten(seq))
+    >>> print(result)
+    [1, 2, 3, 4, 5]
 
-        seq = [[[[[[1]]]]], [[[[[2]]]]], [[[[[3]]]]], [[[[[4]]]]], [[[[[5]]]]]]
-        result = list(flatten(seq))
-        print(result)
-        >>> [1, 2, 3, 4, 5]
+    >>> seq = [[[[[[1]]]]], [[[[[2]]]]], [[[[[3]]]]], [[[[[4]]]]], [[[[[5]]]]]]
+    >>> result = list(flatten(seq))
+    >>> print(result)
+    [1, 2, 3, 4, 5]
     """
     if isinstance(collection, (list, tuple, set)):
         for _ in collection:
@@ -125,21 +118,19 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
         The value of the sequence element at the specified index,
         or default value, when no element by this index.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import get_or_else
+    >>> from pure_utils import get_or_else
 
-        seq = (1, 2, 3)
-        print(get_or_else(seq, 0))
-        >>> 1
-        print(get_or_else(seq, 3))
-        >>> None
-        print(get_or_else(seq, 3, -1))
-        >>> -1
-
-        seq = ["a", "b", "c"]
-        print(get_or_else(seq, 3, "does not exists"))
-        >>> does not exists
+    >>> seq = (1, 2, 3)
+    >>> print(get_or_else(seq, 0))
+    1
+    >>> print(get_or_else(seq, 3))
+    None
+    >>> print(get_or_else(seq, 3, -1))
+    -1
+    >>> print(get_or_else(seq, 3, "does not exists"))
+    does not exists
     """
     try:
         return collection[index]
@@ -147,27 +138,27 @@ def get_or_else(collection: Sequence[T], index: int, default: Optional[T] = None
         return default
 
 
-def symmdiff(s1: KeysT, s2: KeysT, /) -> Sequence[T]:
+def symmdiff(collection1: KeysT, collection2: KeysT, /) -> Sequence[T]:
     """Obtain the symmetric difference of two sequences.
 
     Args:
-        s1: The first sequence to form a set on the LEFT.
-        s2: The second sequence to form a set on the RIGHT.
+        collection1: The first sequence to form a set on the LEFT.
+        collection2: The second sequence to form a set on the RIGHT.
 
     Returns:
         The symmetric difference of two sequences as a list.
 
-    Example::
+    Usage:
 
-         from pure_utils.containers import symmdiff
+    >>> from pure_utils import symmdiff
 
-         s1 = ["a", "b", "c"]
-         s2 = ["e", "b", "a"]
-         result = symmdiff(s1, s2)
-         print(result)
-         >>> ["c", "e"]
+    >>> collection1 = ["a", "b", "c"]
+    >>> collection2 = ["e", "b", "a"]
+    >>> result = symmdiff(collection1, collection2)
+    >>> print(result)
+    ["c", "e"]
     """
-    return list(set(s1).symmetric_difference(set(s2)))
+    return list(set(collection1).symmetric_difference(set(collection2)))
 
 
 def omit(container: Mapping[str, Any], keys: KeysT, /) -> Mapping[str, Any]:
@@ -182,14 +173,14 @@ def omit(container: Mapping[str, Any], keys: KeysT, /) -> Mapping[str, Any]:
     Returns:
         A data container without omitted key-value pairs.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import omit
+    >>> from pure_utils import omit
 
-        container = {"key1": "val1", "key2": "val2", "key3": "val3", "key4": "val4"}
-        result = omit(container, ["key2", "key4"] )
-        print(result)
-        >>> {"key1": "val1", "key3": "val3"}
+    >>> container = {"key1": "val1", "key2": "val2", "key3": "val3", "key4": "val4"}
+    >>> result = omit(container, ["key2", "key4"] )
+    >>> print(result)
+    {"key1": "val1", "key3": "val3"}
     """
     keys_diff: KeysT = symmdiff(container.keys(), keys)
     return {_: container[_] for _ in keys_diff if _ in container}
@@ -208,18 +199,20 @@ def paginate(collection: Sequence[T], /, *, size: int) -> Sequence[Sequence[T]]:
         A collection with elements splitted into pages (nested collections).
 
     Raises:
-        AssertionError: If size is less than zero.
+        ValueError: If page size is less than zero.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import paginate
+    >>> from pure_utils import paginate
 
-        a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        pages = paginate(a, size=3)
-        print(pages)
-        >>> [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+    >>> a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    >>> pages = paginate(a, size=3)
+    >>> print(pages)
+    [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
     """
-    assert size > 0
+    if size <= 0:
+        raise ValueError("Page size must be a positive integer")
+
     return [collection[start : start + size] for start in range(0, len(collection), size)]
 
 
@@ -237,14 +230,14 @@ def pick(container: Mapping[str, Any], keys: KeysT, /) -> Mapping[str, Any]:
     Returns:
         A new data container with picked key-value pairs.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import pick
+    >>> from pure_utils import pick
 
-        container = {"key1": "val1", "key2": "val2", "key3": "val3"}
-        result = pick(container, ["key2", "key3"])
-        print(result)
-        >>> {"key2": "val2", "key3": "val3"}
+    >>> container = {"key1": "val1", "key2": "val2", "key3": "val3"}
+    >>> result = pick(container, ["key2", "key3"])
+    >>> print(result)
+    {"key2": "val2", "key3": "val3"}
     """
     return {_: container[_] for _ in keys if _ in container}
 
@@ -259,32 +252,31 @@ def unpack(container: Mapping[str, Any], attributes: KeysT, /) -> tuple[Any, ...
     Returns:
         A tuple of unpacked values of the specified attributes.
 
-    Example::
+    Usage:
 
-        from pure_utils.containers import unpack
+    >>> from pure_utils import unpack
 
-        # Unpack existent attributes
-        d = {"a": 1, "b": True, "c": {"d": "test"}}
-        a, b = unpack(d, ("a", "b"))
-        print(a, b, sep=", ")
-        >>> 1, True
+    >>> # Unpack existent attributes
+    >>> d = {"a": 1, "b": True, "c": {"d": "test"}}
+    >>> a, b = unpack(d, ("a", "b"))
+    >>> print(a, b, sep=", ")
+    1, True
 
-        # Unpack non-existent attributes
-        e, f = print(unpack(d, ("e", "f")))
-        print(e, f, sep=", ")
-        >>> None, None
+    >>> # Unpack non-existent attributes
+    >>> e, f = print(unpack(d, ("e", "f")))
+    >>> print(e, f, sep=", ")
+    None, None
 
-        class A:
-            def __init__(self):
-                self.a = 100
-                self.b = 200
-                self.c = 300
-
-        # Unpack object attributes
-        obj = A()
-        a, b, c = unpack(obj, ("a", "b", "c"))
-        print(a, b, c, sep=", ")
-        >>> 100, 200, 300
+    >>> class A:
+    ...     def __init__(self):
+    ...         self.a = 100
+    ...         self.b = 200
+    ...         self.c = 300
+    >>> # Unpack object attributes
+    >>> obj = A()
+    >>> a, b, c = unpack(obj, ("a", "b", "c"))
+    >>> print(a, b, c, sep=", ")
+    100, 200, 300
     """
     if isinstance(container, dict):
         return tuple(container.get(attr) for attr in attributes)

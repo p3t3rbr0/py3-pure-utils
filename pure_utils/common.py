@@ -9,16 +9,15 @@ T = TypeVar("T", bound="Singleton")
 
 
 class Singleton(type):
-    """A metaclass that implements the singleton pattern for inheritors.
+    """A metaclass, implements the singleton pattern for inheritors.
 
-    Example::
+    Usage:
 
-        from pure_utils.common import Singleton
+    >>> from pure_utils import Singleton
 
-        class SomeSigletonClass(metaclass=Singleton):
-            ...
-
-        some = SomeSigletonClass()
+    >>> class SomeSigletonClass(metaclass=Singleton):
+    ...     pass
+    >>> some = SomeSigletonClass()
     """
 
     _instances: dict = {}
