@@ -43,7 +43,7 @@ Main principles:
   * [Repeater](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.Repeater) - Base Repeater, implements a main logic, such as constructor and execute method.
   * [ExceptionBasedRepeater](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.ExceptionBasedRepeater) - Repeater based on catching targeted exceptions.
   * [PredicateBasedRepeater](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.PredicateBasedRepeater) - Repeater based on predicate function.
-  * [repeat](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.repeat)(repeater: Repeater) - Repeat wrapped function by `repeater` logic.
+  * [repeat](https://p3t3rbr0.github.io/py3-pure-utils/refs/repeaters.html#repeaters.repeat)(repeater) - Repeat wrapped function by `repeater` logic.
 * [strings](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html) - Utilities for working with strings.
   * [genstr](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.genstr)([length, is_uppercase]) - Generate ASCII-string with random letters.
   * [gunzip](https://p3t3rbr0.github.io/py3-pure-utils/refs/strings.html#strings.gzip)(compressed_string, /) - Compress string (or bytes string) with gzip compression level.
@@ -56,6 +56,7 @@ Main principles:
   * [iso2dmy](https://p3t3rbr0.github.io/py3-pure-utils/refs/times.html#times.iso2dmy)(isostr, /) - Convert ISO-8601 datetime string into a string of DMY (DD.MM.YYYY) format.
   * [iso2ymd](https://p3t3rbr0.github.io/py3-pure-utils/refs/times.html#times.iso2ymd)(isostr, /) - Convert ISO-8601 datetime string into a string of YMD (YYYY-MM-DD) format.
   * [round_by](https://p3t3rbr0.github.io/py3-pure-utils/refs/times.html#times.round_by)(dt, /, *, boundary) - Round datetime, discarding excessive precision.
+* [types](https://p3t3rbr0.github.io/py3-pure-utils/refs/types.html) - Helper module with common types.
 
 # License
 
