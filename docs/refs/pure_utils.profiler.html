@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="times" href="times.html" /><link rel="prev" title="strings" href="strings.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="pure_utils.repeaters" href="pure_utils.repeaters.html" /><link rel="prev" title="pure_utils.debug" href="pure_utils.debug.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.04.27 -->
-        <title>system - pure-utils</title>
+        <title>pure_utils.profiler - pure-utils</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=437aa6ec" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -156,14 +156,15 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Utilities</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="common.html">common</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
-<li class="toctree-l1"><a class="reference internal" href="profiler.html">profiler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repeaters.html">repeaters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strings.html">strings</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="times.html">times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.common.html">pure_utils.common</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.containers.html">pure_utils.containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.debug.html">pure_utils.debug</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">pure_utils.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.repeaters.html">pure_utils.repeaters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.strings.html">pure_utils.strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.system.html">pure_utils.system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.times.html">pure_utils.times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.types.html">pure_utils.types</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -204,49 +205,94 @@
                     </label>
                 </div>
                 <article role="main">
-                    <section id="module-system">
-<span id="system"></span><h1>system<a class="headerlink" href="#module-system" title="Link to this heading">¶</a></h1>
-<p>The system purpose utilities.</p>
-<p class="rubric">Functions</p>
+                    <section id="module-pure_utils.profiler">
+<span id="pure-utils-profiler"></span><h1>pure_utils.profiler<a class="headerlink" href="#module-pure_utils.profiler" title="Link to this heading">¶</a></h1>
+<p>Helper classes for working with the cProfile.</p>
+<p class="rubric">Classes</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#system.execute" title="system.execute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">execute</span></code></a>(args, *[, input, timeout])</p></td>
-<td><p>Execute command into external process.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pure_utils.profiler.Profiler" title="pure_utils.profiler.Profiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Profiler</span></code></a>()</p></td>
+<td><p>A class provides a simple interface for profiling code.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="system.execute">
-<span class="sig-prename descclassname"><span class="pre">system.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#system.execute" title="Link to this definition">¶</a></dt>
-<dd><p>Execute command into external process.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pure_utils.profiler.Profiler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pure_utils.profiler.</span></span><span class="sig-name descname"><span class="pre">Profiler</span></span><a class="headerlink" href="#pure_utils.profiler.Profiler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class provides a simple interface for profiling code.</p>
+<p>Usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">Profiler</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">profiler</span> <span class="o">=</span> <span class="n">Profiler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">some_function_retval</span> <span class="o">=</span> <span class="n">profiler</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span><span class="n">some_func</span><span class="p">,</span> <span class="o">*</span><span class="n">func_args</span><span class="p">,</span> <span class="o">**</span><span class="n">func_kwargs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">serialize_profile_result</span> <span class="o">=</span> <span class="n">profiler</span><span class="o">.</span><span class="n">serialize_result</span><span class="p">(</span><span class="n">SomeProfilerStatsSerializer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Usage with string serializer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pure_utils._internal._profile_stats_serializers</span> <span class="kn">import</span> <span class="n">ProfileStatsStringSerializer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profile_result_as_string</span> <span class="o">=</span> <span class="n">profiler</span><span class="o">.</span><span class="n">serialize_result</span><span class="p">(</span><span class="n">ProfileStatsStringSerializer</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pure_utils.profiler.Profiler.__slots__">
+<span class="sig-name descname"><span class="pre">__slots__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('_profile',</span> <span class="pre">'__weakref__')</span></em><a class="headerlink" href="#pure_utils.profiler.Profiler.__slots__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pure_utils.profiler.Profiler.pstats">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pstats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ProfileStats</span></em><a class="headerlink" href="#pure_utils.profiler.Profiler.pstats" title="Link to this definition">¶</a></dt>
+<dd><p>Get raw profile stats.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pure_utils.profiler.Profiler.profile">
+<span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func:</span> <span class="pre">~typing.Callable[[~P],</span> <span class="pre">~pure_utils.types.T],</span> <span class="pre">*args:</span> <span class="pre">~typing.~P,</span> <span class="pre">**kwargs:</span> <span class="pre">~typing.~P</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#pure_utils.profiler.Profiler.profile" title="Link to this definition">¶</a></dt>
+<dd><p>Profile function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – List of the lines with the command and her options.</p></li>
-<li><p><strong>input</strong> (<em>str</em><em> | </em><em>None</em>) – A data string that should be sent to input stream of command.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em>) – Command completion timeout (30 seconds by default).</p></li>
-<li><p><strong>*kwargs</strong> – Additional options for subprocess.run.</p></li>
+<li><p><strong>func</strong> (<em>Callable</em><em>[</em><em>[</em><em>~P</em><em>]</em><em>, </em><em>T</em><em>]</em>) – Function for profiling</p></li>
+<li><p><strong>*args</strong> (<em>~P</em>) – Profiling function positional arguments.</p></li>
+<li><p><strong>**kwargs</strong> (<em>~P</em>) – Profiling function named arguments.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>stdout and stderr.</p>
+<dd class="field-even"><p>Native profiling function return value.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Two-element tuple with data from standard streams</p>
+<dd class="field-odd"><p><em>T</em></p>
 </dd>
 </dl>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.system</span> <span class="kn">import</span> <span class="n">execute</span>
+</dd></dl>
 
-<span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">execute</span><span class="p">([</span><span class="s2">&quot;uname&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">Darwin</span>
-</pre></div>
-</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pure_utils.profiler.Profiler.serialize_result">
+<span class="sig-name descname"><span class="pre">serialize_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">ProfileStatsSerializer</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span></span></span><a class="headerlink" href="#pure_utils.profiler.Profiler.serialize_result" title="Link to this definition">¶</a></dt>
+<dd><p>Serialize profiler result with custom serializer class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>serializer</strong> (<em>Type</em><em>[</em><em>ProfileStatsSerializer</em><em>]</em>) – Serializer class.</p></li>
+<li><p><strong>stack_size</strong> (<em>int</em>) – Stack size for limitation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized profiler result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | bytes | <em>Mapping</em></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -257,23 +303,23 @@
             <footer>
                 
                 <div class="related-pages">
-                    <a class="next-page" href="times.html">
+                    <a class="next-page" href="pure_utils.repeaters.html">
                         <div class="page-info">
                             <div class="context">
                                 <span>Next</span>
                             </div>
-                            <div class="title">times</div>
+                            <div class="title">pure_utils.repeaters</div>
                         </div>
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                     </a>
-                    <a class="prev-page" href="strings.html">
+                    <a class="prev-page" href="pure_utils.debug.html">
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                         <div class="page-info">
                             <div class="context">
                                 <span>Previous</span>
                             </div>
                             
-                            <div class="title">strings</div>
+                            <div class="title">pure_utils.debug</div>
                             
                         </div>
                     </a>
@@ -309,9 +355,15 @@
                 <div class="toc-tree-container">
                     <div class="toc-tree">
                         <ul>
-<li><a class="reference internal" href="#">system</a><ul>
-<li><a class="reference internal" href="#functions">Functions</a><ul>
-<li><a class="reference internal" href="#system.execute"><code class="docutils literal notranslate"><span class="pre">execute()</span></code></a></li>
+<li><a class="reference internal" href="#">pure_utils.profiler</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#pure_utils.profiler.Profiler"><code class="docutils literal notranslate"><span class="pre">Profiler</span></code></a><ul>
+<li><a class="reference internal" href="#pure_utils.profiler.Profiler.__slots__"><code class="docutils literal notranslate"><span class="pre">Profiler.__slots__</span></code></a></li>
+<li><a class="reference internal" href="#pure_utils.profiler.Profiler.pstats"><code class="docutils literal notranslate"><span class="pre">Profiler.pstats</span></code></a></li>
+<li><a class="reference internal" href="#pure_utils.profiler.Profiler.profile"><code class="docutils literal notranslate"><span class="pre">Profiler.profile()</span></code></a></li>
+<li><a class="reference internal" href="#pure_utils.profiler.Profiler.serialize_result"><code class="docutils literal notranslate"><span class="pre">Profiler.serialize_result()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

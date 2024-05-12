@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="containers" href="containers.html" /><link rel="prev" title="&lt;no title&gt;" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Make commands" href="../commands.html" /><link rel="prev" title="pure_utils.times" href="pure_utils.times.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.04.27 -->
-        <title>common - pure-utils</title>
+        <title>pure_utils.types - pure-utils</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=437aa6ec" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -134,7 +134,7 @@
                     <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
                 </button>
             </div>
-            <label class="toc-overlay-icon toc-header-icon" for="__toc">
+            <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
                 <div class="visually-hidden">Toggle table of contents sidebar</div>
                 <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
             </label>
@@ -156,14 +156,15 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Utilities</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">common</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
-<li class="toctree-l1"><a class="reference internal" href="profiler.html">profiler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repeaters.html">repeaters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strings.html">strings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="times.html">times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.common.html">pure_utils.common</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.containers.html">pure_utils.containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.debug.html">pure_utils.debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.profiler.html">pure_utils.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.repeaters.html">pure_utils.repeaters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.strings.html">pure_utils.strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.system.html">pure_utils.system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.times.html">pure_utils.times</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">pure_utils.types</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -198,52 +199,15 @@
                             <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
                         </button>
                     </div>
-                    <label class="toc-overlay-icon toc-content-icon" for="__toc">
+                    <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
                         <div class="visually-hidden">Toggle table of contents sidebar</div>
                         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
                     </label>
                 </div>
                 <article role="main">
-                    <section id="module-common">
-<span id="common"></span><h1>common<a class="headerlink" href="#module-common" title="Link to this heading">¶</a></h1>
-<p>The common purpose utilities.</p>
-<p class="rubric">Classes</p>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#common.Singleton" title="common.Singleton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Singleton</span></code></a></p></td>
-<td><p>A metaclass that implements the singleton pattern for inheritors.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<section id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="common.Singleton">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">common.</span></span><span class="sig-name descname"><span class="pre">Singleton</span></span><a class="headerlink" href="#common.Singleton" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
-<p>A metaclass that implements the singleton pattern for inheritors.</p>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.common</span> <span class="kn">import</span> <span class="n">Singleton</span>
-
-<span class="k">class</span> <span class="nc">SomeSigletonClass</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="o">...</span>
-
-<span class="n">some</span> <span class="o">=</span> <span class="n">SomeSigletonClass</span><span class="p">()</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="common.Singleton.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#common.Singleton.__call__" title="Link to this definition">¶</a></dt>
-<dd><p>Get or create (first call) singleton object.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
+                    <section id="module-pure_utils.types">
+<span id="pure-utils-types"></span><h1>pure_utils.types<a class="headerlink" href="#module-pure_utils.types" title="Link to this heading">¶</a></h1>
+<p>Helper module with common types.</p>
 </section>
 
                 </article>
@@ -251,23 +215,23 @@
             <footer>
                 
                 <div class="related-pages">
-                    <a class="next-page" href="containers.html">
+                    <a class="next-page" href="../commands.html">
                         <div class="page-info">
                             <div class="context">
                                 <span>Next</span>
                             </div>
-                            <div class="title">containers</div>
+                            <div class="title">Make commands</div>
                         </div>
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                     </a>
-                    <a class="prev-page" href="index.html">
+                    <a class="prev-page" href="pure_utils.times.html">
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                         <div class="page-info">
                             <div class="context">
                                 <span>Previous</span>
                             </div>
                             
-                            <div class="title">&lt;no title&gt;</div>
+                            <div class="title">pure_utils.times</div>
                             
                         </div>
                     </a>
@@ -291,33 +255,8 @@
                 
             </footer>
         </div>
-        <aside class="toc-drawer">
+        <aside class="toc-drawer no-toc">
             
-            
-            <div class="toc-sticky toc-scroll">
-                <div class="toc-title-container">
-                    <span class="toc-title">
-                        On this page
-                    </span>
-                </div>
-                <div class="toc-tree-container">
-                    <div class="toc-tree">
-                        <ul>
-<li><a class="reference internal" href="#">common</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
-<li><a class="reference internal" href="#common.Singleton"><code class="docutils literal notranslate"><span class="pre">Singleton</span></code></a><ul>
-<li><a class="reference internal" href="#common.Singleton.__call__"><code class="docutils literal notranslate"><span class="pre">Singleton.__call__()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-                    </div>
-                </div>
-            </div>
             
             
         </aside>

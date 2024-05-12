@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="system" href="system.html" /><link rel="prev" title="repeaters" href="repeaters.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="pure_utils.times" href="pure_utils.times.html" /><link rel="prev" title="pure_utils.strings" href="pure_utils.strings.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.04.27 -->
-        <title>strings - pure-utils</title>
+        <title>pure_utils.system - pure-utils</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=437aa6ec" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -156,14 +156,15 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Utilities</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="common.html">common</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
-<li class="toctree-l1"><a class="reference internal" href="profiler.html">profiler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repeaters.html">repeaters</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">strings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="times.html">times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.common.html">pure_utils.common</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.containers.html">pure_utils.containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.debug.html">pure_utils.debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.profiler.html">pure_utils.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.repeaters.html">pure_utils.repeaters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.strings.html">pure_utils.strings</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">pure_utils.system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.times.html">pure_utils.times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pure_utils.types.html">pure_utils.types</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -204,21 +205,15 @@
                     </label>
                 </div>
                 <article role="main">
-                    <section id="module-strings">
-<span id="strings"></span><h1>strings<a class="headerlink" href="#module-strings" title="Link to this heading">¶</a></h1>
-<p>Utilities for working with strings.</p>
+                    <section id="module-pure_utils.system">
+<span id="pure-utils-system"></span><h1>pure_utils.system<a class="headerlink" href="#module-pure_utils.system" title="Link to this heading">¶</a></h1>
+<p>The system purpose utilities.</p>
 <p class="rubric">Functions</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#strings.genstr" title="strings.genstr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genstr</span></code></a>([length, is_uppercase])</p></td>
-<td><p>Generate ASCII-string with random letters.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#strings.gunzip" title="strings.gunzip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gunzip</span></code></a>(compressed_string, /)</p></td>
-<td><p>Decompress bytes (earlier compressed with gzip) to string.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#strings.gzip" title="strings.gzip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gzip</span></code></a>(string, /, *[, level])</p></td>
-<td><p>Compress string (or bytes string) with gzip compression level.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pure_utils.system.execute" title="pure_utils.system.execute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">execute</span></code></a>(args, *[, input, timeout])</p></td>
+<td><p>Execute command into external process.</p></td>
 </tr>
 </tbody>
 </table>
@@ -226,92 +221,32 @@
 <section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="strings.genstr">
-<span class="sig-prename descclassname"><span class="pre">strings.</span></span><span class="sig-name descname"><span class="pre">genstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_uppercase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#strings.genstr" title="Link to this definition">¶</a></dt>
-<dd><p>Generate ASCII-string with random letters.</p>
+<dt class="sig sig-object py" id="pure_utils.system.execute">
+<span class="sig-prename descclassname"><span class="pre">pure_utils.system.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pure_utils.system.execute" title="Link to this definition">¶</a></dt>
+<dd><p>Execute command into external process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>length</strong> (<em>int</em>) – The length of generated string.</p></li>
-<li><p><strong>is_uppercase</strong> (<em>bool</em>) – If enable, generate string in uppercase.</p></li>
+<li><p><strong>args</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – List of the lines with the command and her options.</p></li>
+<li><p><strong>input</strong> (<em>str</em><em> | </em><em>None</em>) – A data string that should be sent to input stream of command.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Command completion timeout (30 seconds by default).</p></li>
+<li><p><strong>*kwargs</strong> – Additional options for subprocess.run.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Generated ASCII-string with random letters.</p>
+<dd class="field-even"><p>stdout and stderr.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
+<dd class="field-odd"><p>Two-element tuple with data from standard streams</p>
 </dd>
 </dl>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.strings</span> <span class="kn">import</span> <span class="n">genstr</span>
-
-<span class="n">dummy</span> <span class="o">=</span> <span class="n">genstr</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dummy</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">otvqydcprjtpcuboumbs</span>
-
-<span class="n">dummy</span> <span class="o">=</span> <span class="n">genstr</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">is_uppercase</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dummy</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">POXDVZCMDWXBPVVRXWHN</span>
+<p>Usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pure_utils</span> <span class="kn">import</span> <span class="n">execute</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="strings.gunzip">
-<span class="sig-prename descclassname"><span class="pre">strings.</span></span><span class="sig-name descname"><span class="pre">gunzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compressed_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#strings.gunzip" title="Link to this definition">¶</a></dt>
-<dd><p>Decompress bytes (earlier compressed with gzip) to string.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>compressed_string</strong> (<em>bytes</em>) – Bytes for decompression to string.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Decompressed string from bytes.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.strings</span> <span class="kn">import</span> <span class="n">gzip</span><span class="p">,</span> <span class="n">gunzip</span>
-
-<span class="n">compressed_string</span> <span class="o">=</span> <span class="n">gzip</span><span class="p">(</span><span class="s2">&quot;sample string&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gunzip</span><span class="p">(</span><span class="n">compressed_string</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sample</span> <span class="n">string</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="strings.gzip">
-<span class="sig-prename descclassname"><span class="pre">strings.</span></span><span class="sig-name descname"><span class="pre">gzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">9</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#strings.gzip" title="Link to this definition">¶</a></dt>
-<dd><p>Compress string (or bytes string) with gzip compression level.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>string</strong> (<em>str</em><em> | </em><em>bytes</em>) – Source (uncompressed) string.</p></li>
-<li><p><strong>level</strong> (<em>int</em>) – Compression level (numbers from 1 to 9) (default: 9).
-1 - fastest compression but big result size;
-9 - slowest compression but small result size (max compression).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Compressed string in bytes.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pure_utils.strings</span> <span class="kn">import</span> <span class="n">gzip</span>
-
-<span class="n">big_string</span> <span class="o">=</span> <span class="s2">&quot;abc&quot;</span> <span class="o">*</span> <span class="mi">100500</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">big_string</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">301500</span>
-
-<span class="n">compressed_string</span> <span class="o">=</span> <span class="n">gzip</span><span class="p">(</span><span class="n">big_string</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compressed_string</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">319</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">execute</span><span class="p">([</span><span class="s2">&quot;uname&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+<span class="go">Darwin</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -324,23 +259,23 @@
             <footer>
                 
                 <div class="related-pages">
-                    <a class="next-page" href="system.html">
+                    <a class="next-page" href="pure_utils.times.html">
                         <div class="page-info">
                             <div class="context">
                                 <span>Next</span>
                             </div>
-                            <div class="title">system</div>
+                            <div class="title">pure_utils.times</div>
                         </div>
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                     </a>
-                    <a class="prev-page" href="repeaters.html">
+                    <a class="prev-page" href="pure_utils.strings.html">
                         <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
                         <div class="page-info">
                             <div class="context">
                                 <span>Previous</span>
                             </div>
                             
-                            <div class="title">repeaters</div>
+                            <div class="title">pure_utils.strings</div>
                             
                         </div>
                     </a>
@@ -376,11 +311,9 @@
                 <div class="toc-tree-container">
                     <div class="toc-tree">
                         <ul>
-<li><a class="reference internal" href="#">strings</a><ul>
+<li><a class="reference internal" href="#">pure_utils.system</a><ul>
 <li><a class="reference internal" href="#functions">Functions</a><ul>
-<li><a class="reference internal" href="#strings.genstr"><code class="docutils literal notranslate"><span class="pre">genstr()</span></code></a></li>
-<li><a class="reference internal" href="#strings.gunzip"><code class="docutils literal notranslate"><span class="pre">gunzip()</span></code></a></li>
-<li><a class="reference internal" href="#strings.gzip"><code class="docutils literal notranslate"><span class="pre">gzip()</span></code></a></li>
+<li><a class="reference internal" href="#pure_utils.system.execute"><code class="docutils literal notranslate"><span class="pre">execute()</span></code></a></li>
 </ul>
 </li>
 </ul>
