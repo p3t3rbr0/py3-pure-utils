@@ -1,6 +1,8 @@
 """Utilities imports."""
 
+__author__ = "Peter Bro"
 __version__ = "1.0.0"
+__license__ = "MIT"
 
 from .common import *  # noqa: F401, F403
 from .containers import *  # noqa: F401, F403
