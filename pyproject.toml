@@ -1,9 +1,15 @@
 [build-system]
-requires = ["hatchling==1.21.1"]
-build-backend = "hatchling.build"
+requires = ["setuptools==70.0.0"]
+build-backend = "setuptools.build_meta"
 
-[tool.hatch.version]
-path = "pure_utils/__init__.py"
+[tool.setuptools]
+packages = ["pure_utils"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pure_utils.__version__"}
+
+[tool.setuptools.package-data]
+pure_utils = ["py.typed"]
 
 [project]
 name = "pure-utils"
